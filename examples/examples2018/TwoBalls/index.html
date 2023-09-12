@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
     
     
       
@@ -1471,7 +1471,79 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Step 1</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_TwoBalls.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_TwoBalls.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%This</span>
+<span class="c">%-----parameters-----</span>
+<span class="n">diameter</span><span class="p">=</span><span class="mf">0.1</span><span class="p">;</span><span class="n">visRate</span><span class="p">=</span><span class="mf">0.1</span><span class="p">;</span><span class="c">%Figure 1.3-2</span>
+<span class="c">%diameter=20;visRate=0;%Figure 5.4-1</span>
+<span class="n">r</span><span class="p">=</span><span class="n">diameter</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span><span class="c">%ball radius</span>
+<span class="n">d</span><span class="p">=</span><span class="n">build</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="s">&#39;TwoBalls&#39;</span><span class="p">;</span>
+<span class="c">%-----define struct data of model and boundary-----</span>
+<span class="n">moObj</span><span class="p">.</span><span class="n">X</span><span class="p">=[</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span><span class="n">moObj</span><span class="p">.</span><span class="n">Y</span><span class="p">=[</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span><span class="n">moObj</span><span class="p">.</span><span class="n">Z</span><span class="p">=</span><span class="n">diameter</span><span class="o">*</span><span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">3</span><span class="p">];</span>
+<span class="n">moObj</span><span class="p">.</span><span class="n">R</span><span class="p">=</span><span class="n">r</span><span class="o">*</span><span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">1</span><span class="p">];</span>
+<span class="n">boObj</span><span class="p">.</span><span class="n">X</span><span class="p">=[</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span><span class="n">boObj</span><span class="p">.</span><span class="n">Y</span><span class="p">=[</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">];</span><span class="n">boObj</span><span class="p">.</span><span class="n">Z</span><span class="p">=</span><span class="n">diameter</span><span class="o">*</span><span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="mi">4</span><span class="p">];</span>
+<span class="n">boObj</span><span class="p">.</span><span class="n">R</span><span class="p">=</span><span class="n">r</span><span class="o">*</span><span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">1</span><span class="p">];</span>
+<span class="c">%-----define material-----</span>
+<span class="n">ballMat</span><span class="p">=</span><span class="nb">material</span><span class="p">(</span><span class="s">&#39;ball&#39;</span><span class="p">);</span>
+<span class="n">ballMat</span><span class="p">.</span><span class="n">setMaterial</span><span class="p">(</span><span class="mf">7e6</span><span class="p">,</span><span class="mf">0.15</span><span class="p">,</span><span class="mf">1.5e5</span><span class="p">,</span><span class="mf">1e6</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">diameter</span><span class="p">,</span><span class="mi">1500</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addMaterial</span><span class="p">(</span><span class="n">ballMat</span><span class="p">);</span>
+<span class="c">%-----initialize d-----</span>
+<span class="n">d</span><span class="p">.</span><span class="n">aX</span><span class="p">=[</span><span class="n">moObj</span><span class="p">.</span><span class="n">X</span><span class="p">;</span><span class="n">boObj</span><span class="p">.</span><span class="n">X</span><span class="p">;</span><span class="n">boObj</span><span class="p">.</span><span class="n">X</span><span class="p">(</span><span class="k">end</span><span class="p">)];</span><span class="c">%add a virtual element</span>
+<span class="n">d</span><span class="p">.</span><span class="n">aY</span><span class="p">=[</span><span class="n">moObj</span><span class="p">.</span><span class="n">Y</span><span class="p">;</span><span class="n">boObj</span><span class="p">.</span><span class="n">Y</span><span class="p">;</span><span class="n">boObj</span><span class="p">.</span><span class="n">Y</span><span class="p">(</span><span class="k">end</span><span class="p">)];</span>
+<span class="n">d</span><span class="p">.</span><span class="n">aZ</span><span class="p">=[</span><span class="n">moObj</span><span class="p">.</span><span class="n">Z</span><span class="p">;</span><span class="n">boObj</span><span class="p">.</span><span class="n">Z</span><span class="p">;</span><span class="n">boObj</span><span class="p">.</span><span class="n">Z</span><span class="p">(</span><span class="k">end</span><span class="p">)];</span>
+<span class="n">d</span><span class="p">.</span><span class="n">aR</span><span class="p">=[</span><span class="n">moObj</span><span class="p">.</span><span class="n">R</span><span class="p">;</span><span class="n">boObj</span><span class="p">.</span><span class="n">R</span><span class="p">;</span><span class="n">boObj</span><span class="p">.</span><span class="n">R</span><span class="p">(</span><span class="k">end</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="p">];</span>
+<span class="n">d</span><span class="p">.</span><span class="n">vRate</span><span class="p">=</span><span class="n">visRate</span><span class="p">;</span><span class="c">%rate of viscosity (0-1)</span>
+<span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">=</span><span class="nb">length</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aR</span><span class="p">);</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="p">=</span><span class="nb">length</span><span class="p">(</span><span class="n">moObj</span><span class="p">.</span><span class="n">R</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">aMatId</span><span class="p">=</span><span class="nb">ones</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aR</span><span class="p">))</span><span class="o">*</span><span class="n">ballMat</span><span class="p">.</span><span class="n">Id</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">g</span><span class="p">=</span><span class="o">-</span><span class="mf">9.8</span><span class="p">;</span><span class="c">%gravity acceleration</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setBuild</span><span class="p">();</span>
+<span class="c">%-----define boundary groups-----</span>
+<span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">lefB</span><span class="p">=[];</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">rigB</span><span class="p">=[];</span>
+<span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">froB</span><span class="p">=[];</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">bacB</span><span class="p">=[];</span>
+<span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">botB</span><span class="p">=</span><span class="mi">3</span><span class="p">;</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">topB</span><span class="p">=</span><span class="mi">4</span><span class="p">;</span>
+<span class="c">%-----initialize d.mo-----</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setModel</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">isHeat</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="c">%-----numerical simulation-----</span>
+<span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">800</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">showB</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
 </div>
 </div>

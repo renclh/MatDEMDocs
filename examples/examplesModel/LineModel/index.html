@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
     
     
       
@@ -1191,7 +1191,307 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Step 1</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_LineModel.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_LineModel.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  1</span>
+<span class="normal">  2</span>
+<span class="normal">  3</span>
+<span class="normal">  4</span>
+<span class="normal">  5</span>
+<span class="normal">  6</span>
+<span class="normal">  7</span>
+<span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%this example includes:</span>
+<span class="c">%1. use line segments to generate wall boundary</span>
+<span class="c">%2. use d.getGroupForce to calculate force between groups</span>
+<span class="c">%3. use d.status.recordCommand to record data</span>
+<span class="c">%4. draw curves of forces according to recorded data</span>
+<span class="c">%5. use d.addRecordProp to record data</span>
+<span class="c">%6. use d.addTimeProp to generate seismic wave</span>
+<span class="nb">clear</span>
+<span class="n">ballR</span><span class="p">=</span><span class="mf">0.005</span><span class="p">;</span><span class="c">%when it is 0.0005, 258k elements</span>
+<span class="n">Rrate</span><span class="p">=</span><span class="mf">0.8</span><span class="p">;</span>
+<span class="n">sampleW</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="n">sampleL</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span><span class="n">sampleH</span><span class="p">=</span><span class="mf">1.2</span><span class="p">;</span>
+<span class="n">stiffnessRate</span><span class="p">=</span><span class="mf">0.001</span><span class="p">;</span><span class="c">%&gt;=0.001, use low stiffness to increase speed</span>
+
+<span class="c">%-----------step0: make left and right lines</span>
+<span class="n">lineX</span><span class="p">=[</span><span class="n">ballR</span><span class="p">;</span><span class="mf">0.45</span><span class="p">;</span><span class="mf">0.45</span><span class="p">;</span><span class="mf">0.40</span><span class="p">];</span>
+<span class="n">lineY</span><span class="p">=</span><span class="nb">zeros</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="n">lineX</span><span class="p">));</span>
+<span class="n">lineZ</span><span class="p">=[</span><span class="mi">1</span><span class="p">;</span><span class="mf">0.50</span><span class="p">;</span><span class="mf">0.30</span><span class="p">;</span><span class="mf">0.25</span><span class="p">];</span>
+<span class="n">curveObj1</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/make3DCurve.m&#39;</span><span class="p">,</span><span class="n">lineX</span><span class="p">,</span><span class="n">lineY</span><span class="p">,</span><span class="n">lineZ</span><span class="p">,</span><span class="n">ballR</span><span class="p">,</span><span class="n">Rrate</span><span class="p">);</span>
+<span class="n">lineX</span><span class="p">=[</span><span class="mi">1</span><span class="o">-</span><span class="n">ballR</span><span class="p">;</span><span class="mf">0.55</span><span class="p">;</span><span class="mf">0.55</span><span class="p">;</span><span class="mf">0.60</span><span class="p">];</span>
+<span class="n">lineY</span><span class="p">=</span><span class="nb">zeros</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="n">lineX</span><span class="p">));</span>
+<span class="n">lineZ</span><span class="p">=[</span><span class="mi">1</span><span class="p">;</span><span class="mf">0.50</span><span class="p">;</span><span class="mf">0.30</span><span class="p">;</span><span class="mf">0.25</span><span class="p">];</span>
+<span class="n">curveObj2</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/make3DCurve.m&#39;</span><span class="p">,</span><span class="n">lineX</span><span class="p">,</span><span class="n">lineY</span><span class="p">,</span><span class="n">lineZ</span><span class="p">,</span><span class="n">ballR</span><span class="p">,</span><span class="n">Rrate</span><span class="p">);</span>
+
+<span class="c">%-----------step1: build model------------</span>
+<span class="n">B</span><span class="p">=</span><span class="n">obj_Box</span><span class="p">;</span><span class="c">%declare a box object</span>
+<span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="s">&#39;LineModel&#39;</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">=</span><span class="n">ballR</span><span class="p">;</span><span class="c">%element radius</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="p">=</span><span class="n">sampleW</span><span class="p">;</span><span class="c">%width, length, height</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleL</span><span class="p">=</span><span class="n">sampleL</span><span class="p">;</span><span class="c">%when L is zero, it is a 2-dimensional model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleH</span><span class="p">=</span><span class="n">sampleH</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">GPUstatus</span><span class="p">=</span><span class="s">&#39;off&#39;</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isSample</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="c">%</span>
+<span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setType</span><span class="p">(</span><span class="s">&#39;none&#39;</span><span class="p">);</span><span class="c">%add a top platen to compact model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">buildInitialModel</span><span class="p">();</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span>
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+
+<span class="n">discR</span><span class="p">=</span><span class="n">sampleH</span><span class="o">/</span><span class="mf">4.25</span><span class="p">;</span>
+<span class="n">mX</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aX</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="p">);</span>
+<span class="n">mZ</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aZ</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="p">);</span>
+<span class="n">cx</span><span class="p">=</span><span class="n">sampleW</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">cz</span><span class="p">=</span><span class="n">sampleH</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">;</span>
+<span class="nb">filter</span><span class="p">=</span><span class="nb">sqrt</span><span class="p">((</span><span class="n">mX</span><span class="o">-</span><span class="n">cx</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">mZ</span><span class="o">-</span><span class="n">cz</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span><span class="o">&lt;</span><span class="n">discR</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">delElement</span><span class="p">(</span><span class="nb">find</span><span class="p">(</span><span class="o">~</span><span class="nb">filter</span><span class="p">));</span>
+
+<span class="c">%-----------step2: import lines to the model------------</span>
+<span class="p">[</span><span class="n">leftLineId</span><span class="p">,</span><span class="n">rightLineId</span><span class="p">]=</span><span class="n">d</span><span class="p">.</span><span class="n">addElement</span><span class="p">(</span><span class="mi">1</span><span class="p">,{</span><span class="n">curveObj1</span><span class="p">,</span><span class="n">curveObj2</span><span class="p">});</span>
+<span class="n">lineId</span><span class="p">=[</span><span class="n">leftLineId</span><span class="p">;</span><span class="n">rightLineId</span><span class="p">];</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;LeftLine&#39;</span><span class="p">,</span><span class="n">leftLineId</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;RightLine&#39;</span><span class="p">,</span><span class="n">rightLineId</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;Lines&#39;</span><span class="p">,</span><span class="n">lineId</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setClump</span><span class="p">(</span><span class="s">&#39;Lines&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addFixId</span><span class="p">(</span><span class="s">&#39;X&#39;</span><span class="p">,</span><span class="n">lineId</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addFixId</span><span class="p">(</span><span class="s">&#39;Y&#39;</span><span class="p">,</span><span class="n">lineId</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addFixId</span><span class="p">(</span><span class="s">&#39;Z&#39;</span><span class="p">,</span><span class="n">lineId</span><span class="p">);</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">setModelStiffness</span><span class="p">(</span><span class="n">stiffnessRate</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">mVis</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">mVis</span><span class="o">*</span><span class="mf">0.01</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aR</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">sample</span><span class="p">)=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aR</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">sample</span><span class="p">)</span><span class="o">*</span><span class="mf">0.9</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="o">*</span><span class="mi">4</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setShear</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">zeroBalance</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">resetStatus</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordStatus</span><span class="p">();</span>
+
+<span class="c">%two methods are introduced to monitor the data of elements during</span>
+<span class="c">%simulation. Data will be recorded in d.status.SET.PROP</span>
+<span class="c">%---------------------the first method----------------------</span>
+<span class="c">%record the mean Z and VZ of elements 2000 and 2001</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;TwoElement&#39;</span><span class="p">,[</span><span class="mi">2000</span><span class="p">;</span><span class="mi">2001</span><span class="p">]);</span><span class="c">%define a group</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addRecordProp</span><span class="p">(</span><span class="s">&#39;TwoElement&#39;</span><span class="p">,</span><span class="s">&#39;aZ&#39;</span><span class="p">);</span><span class="c">%declare recording aZ</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addRecordProp</span><span class="p">(</span><span class="s">&#39;TwoElement&#39;</span><span class="p">,</span><span class="s">&#39;mVZ&#39;</span><span class="p">);</span><span class="c">%declare recording mVZ</span>
+
+<span class="c">%generating sine wave on the leftLine group, which shakes up and down</span>
+<span class="n">totalBalanceNum</span><span class="p">=</span><span class="mi">10000</span><span class="p">;</span><span class="c">%data number of the wave</span>
+<span class="n">totalT</span><span class="p">=</span><span class="n">totalBalanceNum</span><span class="o">*</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="p">;</span><span class="c">%total time of the wave</span>
+
+<span class="n">period</span><span class="p">=</span><span class="mf">0.2</span><span class="p">;</span><span class="c">%period of the wave</span>
+<span class="n">Ts</span><span class="p">=(</span><span class="mi">0</span><span class="p">:</span><span class="n">totalBalanceNum</span><span class="p">)</span><span class="o">*</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="p">;</span>
+<span class="n">maxA</span><span class="p">=</span><span class="mi">500</span><span class="p">;</span><span class="c">%maximum acceleration</span>
+<span class="n">Values</span><span class="p">=</span><span class="n">maxA</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">Ts</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="p">)</span><span class="o">/</span><span class="n">period</span><span class="p">);</span>
+<span class="nb">figure</span><span class="p">;</span><span class="nb">plot</span><span class="p">(</span><span class="n">Ts</span><span class="p">,</span><span class="n">Values</span><span class="p">);</span><span class="nb">xlabel</span><span class="p">(</span><span class="s">&#39;Ts [second]&#39;</span><span class="p">);</span><span class="nb">ylabel</span><span class="p">(</span><span class="s">&#39;Z acceleration of the LeftLine [m/s^2]&#39;</span><span class="p">);</span>
+<span class="nb">title</span><span class="p">(</span><span class="s">&#39;Wave on the LeftLine&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addTimeProp</span><span class="p">(</span><span class="s">&#39;LeftLine&#39;</span><span class="p">,</span><span class="s">&#39;mAZ&#39;</span><span class="p">,</span><span class="n">Ts</span><span class="p">,</span><span class="n">Values</span><span class="p">);</span><span class="c">%assign the AZ to elements of LeftLine</span>
+<span class="c">%d.removeTimeProp(&#39;LeftLine&#39;,&#39;mAZ&#39;);</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;LeftLine1&#39;</span><span class="p">,</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">LeftLine</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span><span class="c">%define a group</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addRecordProp</span><span class="p">(</span><span class="s">&#39;LeftLine1&#39;</span><span class="p">,</span><span class="s">&#39;aZ&#39;</span><span class="p">);</span><span class="c">%declare recording aZ</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addRecordProp</span><span class="p">(</span><span class="s">&#39;LeftLine1&#39;</span><span class="p">,</span><span class="s">&#39;mAZ&#39;</span><span class="p">);</span><span class="c">%declare recording mAZ</span>
+<span class="c">%---------------------end the first method----------------------</span>
+
+<span class="c">%---------------------the second method----------------------</span>
+<span class="c">%@@@@@record force on a group, curves will be shown after the loop</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">leftFZ</span><span class="p">=[];</span><span class="c">%initilize the recorded parameters</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">leftFX</span><span class="p">=[];</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">rightFZ</span><span class="p">=[];</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">rightFX</span><span class="p">=[];</span>
+<span class="c">%@@@@@two methods to record the force of a group</span>
+<span class="c">%method1: use the force recorded in the d.status.nFnZ and nFnX</span>
+<span class="n">leftCommand</span><span class="p">=</span><span class="s">&#39;obj.SET.leftFZ=[obj.SET.leftFZ;sum(sum(d.mo.nFnZ(d.GROUP.LeftLine,:)))];obj.SET.leftFX=[obj.SET.leftFX;sum(sum(d.mo.nFnX(d.GROUP.LeftLine,:)))];&#39;</span><span class="p">;</span>
+<span class="c">%method2: use the d.getGroupForce, see the help for details</span>
+<span class="n">rightCommand</span><span class="p">=</span><span class="s">&#39;d=obj.dem;rightF=d.getGroupForce(&#39;&#39;RightLine&#39;&#39;);obj.SET.rightFZ=[obj.SET.rightFZ;rightF.totalFZ];obj.SET.rightFX=[obj.SET.rightFX;rightF.totalFX];&#39;</span><span class="p">;</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">recordCommand</span><span class="p">=[</span><span class="n">leftCommand</span><span class="w"> </span><span class="n">rightCommand</span><span class="p">];</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">runRecordCommand</span><span class="p">();</span><span class="c">%run the command to record the first value</span>
+<span class="c">%record force on a group, curves will be shown after the loop</span>
+<span class="c">%d.show(&#39;StressZZ&#39;);return;</span>
+<span class="c">%---------------------end the second method----------------------</span>
+
+<span class="n">totalCircle</span><span class="p">=</span><span class="mi">10</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">tic</span><span class="p">(</span><span class="n">totalCircle</span><span class="p">);</span>
+<span class="n">gpuStatus</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;auto&#39;</span><span class="p">);</span>
+<span class="n">fName</span><span class="p">=[</span><span class="s">&#39;data/step/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;loopNum&#39;</span><span class="p">];</span>
+<span class="nb">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="s">&#39;0.mat&#39;</span><span class="p">]);</span><span class="c">%return;</span>
+<span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="n">totalCircle</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="n">gpuStatus</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">(</span><span class="s">&#39;Standard&#39;</span><span class="p">,</span><span class="mf">0.04</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">figureNumber</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;mV&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">toc</span><span class="p">();</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%clear data in d.mo</span>
+<span class="w">    </span><span class="nb">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">()</span>
+<span class="k">end</span>
+
+<span class="n">leftF</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">getGroupForce</span><span class="p">(</span><span class="s">&#39;LeftLine&#39;</span><span class="p">,</span><span class="s">&#39;sample&#39;</span><span class="p">);</span><span class="c">%force act on LeftLine (from sample)</span>
+<span class="n">rightF</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">getGroupForce</span><span class="p">(</span><span class="s">&#39;RightLine&#39;</span><span class="p">);</span><span class="c">%get the force on the right line</span>
+
+<span class="c">%draw curves of the first method</span>
+<span class="nb">figure</span><span class="p">;</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;PROPTwoElement_aZ&#39;</span><span class="p">);</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;PROPTwoElement_mVZ&#39;</span><span class="p">);</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;PROPLeftLine1_aZ&#39;</span><span class="p">);</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;PROPLeftLine1_mAZ&#39;</span><span class="p">);</span>
+
+<span class="c">%draw curves of the second method</span>
+<span class="nb">figure</span><span class="p">;</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;SETleftFX&#39;</span><span class="p">);</span><span class="c">%X force of left line</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;SETrightFX&#39;</span><span class="p">);</span><span class="c">%X force of right line</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;SETleftFZ&#39;</span><span class="p">);</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;SETrightFZ&#39;</span><span class="p">);</span>
 </code></pre></div></td></tr></table></div>
 </div>
 </div>

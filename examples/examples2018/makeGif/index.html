@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
     
     
       
@@ -1471,7 +1471,43 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Step 1</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_makeGIF.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_makeGIF.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">clear</span><span class="w"> </span><span class="n">frames</span><span class="p">;</span>
+<span class="n">indexBegin</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span><span class="c">%begin index of data file</span>
+<span class="n">indexEnd</span><span class="p">=</span><span class="mi">10</span><span class="p">;</span><span class="c">%end index of data file</span>
+<span class="n">showType</span><span class="p">=</span><span class="s">&#39;StressZZ&#39;</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="n">showCircle</span><span class="p">=(</span><span class="n">indexBegin</span><span class="p">:</span><span class="n">indexEnd</span><span class="p">)</span>
+<span class="nb">load</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">showCircle</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span><span class="c">%load the saved file</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span><span class="c">%calculate the data of the model</span>
+<span class="c">%d.showFilter(&#39;SlideY&#39;,0.5,1);%cut the model if necessary</span>
+<span class="n">d</span><span class="p">.</span><span class="n">showB</span><span class="p">=</span><span class="mi">3</span><span class="p">;</span><span class="c">%show the frame</span>
+<span class="n">d</span><span class="p">.</span><span class="n">isUI</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="n">showType</span><span class="p">);</span><span class="c">%show the result</span>
+<span class="c">%view(10*showCircle,30);</span>
+<span class="nb">set</span><span class="p">(</span><span class="nb">gcf</span><span class="p">,</span><span class="s">&#39;Position&#39;</span><span class="p">,[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">600</span><span class="p">]);</span><span class="c">%set the size of the figure</span>
+<span class="n">frames</span><span class="p">(</span><span class="n">showCircle</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">indexBegin</span><span class="p">))=</span><span class="nb">getframe</span><span class="p">();</span><span class="c">%record the figure</span>
+<span class="nb">pause</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span><span class="c">%pause 0.1 second</span>
+<span class="nb">close</span><span class="p">;</span><span class="c">%close the figure</span>
+<span class="k">end</span>
+<span class="n">dTime</span><span class="p">=</span><span class="mf">0.5</span><span class="p">;</span><span class="c">%time step of GIF</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">movie2gif</span><span class="p">([</span><span class="n">fName</span><span class="p">(</span><span class="mi">11</span><span class="p">:</span><span class="k">end</span><span class="p">)</span><span class="w"> </span><span class="n">showType</span><span class="w"> </span><span class="s">&#39;33.gif&#39;</span><span class="p">],</span><span class="n">frames</span><span class="p">,</span><span class="n">dTime</span><span class="p">);</span><span class="c">%save the gif;</span>
 </code></pre></div></td></tr></table></div>
 </div>
 </div>

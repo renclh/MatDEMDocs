@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
     
     
       
@@ -1231,15 +1231,275 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Step 1</label><label for="__tabbed_1_2">Step 2</label><label for="__tabbed_1_3">Step 3</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_SandPenetration1.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_SandPenetration1.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%step1: packing the elements</span>
+<span class="nb">clear</span><span class="p">;</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">randSeed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%random model seed, 1,2,3...</span>
+<span class="n">B</span><span class="p">=</span><span class="n">obj_Box</span><span class="p">;</span><span class="c">%declare a box object</span>
+<span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="s">&#39;Sand_Penetration&#39;</span><span class="p">;</span>
+
+<span class="c">%--------------initial model------------</span>
+<span class="n">B</span><span class="p">.</span><span class="n">GPUstatus</span><span class="p">=</span><span class="s">&#39;auto&#39;</span><span class="p">;</span><span class="c">%program will test the CPU and GPU speed, and choose the quicker one</span>
+<span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">=</span><span class="mf">0.001</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isShear</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isClump</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span><span class="c">%if isClump=1, particles are composed of several balls</span>
+<span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">=</span><span class="mf">0.2</span><span class="p">;</span><span class="c">%define distribution of ball radius, </span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="p">=</span><span class="mf">0.25</span><span class="p">;</span><span class="c">%width, length, height, average radius</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleL</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span><span class="c">%when L is zero, it is a 2-dimensional model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleH</span><span class="p">=</span><span class="mf">0.06</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">BexpandRate</span><span class="p">=</span><span class="mi">4</span><span class="p">;</span><span class="c">%boundary is 4-ball wider than sample</span>
+<span class="n">B</span><span class="p">.</span><span class="n">PexpandRate</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="c">% B.type=&#39;topPlaten&#39;;%add a top platen to compact model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isSample</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setType</span><span class="p">();</span>
+<span class="n">B</span><span class="p">.</span><span class="n">buildInitialModel</span><span class="p">();;</span>
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+
+<span class="c">%---------- gravity sedimentation</span>
+<span class="n">B</span><span class="p">.</span><span class="n">gravitySediment</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aMUp</span><span class="p">(:)=</span><span class="mi">1</span><span class="p">;</span><span class="w">   </span>
+
+<span class="c">%------------return and save result--------------</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">dispEnergy</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%clear dependent data</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;Step1Finish&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;1.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;1R&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-distri&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w">  </span><span class="s">&#39;aNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_SandPenetration2.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_SandPenetration2.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%set the material of the model</span>
+<span class="nb">clear</span>
+<span class="nb">load</span><span class="p">(</span><span class="s">&#39;TempModel/Sand_Penetration1.mat&#39;</span><span class="p">);</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span><span class="c">%set the output</span>
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span><span class="c">%calculate data</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span><span class="c">%close the GPU calculation</span>
+<span class="n">d</span><span class="p">.</span><span class="n">getModel</span><span class="p">();</span><span class="c">%get xyz from d.mo</span>
+
+<span class="c">%---------------delele the box boundary and topelement</span>
+<span class="n">d</span><span class="p">.</span><span class="n">delElement</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">lefB</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">delElement</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">rigB</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">delElement</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">botB</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">delElement</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">topB</span><span class="p">);</span>
+<span class="n">mZ</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aZ</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="p">);</span><span class="c">%get the Z of elements</span>
+<span class="n">topLayerFilter</span><span class="p">=</span><span class="n">mZ</span><span class="o">&gt;</span><span class="nb">max</span><span class="p">(</span><span class="n">mZ</span><span class="p">)</span><span class="o">*</span><span class="mf">0.8</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">delElement</span><span class="p">(</span><span class="nb">find</span><span class="p">(</span><span class="n">topLayerFilter</span><span class="p">));</span><span class="c">%delete elements according to id</span>
+<span class="n">mX</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aX</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="p">);</span><span class="c">%get the Z of elements</span>
+<span class="n">rigLayerFilter</span><span class="p">=</span><span class="n">mX</span><span class="o">&gt;</span><span class="nb">max</span><span class="p">(</span><span class="n">mX</span><span class="p">)</span><span class="o">*</span><span class="mf">0.8</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">delElement</span><span class="p">(</span><span class="nb">find</span><span class="p">(</span><span class="n">rigLayerFilter</span><span class="p">));</span><span class="c">%delete elements according to id</span>
+<span class="n">B</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.024</span><span class="p">);</span>
+
+<span class="c">%--------------assign new material</span>
+<span class="n">matTxt</span><span class="p">=</span><span class="nb">load</span><span class="p">(</span><span class="s">&#39;Mats\Soil1.txt&#39;</span><span class="p">);</span>
+<span class="n">Mats</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">}=</span><span class="nb">material</span><span class="p">(</span><span class="s">&#39;Soil1&#39;</span><span class="p">,</span><span class="n">matTxt</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">);</span>
+<span class="n">Mats</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">}.</span><span class="n">Id</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">matTxt2</span><span class="p">=</span><span class="nb">load</span><span class="p">(</span><span class="s">&#39;Mats\Brass.txt&#39;</span><span class="p">);</span>
+<span class="n">Mats</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">}=</span><span class="nb">material</span><span class="p">(</span><span class="s">&#39;Brass&#39;</span><span class="p">,</span><span class="n">matTxt2</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">);</span>
+<span class="n">Mats</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">}.</span><span class="n">Id</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">Mats</span><span class="p">=</span><span class="n">Mats</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setGroupMat</span><span class="p">(</span><span class="s">&#39;sample&#39;</span><span class="p">,</span><span class="s">&#39;Soil1&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">groupMat2Model</span><span class="p">({</span><span class="s">&#39;sample&#39;</span><span class="p">},</span><span class="mi">2</span><span class="p">);</span>
+
+<span class="c">%----------make ProjectileObj------------</span>
+<span class="n">ProjectileObj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">denseModel</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,@</span><span class="n">mfs</span><span class="p">.</span><span class="n">makeDisc</span><span class="p">,</span><span class="mf">0.006</span><span class="p">,</span><span class="mf">0.001</span><span class="p">);</span>
+<span class="n">ProjectileObj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">ProjectileObj</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;YZ&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">);</span>
+<span class="n">ProjectileObj</span><span class="p">.</span><span class="n">Y</span><span class="p">(:)=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">ProjectileObj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">ProjectileObj</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.018</span><span class="p">);</span>
+
+<span class="c">%----------import bulletObj to model------------</span>
+<span class="n">ProjectileId</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">addElement</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">ProjectileObj</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;Projectile&#39;</span><span class="p">,</span><span class="n">ProjectileId</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setClump</span><span class="p">(</span><span class="s">&#39;Projectile&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">zeroBalance</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">(</span><span class="s">&#39;Standard&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">balanceBondedModel</span><span class="p">();</span><span class="c">%赋材料后，自动胶结和平衡模型，有单元间摩擦力</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;aR&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%clear dependent data</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;Step2Finish&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;2.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;2R&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-distri&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w">  </span><span class="s">&#39;aNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_SandPenetration3.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_SandPenetration3.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">clear</span><span class="p">;</span>
+<span class="nb">load</span><span class="p">(</span><span class="s">&#39;TempModel/Sand_Penetration2.mat&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span>
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">getModel</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">=</span><span class="n">modelStatus</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">isHeat</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">visRate</span><span class="p">=</span><span class="mf">0.0001</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">mVis</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">mVis</span><span class="o">*</span><span class="n">visRate</span><span class="p">;</span>
+<span class="n">ProjectileId</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">Projectile</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">mVX</span><span class="p">(</span><span class="n">ProjectileId</span><span class="p">)=</span><span class="o">-</span><span class="mi">200</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setStandarddT</span><span class="p">();</span>
+
+<span class="n">gpuStatus</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;auto&#39;</span><span class="p">);</span>
+
+<span class="n">totalCircle</span><span class="p">=</span><span class="mi">20</span><span class="p">;</span><span class="c">%default value is 500, use 20 to increase speed</span>
+<span class="n">d</span><span class="p">.</span><span class="n">tic</span><span class="p">(</span><span class="n">totalCircle</span><span class="p">);</span>
+<span class="n">fName</span><span class="p">=[</span><span class="s">&#39;data/step/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;loopNum&#39;</span><span class="p">];</span>
+<span class="nb">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="s">&#39;0.mat&#39;</span><span class="p">]);</span><span class="c">%return;</span>
+
+<span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="n">totalCircle</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="n">gpuStatus</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">figureNumber</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">showB</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;mV&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nb">axis</span><span class="p">([</span><span class="mi">0</span><span class="w"> </span><span class="mf">0.25</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="mf">0.05</span><span class="w"> </span><span class="mf">0.1</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">axis</span><span class="w"> </span><span class="s">manual</span>
+
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="nb">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">toc</span><span class="p">()</span>
+<span class="k">end</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;Step3Finish&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;3.mat&#39;</span><span class="p">],</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;3R&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w">  </span><span class="s">&#39;aNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;aR&#39;</span><span class="p">);</span>
 </code></pre></div></td></tr></table></div>
 </div>
 </div>

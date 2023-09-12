@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
     
     
       
@@ -1471,15 +1471,385 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Step 1</label><label for="__tabbed_1_2">Step 2</label><label for="__tabbed_1_3">Step 3</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_Box3DJointStress1.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_Box3DJointStress1.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%make a box model, which will be put on a slope</span>
+<span class="nb">clear</span><span class="p">;</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">randSeed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%build random model</span>
+<span class="n">B</span><span class="p">=</span><span class="n">obj_Box</span><span class="p">;</span><span class="c">%build a box object</span>
+<span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="s">&#39;3DJointStress&#39;</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">GPUstatus</span><span class="p">=</span><span class="s">&#39;auto&#39;</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">=</span><span class="mf">0.005</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isClump</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">=</span><span class="mf">0.2</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="p">=</span><span class="mf">0.1</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleL</span><span class="p">=</span><span class="mf">0.1</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleH</span><span class="p">=</span><span class="mf">0.15</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">BexpandRate</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="o">*</span><span class="mf">0.1</span><span class="o">/</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">PexpandRate</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="o">*</span><span class="mf">0.1</span><span class="o">/</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setType</span><span class="p">(</span><span class="s">&#39;TriaxialCompression&#39;</span><span class="p">);</span>
+<span class="n">B</span><span class="p">.</span><span class="n">buildInitialModel</span><span class="p">();</span><span class="c">%B.show();</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span>
+
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="c">%--------------end initial model------------</span>
+<span class="n">B</span><span class="p">.</span><span class="n">gravitySediment</span><span class="p">();</span>
+<span class="c">%B.compactSample(2);%input is compaction time</span>
+<span class="c">%mfs.reduceGravity(d,10);%reduce the gravity of element</span>
+
+<span class="c">%------------return and save result--------------</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">dispEnergy</span><span class="p">();</span><span class="c">%display the energy of the model</span>
+<span class="c">%d.showFilter(&#39;Group&#39;,{&#39;sample&#39;});</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;mGZ&#39;</span><span class="p">);</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%clear dependent data</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;Step1Finish&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;1.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;1R&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-distri&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w">  </span><span class="s">&#39;aNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span><span class="c">%because data is clear, it will be re-calculated</span>
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_Box3DJointStress2.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_Box3DJointStress2.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%set the material of the model</span>
+<span class="nb">clear</span>
+<span class="nb">load</span><span class="p">(</span><span class="s">&#39;TempModel/3DJointStress1.mat&#39;</span><span class="p">);</span>
+<span class="c">%------------initialize model-------------------</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span>
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">getModel</span><span class="p">();</span><span class="c">%get xyz from d.mo</span>
+<span class="c">%------------end initialize model-------------------</span>
+
+<span class="c">%-------------set new material----------------</span>
+<span class="n">matTxt</span><span class="p">=</span><span class="nb">load</span><span class="p">(</span><span class="s">&#39;Mats\StrongRock.txt&#39;</span><span class="p">);</span>
+<span class="n">Mats</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">}=</span><span class="nb">material</span><span class="p">(</span><span class="s">&#39;StrongRock&#39;</span><span class="p">,</span><span class="n">matTxt</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">);</span>
+<span class="n">Mats</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">}.</span><span class="n">Id</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">Mats</span><span class="p">=</span><span class="n">Mats</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">groupMat2Model</span><span class="p">({</span><span class="s">&#39;sample&#39;</span><span class="p">},</span><span class="mi">1</span><span class="p">);</span>
+<span class="c">%-------------end set new material----------------</span>
+
+<span class="c">%-------------------apply stress, and balance model------------------</span>
+<span class="n">B</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">stressXX</span><span class="p">=</span><span class="o">-</span><span class="mf">6e6</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">stressYY</span><span class="p">=</span><span class="o">-</span><span class="mf">6e6</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">stressZZ</span><span class="p">=</span><span class="o">-</span><span class="mf">10e6</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setPlatenFixId</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">resetStatus</span><span class="p">();</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setPlatenStress</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">stressXX</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">stressYY</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">stressZZ</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="o">*</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">balanceBondedModel0</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="o">*</span><span class="mi">4</span><span class="p">;</span><span class="c">%increase the dT to increase the speed of balance</span>
+<span class="n">aMUp</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aMUp</span><span class="p">;</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aMUp</span><span class="p">(:)=</span><span class="mi">0</span><span class="p">;</span><span class="c">%remove friction</span>
+<span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">(</span><span class="s">&#39;Standard&#39;</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aMUp</span><span class="p">=</span><span class="n">aMUp</span><span class="p">;</span><span class="c">%restore friction</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="o">/</span><span class="mi">4</span><span class="p">;</span>
+<span class="c">%-------------------end apply stress, and balance model------------------</span>
+
+<span class="c">%--------------------save data-----------------------</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;Step3Finish&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;2.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;2R&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-distri&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w">  </span><span class="s">&#39;aNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="c">%--------------------end save data-----------------------</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;ZDisplacement&#39;</span><span class="p">);</span>
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_Box3DJointStress3.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_Box3DJointStress3.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  1</span>
+<span class="normal">  2</span>
+<span class="normal">  3</span>
+<span class="normal">  4</span>
+<span class="normal">  5</span>
+<span class="normal">  6</span>
+<span class="normal">  7</span>
+<span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%-------------------user_mxSlope3.m;</span>
+<span class="nb">clear</span><span class="p">;</span>
+<span class="nb">load</span><span class="p">(</span><span class="s">&#39;TempModel/3DJointStress2.mat&#39;</span><span class="p">);</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span>
+<span class="c">%------------initialize model-------------------</span>
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">bFilter</span><span class="p">(:)=</span><span class="nb">true</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">deleteConnection</span><span class="p">(</span><span class="s">&#39;boundary&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">zeroBalance</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">getModel</span><span class="p">();</span><span class="c">%d.setModel();%reset the initial status of the model</span>
+<span class="n">d</span><span class="p">.</span><span class="n">resetStatus</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">isHeat</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="c">%calculate heat in the model</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setStandarddT</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">isCrack</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">moveBoundary</span><span class="p">(</span><span class="s">&#39;right&#39;</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="o">*</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">moveBoundary</span><span class="p">(</span><span class="s">&#39;back&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">sampleL</span><span class="o">*</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">isCrack</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="c">%will record crack data</span>
+
+<span class="c">%------------end initialize model-------------------</span>
+<span class="c">%--------------------apply initial stress-----------------------</span>
+<span class="nb">type</span><span class="p">=</span><span class="s">&#39;break&#39;</span><span class="p">;</span><span class="c">%change type to &#39;break&#39; to create crack</span>
+<span class="k">if</span><span class="w"> </span><span class="nb">strcmp</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span><span class="s">&#39;glue&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">bFilter</span><span class="p">(:)=</span><span class="nb">false</span><span class="p">;</span>
+<span class="k">end</span>
+
+<span class="c">%------------crack-------------</span>
+<span class="n">TriX</span><span class="p">=[</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.08</span><span class="p">,</span><span class="mf">0.02</span><span class="p">];</span><span class="n">TriY</span><span class="p">=[</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.05</span><span class="p">];</span><span class="n">TriZ</span><span class="p">=[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.1</span><span class="p">];</span>
+<span class="n">bondFilter</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">setBondByTriangle</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">TriX</span><span class="p">,</span><span class="n">TriY</span><span class="p">,</span><span class="n">TriZ</span><span class="p">,</span><span class="nb">type</span><span class="p">);</span><span class="c">%make triangle crack, run d.mo.zeroBalance() after the function</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">zeroBalance</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">showFilter</span><span class="p">(</span><span class="s">&#39;Group&#39;</span><span class="p">,{</span><span class="s">&#39;sample&#39;</span><span class="p">});</span>
+<span class="c">%------------end crack-------------</span>
+
+<span class="n">bondFilter</span><span class="p">=</span><span class="n">bondFilter</span><span class="o">&amp;</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">cFilter</span><span class="o">|</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">bFilter</span><span class="p">);</span>
+<span class="n">connectFilter</span><span class="p">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">bondFilter</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">connectId</span><span class="p">=</span><span class="nb">find</span><span class="p">(</span><span class="n">connectFilter</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;JointLayer&#39;</span><span class="p">,</span><span class="n">connectId</span><span class="p">);</span><span class="c">%add a new group</span>
+<span class="nb">figure</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">showFilter</span><span class="p">(</span><span class="s">&#39;Group&#39;</span><span class="p">,</span><span class="s">&#39;JointLayer&#39;</span><span class="p">,</span><span class="s">&#39;aR&#39;</span><span class="p">);</span>
+
+<span class="c">%------------weak or strong joint-------------</span>
+<span class="n">TriX</span><span class="p">=[</span><span class="mf">0.09</span><span class="p">,</span><span class="mf">0.09</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.01</span><span class="p">];</span><span class="n">TriY</span><span class="p">=[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.1</span><span class="p">];</span><span class="n">TriZ</span><span class="p">=[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">];</span>
+<span class="n">bondFilter</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">setBondByPolygon</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">TriX</span><span class="p">,</span><span class="n">TriY</span><span class="p">,</span><span class="n">TriZ</span><span class="p">,</span><span class="s">&#39;glue&#39;</span><span class="p">);</span><span class="c">%make triangle crack</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">nBondRate</span><span class="p">(</span><span class="n">bondFilter</span><span class="p">)=</span><span class="mi">2</span><span class="p">;</span><span class="c">%make strong joint</span>
+<span class="c">%------------end weak or strong joint------------</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;Crack&#39;</span><span class="p">,</span><span class="s">&#39;Stereo&#39;</span><span class="p">);</span>
+
+<span class="c">%-------------using Tool_Cut Triangle-------------</span>
+<span class="n">TriX2</span><span class="p">=[</span><span class="n">TriX</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">);</span><span class="n">TriX</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])]</span><span class="o">-</span><span class="mf">0.05</span><span class="p">;</span>
+<span class="n">TriY2</span><span class="p">=[</span><span class="n">TriY</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">);</span><span class="n">TriY</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])];</span>
+<span class="n">TriZ2</span><span class="p">=[</span><span class="n">TriZ</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">);</span><span class="n">TriZ</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])];</span>
+<span class="n">C</span><span class="p">=</span><span class="n">Tool_Cut</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+<span class="n">C</span><span class="p">.</span><span class="n">setTriangle</span><span class="p">(</span><span class="n">TriX2</span><span class="p">,</span><span class="n">TriY2</span><span class="p">,</span><span class="n">TriZ2</span><span class="p">);</span>
+<span class="n">bondFilter</span><span class="p">=</span><span class="n">C</span><span class="p">.</span><span class="n">setBondByTriangle</span><span class="p">(</span><span class="nb">type</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">nBondRate</span><span class="p">(</span><span class="n">bondFilter</span><span class="p">)=</span><span class="mf">0.5</span><span class="p">;</span><span class="c">%make weak joint, BF and FS0 will reduce</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;BondRate&#39;</span><span class="p">);</span>
+<span class="n">C</span><span class="p">.</span><span class="n">showTriangle</span><span class="p">();</span>
+<span class="c">%-------------end using Tool_Cut Triangle-------------</span>
+
+<span class="c">%added in MatDEM 2.01</span>
+<span class="c">%------------nBondRate for breaking force (BF), friction coefficient (MUp), initial shear resistance (FS0)</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">isBondRate</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">nBondRateMUp</span><span class="p">=</span><span class="nb">ones</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">nBall</span><span class="p">));</span>
+<span class="n">nBondRateMUp</span><span class="p">(</span><span class="n">bondFilter</span><span class="p">)=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">nBondRate</span><span class="p">.</span><span class="n">MUp</span><span class="p">=</span><span class="n">nBondRateMUp</span><span class="p">;</span><span class="c">%MUp could be replaced by &#39;BF&#39;, &#39;FS0&#39;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;BondRateMUp&#39;</span><span class="p">);</span>
+<span class="c">%------------end nBondRate for breaking force (BF), friction coefficient (MUp), initial shear resistance (FS0)</span>
+
+<span class="c">%---------------make triangle by scattered points----------------</span>
+<span class="c">%we modify Surf SurfTri or TriangleX,Y,Z to build new surface</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">randSeed</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">bFilter</span><span class="p">(:)=</span><span class="nb">false</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">zeroBalance</span><span class="p">();</span>
+<span class="n">randN</span><span class="p">=</span><span class="mi">10</span><span class="p">;</span>
+<span class="n">PX</span><span class="p">=</span><span class="nb">rand</span><span class="p">(</span><span class="n">randN</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mf">0.1</span><span class="p">;</span><span class="n">PY</span><span class="p">=</span><span class="nb">rand</span><span class="p">(</span><span class="n">randN</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mf">0.1</span><span class="p">;</span><span class="n">PZ</span><span class="p">=</span><span class="mf">0.05</span><span class="o">+</span><span class="nb">rand</span><span class="p">(</span><span class="n">randN</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mf">0.04</span><span class="p">;</span>
+<span class="n">C</span><span class="p">.</span><span class="n">addSurf</span><span class="p">(</span><span class="n">PX</span><span class="p">,</span><span class="n">PY</span><span class="p">,</span><span class="n">PZ</span><span class="p">);</span>
+<span class="n">C</span><span class="p">.</span><span class="n">getSurfTri</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">C</span><span class="p">.</span><span class="n">getTriangle</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">bondFilter</span><span class="p">=</span><span class="n">C</span><span class="p">.</span><span class="n">setBondByTriangle</span><span class="p">(</span><span class="nb">type</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">bFilter</span><span class="p">=</span><span class="n">bondFilter</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">showFilter</span><span class="p">(</span><span class="s">&#39;Group&#39;</span><span class="p">,{</span><span class="s">&#39;sample&#39;</span><span class="p">});</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;--&#39;</span><span class="p">);</span>
+<span class="n">C</span><span class="p">.</span><span class="n">showTriangle</span><span class="p">();</span>
+<span class="c">%---------------end make triangle by scattered points----------------</span>
+
+<span class="c">%--------------------start calculation-----------------------</span>
+<span class="n">totalCircle</span><span class="p">=</span><span class="mi">5</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">tic</span><span class="p">(</span><span class="n">totalCircle</span><span class="p">);</span><span class="c">%record the initial time of loop</span>
+<span class="n">fName</span><span class="p">=[</span><span class="s">&#39;data/step/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w">  </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;loopNum&#39;</span><span class="p">];</span>
+<span class="nb">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="s">&#39;0.mat&#39;</span><span class="p">]);</span><span class="c">%return;</span>
+<span class="n">gpuStatus</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;auto&#39;</span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="n">totalCircle</span>
+<span class="w">    </span><span class="n">B</span><span class="p">.</span><span class="n">setPlatenStress</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">stressXX</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">stressYY</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">stressZZ</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="nb">i</span><span class="o">/</span><span class="n">totalCircle</span><span class="p">),</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="o">*</span><span class="mi">5</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">(</span><span class="s">&#39;Standard&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="c">%standard balance</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nb">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="n">gpuStatus</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">toc</span><span class="p">();</span><span class="c">%show the note of time;</span>
+<span class="k">end</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;Step3Finish&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;3.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;3R&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-distri&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w">  </span><span class="s">&#39;aNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">showFilter</span><span class="p">(</span><span class="s">&#39;Group&#39;</span><span class="p">,{</span><span class="s">&#39;sample&#39;</span><span class="p">},</span><span class="s">&#39;StressZZ&#39;</span><span class="p">);</span>
 </code></pre></div></td></tr></table></div>
 </div>
 </div>

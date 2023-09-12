@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
     
     
       
@@ -1471,11 +1471,273 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Step 1</label><label for="__tabbed_1_2">Step 2</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_BoxCuTestNew1and2.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_BoxCuTestNew1and2.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">clear</span>
+<span class="c">%---------------set parameters for material training</span>
+<span class="n">matName</span><span class="p">=</span><span class="s">&#39;mxRock&#39;</span><span class="p">;</span>
+<span class="n">matFile</span><span class="p">=</span><span class="s">&#39;Mats\mxRock.txt&#39;</span><span class="p">;</span><span class="c">%material file (.txt or material obj), [E,v,Tu,Cu,Mui],Mui is coefficient of intrinsic friction</span>
+<span class="n">blockW</span><span class="p">=</span><span class="mf">0.1</span><span class="p">;</span><span class="n">blockL</span><span class="p">=</span><span class="mf">0.1</span><span class="p">;</span><span class="n">blockH</span><span class="p">=</span><span class="mf">0.2</span><span class="p">;</span><span class="n">ballR</span><span class="p">=</span><span class="mf">0.01</span><span class="p">;</span><span class="c">%width, length, height, radius</span>
+<span class="n">distriRate</span><span class="p">=</span><span class="mf">0.25</span><span class="p">;</span><span class="c">%define distribution of ball radius,</span>
+<span class="n">randSeed</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="c">%change the seed to create a block with different element size</span>
+<span class="n">randPositionSeed</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span><span class="c">%change it to make a new packing</span>
+
+<span class="n">saveFileLevel</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span><span class="c">%2:save all files, 1:save important files, 0: save one result file, -1: do not save</span>
+<span class="n">uniaxialStressRate</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="c">%default value is 1, generally do not have to change it</span>
+<span class="n">StandardBalanceNum</span><span class="p">=</span><span class="mi">50</span><span class="p">;</span><span class="c">%define the balance number of simulation, 1-50</span>
+
+<span class="c">%--------------build initial model</span>
+<span class="n">B</span><span class="p">=</span><span class="n">obj_Box</span><span class="p">;</span><span class="c">%build a box object</span>
+<span class="n">B</span><span class="p">.</span><span class="n">GPUstatus</span><span class="p">=</span><span class="s">&#39;auto&#39;</span><span class="p">;</span>
+<span class="n">B</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">makeUniaxialTestModel0</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">blockW</span><span class="p">,</span><span class="n">blockL</span><span class="p">,</span><span class="n">blockH</span><span class="p">,</span><span class="n">ballR</span><span class="p">,</span><span class="n">distriRate</span><span class="p">,</span><span class="n">randSeed</span><span class="p">);</span><span class="c">%build initial box model</span>
+<span class="c">%you may change element size here</span>
+<span class="n">mfs</span><span class="p">.</span><span class="n">mixGroupElement</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">,</span><span class="s">&#39;sample&#39;</span><span class="p">,</span><span class="n">randPositionSeed</span><span class="p">);</span><span class="c">%mix elements in sample</span>
+<span class="c">%B.d.show(&#39;aR&#39;);return;</span>
+
+<span class="c">%end you may change element size here</span>
+<span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="s">&#39;CuTestNew&#39;</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">saveFileLevel</span><span class="p">=</span><span class="n">saveFileLevel</span><span class="p">;</span><span class="c">%save all related files</span>
+<span class="n">B</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">uniaxialStressRate</span><span class="p">=</span><span class="n">uniaxialStressRate</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">StandardBalanceNum</span><span class="p">=</span><span class="n">StandardBalanceNum</span><span class="p">;</span><span class="c">%the balance number </span>
+<span class="c">%-------------assign material to model</span>
+<span class="n">B</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">makeUniaxialTestModel1</span><span class="p">(</span><span class="n">B</span><span class="p">);</span><span class="c">%sedimentation, data will be save in &#39;TempModel/boxUniaxial1.mat&#39;</span>
+<span class="n">mfs</span><span class="p">.</span><span class="n">makeUniaxialTestModel2</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">matFile</span><span class="p">);</span><span class="c">%set the material of the model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">(</span><span class="s">&#39;Standard&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span><span class="c">%two times of standard balance</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;1.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="n">B</span><span class="p">);</span>
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_BoxCuTestNew3.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_BoxCuTestNew3.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  1</span>
+<span class="normal">  2</span>
+<span class="normal">  3</span>
+<span class="normal">  4</span>
+<span class="normal">  5</span>
+<span class="normal">  6</span>
+<span class="normal">  7</span>
+<span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">clear</span>
+<span class="nb">load</span><span class="p">(</span><span class="s">&#39;TempModel/CuTestNew1.mat&#39;</span><span class="p">);</span>
+<span class="n">allStressSteps</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">getBoxUniaxialStressSteps</span><span class="p">(</span><span class="n">B</span><span class="p">);</span>
+<span class="n">stressSteps</span><span class="p">=</span><span class="n">allStressSteps</span><span class="p">.</span><span class="n">CuStressSteps</span><span class="p">;</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">disp</span><span class="p">(</span><span class="s">&#39;&lt;----------------------Start mfs.makeUniaxialCuTest----------------------&gt;&#39;</span><span class="p">);</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span>
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">=</span><span class="n">modelStatus</span><span class="p">(</span><span class="n">d</span><span class="p">);</span><span class="c">%initialize model status, which records running information</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setStandarddT</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">isHeat</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="c">%calculate heat in the model</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setStandarddT</span><span class="p">();</span>
+<span class="n">totalCircle</span><span class="p">=</span><span class="nb">length</span><span class="p">(</span><span class="n">stressSteps</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">tic</span><span class="p">(</span><span class="n">totalCircle</span><span class="p">);</span>
+<span class="c">%set the file saving</span>
+<span class="n">fName</span><span class="p">=[</span><span class="s">&#39;data/step/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;-MatUniaxialCu-R&#39;</span><span class="w">  </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;aNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;loopNum&#39;</span><span class="p">];</span>
+<span class="k">if</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">saveFileLevel</span><span class="o">&gt;</span><span class="mi">1</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">fs</span><span class="p">.</span><span class="n">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="s">&#39;0.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="n">B</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="k">end</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">isFix</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="c">%reduce the stiffness of lateral boundary for uniaxial test</span>
+<span class="n">bId</span><span class="p">=[</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">lefB</span><span class="p">;</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">rigB</span><span class="p">;</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">froB</span><span class="p">;</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">bacB</span><span class="p">];</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aKN</span><span class="p">(</span><span class="n">bId</span><span class="p">)=</span><span class="mf">1e-100</span><span class="p">;</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aKS</span><span class="p">(</span><span class="n">bId</span><span class="p">)=</span><span class="mf">1e100</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setKNKS</span><span class="p">();</span>
+<span class="c">%set the default value of test</span>
+<span class="k">if</span><span class="w"> </span><span class="o">~</span><span class="nb">isfield</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">SET</span><span class="p">,</span><span class="s">&#39;divNum&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">divNum</span><span class="p">=</span><span class="mi">10</span><span class="p">;</span>
+<span class="k">end</span>
+<span class="k">if</span><span class="w"> </span><span class="o">~</span><span class="nb">isfield</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">SET</span><span class="p">,</span><span class="s">&#39;balanceRate&#39;</span><span class="p">)</span><span class="o">||</span><span class="n">d</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">balanceRate</span><span class="o">&lt;=</span><span class="mi">0</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">balanceRate</span><span class="p">=</span><span class="mf">0.4</span><span class="p">;</span>
+<span class="k">end</span>
+
+<span class="n">divNum</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">divNum</span><span class="p">;</span>
+<span class="n">balanceRate</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">balanceRate</span><span class="p">;</span>
+<span class="n">stressStep</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">maxForce</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;auto&#39;</span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="n">totalCircle</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nb">j</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="n">divNum</span>
+<span class="w">        </span><span class="n">B</span><span class="p">.</span><span class="n">setPlatenStress</span><span class="p">(</span><span class="s">&#39;StressZZ&#39;</span><span class="p">,</span><span class="n">stressStep</span><span class="o">+</span><span class="p">(</span><span class="n">stressSteps</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="o">-</span><span class="n">stressStep</span><span class="p">)</span><span class="o">/</span><span class="n">divNum</span><span class="o">*</span><span class="nb">j</span><span class="p">);</span>
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">(</span><span class="s">&#39;Standard&#39;</span><span class="p">,</span><span class="n">balanceRate</span><span class="p">,</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">isWHT</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="c">%record the WHT in recordStatus</span>
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">recordStatus</span><span class="p">();</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">saveFileLevel</span><span class="o">&gt;</span><span class="mi">1</span>
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">();</span>
+<span class="w">        </span><span class="n">fs</span><span class="p">.</span><span class="n">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;divNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">divNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;balanceRate&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">balanceRate</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="n">B</span><span class="p">);</span>
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">toc</span><span class="p">();</span><span class="c">%show the note of time;</span>
+<span class="w">    </span><span class="n">stressStep</span><span class="p">=</span><span class="n">stressSteps</span><span class="p">(</span><span class="nb">i</span><span class="p">);</span>
+<span class="w">    </span><span class="n">newForce</span><span class="p">=</span><span class="o">-</span><span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">bottomBFs</span><span class="p">(</span><span class="k">end</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">newForce</span><span class="o">&gt;</span><span class="n">maxForce</span>
+<span class="w">        </span><span class="n">maxForce</span><span class="p">=</span><span class="n">newForce</span><span class="p">;</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">newForce</span><span class="o">&lt;</span><span class="mf">0.9</span><span class="o">*</span><span class="n">maxForce</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">end</span>
+
+<span class="w">    </span><span class="c">%calculate the strain, when it &gt;0.4, break</span>
+<span class="w">    </span><span class="n">meanTopPlatenZ0</span><span class="p">=</span><span class="nb">mean</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aZ</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">topPlaten</span><span class="p">));</span>
+<span class="w">    </span><span class="n">meanTopPlatenZ1</span><span class="p">=</span><span class="nb">mean</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aZ</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">topPlaten</span><span class="p">));</span>
+<span class="w">    </span><span class="n">minSampleZ0</span><span class="p">=</span><span class="nb">min</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aZ</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">sample</span><span class="p">));</span>
+<span class="w">    </span><span class="n">strainZZ</span><span class="p">=(</span><span class="n">meanTopPlatenZ0</span><span class="o">-</span><span class="n">meanTopPlatenZ1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">meanTopPlatenZ0</span><span class="o">-</span><span class="n">minSampleZ0</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">strainZZ</span><span class="o">&gt;</span><span class="mf">0.4</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+<span class="n">Cu</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">calculateCu</span><span class="p">();</span><span class="c">%calculate Cu based on the saved data in d.statu.TAG, WHT and WHTTIds</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;BoxTest3Finish&#39;</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">saveFileLevel</span><span class="o">&gt;</span><span class="mi">0</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">fs</span><span class="p">.</span><span class="n">save</span><span class="p">([</span><span class="s">&#39;data/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;-MatUniaxialCu-R&#39;</span><span class="w">  </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;aNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="n">B</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="k">end</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">disp</span><span class="p">(</span><span class="s">&#39;&lt;----------------------End mfs.makeUniaxialCuTest----------------------&gt;&#39;</span><span class="p">);</span>
+<span class="c">%post-processing</span>
+<span class="nb">figure</span><span class="p">(</span><span class="s">&#39;Position&#39;</span><span class="p">,[</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">1200</span><span class="p">,</span><span class="mi">400</span><span class="p">]);</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">showBoundaryStresses</span><span class="p">();</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s">&#39;Time [s]&#39;</span><span class="p">);</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s">&#39;Magnitude of boundary stress [Pa]&#39;</span><span class="p">);</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">showStrainStress</span><span class="p">();</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s">&#39;StressZZ [Pa]&#39;</span><span class="p">);</span>
+
+<span class="n">figure</span>
+<span class="s">S=fs.getBlockStrainStress(d.status)</span><span class="p">;</span>
+<span class="nb">plot</span><span class="p">(</span><span class="o">-</span><span class="n">S</span><span class="p">.</span><span class="n">strainZZ</span><span class="p">,</span><span class="o">-</span><span class="n">S</span><span class="p">.</span><span class="n">stressZZ</span><span class="p">,</span><span class="s">&#39;k&#39;</span><span class="p">,</span><span class="s">&#39;LineWidth&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s">&#39;Magnitude of StrainZZ&#39;</span><span class="p">);</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s">&#39;Magnitude of StressZZ [Pa]&#39;</span><span class="p">);</span>
+<span class="nb">title</span><span class="p">(</span><span class="s">&#39;StressZZ-StrainZZ Curve during Cu test&#39;</span><span class="p">);</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;BoxCuTestNewFinish&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;3.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;3R&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-distri&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w">  </span><span class="s">&#39;aNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
 </div>
 </div>

@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
     
     
       
@@ -1191,11 +1191,143 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Step 1</label><label for="__tabbed_1_2">Step 2</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_Functions.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_Functions.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%用于展示自定义函数和全局参数的使用</span>
+<span class="c">%show the use of functions and global parameters</span>
+<span class="nb">clear</span><span class="p">;</span>
+<span class="n">f</span><span class="p">.</span><span class="n">clearFunction</span><span class="p">();</span><span class="c">%clear all defined functions</span>
+<span class="n">f</span><span class="p">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;examples/funTest.m&#39;</span><span class="p">);</span><span class="c">%define the function to increase the speed</span>
+<span class="n">f</span><span class="p">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;fun/makeColumn.m&#39;</span><span class="p">);</span>
+<span class="n">f</span><span class="p">.</span><span class="n">define</span><span class="p">(</span><span class="s">&#39;fun/makeDisc.m&#39;</span><span class="p">);</span>
+
+<span class="n">functionList</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">getFunctionList</span><span class="p">();</span><span class="c">%list of defined functions</span>
+<span class="n">columnObj</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/makeColumn.m&#39;</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.28</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.8</span><span class="p">);</span>
+<span class="nb">figure</span><span class="p">;</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">showObj</span><span class="p">(</span><span class="n">columnObj</span><span class="p">);</span>
+
+<span class="n">f</span><span class="p">.</span><span class="n">setGlobalData</span><span class="p">(</span><span class="s">&#39;data1&#39;</span><span class="p">,</span><span class="mi">1234</span><span class="p">);</span>
+<span class="n">data</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">getGlobalData</span><span class="p">(</span><span class="s">&#39;data1&#39;</span><span class="p">);</span>
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_Function2Object.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_Function2Object.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%这个代码演示了如何利用函数来生成和修改物体，并将其导入到模型中</span>
+<span class="c">%using functions to build objects, modify and import objects</span>
+<span class="nb">clear</span><span class="p">;</span>
+<span class="n">a1</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;examples/funtest.m&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span><span class="c">%sum of 1,2,3, a1 will be 6</span>
+<span class="c">%step1: make object (struct data)</span>
+<span class="n">hobObj</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/makeHob.m&#39;</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.8</span><span class="p">);</span><span class="c">%see the function file about the input parameters</span>
+<span class="n">curveObj</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/make3DCurve.m&#39;</span><span class="p">,[</span><span class="mi">0</span><span class="p">;</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.8</span><span class="p">);</span>
+<span class="n">columnObj</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/makeColumn.m&#39;</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.28</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.8</span><span class="p">);</span>
+<span class="n">ringObj</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/makeRing.m&#39;</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.6</span><span class="p">);</span>
+<span class="n">ringObj3D</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">make3Dfrom2D</span><span class="p">(</span><span class="n">ringObj</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.01</span><span class="p">);</span>
+
+<span class="c">%step2: modify and combine the object, more operations can be found in help-&gt;mfs</span>
+<span class="n">ringObj3D2</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">ringObj3D</span><span class="p">,</span><span class="s">&#39;YZ&#39;</span><span class="p">,</span><span class="mi">60</span><span class="p">);</span><span class="c">%rotate the object and then move it</span>
+<span class="n">ringObj3D2</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">ringObj3D2</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">);</span>
+<span class="n">hobObj2</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">hobObj</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.2</span><span class="p">);</span>
+<span class="n">columnObj2</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">columnObj</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.3</span><span class="p">);</span>
+<span class="p">[</span><span class="n">columnObj2</span><span class="p">,</span><span class="n">ringObj3D2</span><span class="p">]=</span><span class="n">mfs</span><span class="p">.</span><span class="n">alignObj</span><span class="p">(</span><span class="s">&#39;front&#39;</span><span class="p">,</span><span class="n">columnObj2</span><span class="p">,</span><span class="n">ringObj3D2</span><span class="p">);</span><span class="c">%align objects</span>
+<span class="n">allObj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">combineObj</span><span class="p">(</span><span class="n">ringObj3D2</span><span class="p">,</span><span class="n">hobObj2</span><span class="p">,</span><span class="n">columnObj2</span><span class="p">);</span><span class="c">%combine the objects</span>
+<span class="c">%figure;fs.showObj(allObj);</span>
+
+<span class="nb">figure</span><span class="p">;</span><span class="c">%draw objects</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="c">%use subplot to draw four figures</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">showObj</span><span class="p">(</span><span class="n">hobObj</span><span class="p">);</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">showObj</span><span class="p">(</span><span class="n">curveObj</span><span class="p">);</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">showObj</span><span class="p">(</span><span class="n">columnObj</span><span class="p">);</span>
+<span class="nb">title</span><span class="p">(</span><span class="s">&#39;This is a column&#39;</span><span class="p">);</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">showObj</span><span class="p">(</span><span class="n">ringObj3D</span><span class="p">);</span>
+<span class="nb">title</span><span class="p">(</span><span class="s">&#39;This is a ring&#39;</span><span class="p">);</span>
+
+<span class="c">%step3: make a Box, and import the objects to the box</span>
+<span class="n">B</span><span class="p">=</span><span class="n">obj_Box</span><span class="p">;</span><span class="c">%declare a box object</span>
+<span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="s">&#39;Objects&#39;</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">=</span><span class="mf">0.01</span><span class="p">;</span><span class="c">%element radius</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="c">%width, length, height</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleL</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="c">%when L is zero, it is a 2-dimensional model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleH</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isSample</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span><span class="c">%an empty box without sample elements</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setType</span><span class="p">(</span><span class="s">&#39;botPlaten&#39;</span><span class="p">);</span><span class="c">%add a top platen to compact model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">buildInitialModel</span><span class="p">();</span>
+
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="p">[</span><span class="n">ringId</span><span class="p">,</span><span class="n">hobId</span><span class="p">,</span><span class="n">columnId</span><span class="p">]=</span><span class="n">d</span><span class="p">.</span><span class="n">addElement</span><span class="p">(</span><span class="mi">1</span><span class="p">,{</span><span class="n">ringObj3D2</span><span class="p">,</span><span class="n">hobObj2</span><span class="p">,</span><span class="n">columnObj2</span><span class="p">});</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;ring&#39;</span><span class="p">,</span><span class="n">ringId</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;hob&#39;</span><span class="p">,</span><span class="n">hobId</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;column&#39;</span><span class="p">,</span><span class="n">columnId</span><span class="p">);</span>
+
+<span class="nb">figure</span><span class="p">;</span><span class="c">%show the model</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setGroupId</span><span class="p">();</span><span class="c">%set groupId for each group</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;groupId&#39;</span><span class="p">);</span>
+<span class="nb">view</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
 </code></pre></div></td></tr></table></div>
 </div>
 </div>

@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
     
     
       
@@ -1191,15 +1191,233 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Step 1</label><label for="__tabbed_1_2">Step 2</label><label for="__tabbed_1_3">Step 3</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_modelAnchor.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_modelAnchor.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">clear</span><span class="p">;</span>
+<span class="n">ballR</span><span class="p">=</span><span class="mf">0.001</span><span class="p">;</span>
+<span class="n">discR</span><span class="p">=</span><span class="mf">0.01</span><span class="p">;</span>
+<span class="n">holeR</span><span class="p">=</span><span class="mf">0.006</span><span class="p">;</span>
+<span class="n">poleL</span><span class="p">=</span><span class="mf">0.1</span><span class="p">;</span>
+<span class="n">Rrate</span><span class="p">=</span><span class="mf">0.8</span><span class="p">;</span>
+<span class="n">discObj0</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/makeDisc.m&#39;</span><span class="p">,</span><span class="n">discR</span><span class="p">,</span><span class="n">ballR</span><span class="o">*</span><span class="mf">0.8</span><span class="p">);</span><span class="c">%define the basic disc</span>
+<span class="n">discObj0</span><span class="p">.</span><span class="n">R</span><span class="p">=</span><span class="n">discObj0</span><span class="p">.</span><span class="n">R</span><span class="o">/</span><span class="mf">0.8</span><span class="p">;</span>
+<span class="n">discObj0</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">cutBoxObj</span><span class="p">(</span><span class="n">discObj0</span><span class="p">,</span><span class="n">discR</span><span class="o">*</span><span class="mf">2.1</span><span class="p">,</span><span class="n">discR</span><span class="o">*</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">f</span><span class="p">=</span><span class="nb">sqrt</span><span class="p">(</span><span class="n">discObj0</span><span class="p">.</span><span class="n">X</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="n">discObj0</span><span class="p">.</span><span class="n">Y</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span><span class="o">&gt;</span><span class="n">holeR</span><span class="p">;</span>
+<span class="n">discObj0</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">filterObj</span><span class="p">(</span><span class="n">discObj0</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">);</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">showObj</span><span class="p">(</span><span class="n">discObj0</span><span class="p">);</span>
+
+<span class="n">dDis</span><span class="p">=</span><span class="n">ballR</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">Rrate</span><span class="p">;</span>
+<span class="n">num</span><span class="p">=</span><span class="nb">ceil</span><span class="p">(</span><span class="n">poleL</span><span class="o">/</span><span class="n">dDis</span><span class="p">);</span>
+<span class="n">dDis</span><span class="p">=</span><span class="n">poleL</span><span class="o">/</span><span class="n">num</span><span class="p">;</span>
+<span class="n">dAngle</span><span class="p">=</span><span class="mi">360</span><span class="o">/</span><span class="n">num</span><span class="p">;</span>
+
+<span class="n">allObj</span><span class="p">.</span><span class="n">X</span><span class="p">=[];</span><span class="n">allObj</span><span class="p">.</span><span class="n">Y</span><span class="p">=[];</span><span class="n">allObj</span><span class="p">.</span><span class="n">Z</span><span class="p">=[];</span><span class="n">allObj</span><span class="p">.</span><span class="n">R</span><span class="p">=[];</span>
+<span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="n">num</span>
+<span class="w">    </span><span class="n">discObjNew</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">discObj0</span><span class="p">,</span><span class="s">&#39;XY&#39;</span><span class="p">,</span><span class="n">dAngle</span><span class="o">*</span><span class="nb">i</span><span class="p">);</span>
+<span class="w">    </span><span class="n">discObjNew</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">discObjNew</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">dDis</span><span class="o">*</span><span class="nb">i</span><span class="p">);</span>
+<span class="w">    </span><span class="n">allObj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">combineObj</span><span class="p">(</span><span class="n">allObj</span><span class="p">,</span><span class="n">discObjNew</span><span class="p">);</span>
+<span class="k">end</span>
+<span class="nb">figure</span><span class="p">;</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">showObj</span><span class="p">(</span><span class="n">allObj</span><span class="p">);</span>
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_modelExample.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_modelExample.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">clear</span>
+<span class="nb">figure</span>
+<span class="n">ballR</span><span class="p">=</span><span class="mf">0.02</span><span class="p">;</span><span class="n">Rrate</span><span class="p">=</span><span class="mf">0.4</span><span class="p">;</span>
+<span class="c">%create a hob, define the size of a hob</span>
+<span class="n">hobR</span><span class="p">=</span><span class="mf">0.2</span><span class="p">;</span><span class="n">hobT</span><span class="p">=</span><span class="mf">0.1</span><span class="p">;</span><span class="n">cutRate</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">hob</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/makeHob.m&#39;</span><span class="p">,</span><span class="n">hobR</span><span class="p">,</span><span class="n">hobT</span><span class="p">,</span><span class="n">cutRate</span><span class="p">,</span><span class="n">ballR</span><span class="p">,</span><span class="n">Rrate</span><span class="p">);</span><span class="c">%run function with internal functions</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">showObj</span><span class="p">(</span><span class="n">hob</span><span class="p">);</span><span class="c">%show the hob</span>
+
+<span class="n">columnR</span><span class="p">=</span><span class="mf">0.05</span><span class="p">;</span><span class="n">columnHeight</span><span class="p">=</span><span class="mf">0.1</span><span class="p">;</span>
+<span class="n">column</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/makeColumn.m&#39;</span><span class="p">,</span><span class="n">columnR</span><span class="p">,</span><span class="n">columnHeight</span><span class="p">,</span><span class="n">ballR</span><span class="p">,</span><span class="n">Rrate</span><span class="p">);</span><span class="c">%run function with internal functions</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">showObj</span><span class="p">(</span><span class="n">column</span><span class="p">);</span><span class="c">%show the hob</span>
+
+<span class="n">moveDis</span><span class="p">=(</span><span class="n">hobT</span><span class="o">+</span><span class="n">columnHeight</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">ballR</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">Rrate</span><span class="p">);</span>
+<span class="n">column</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">column</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">moveDis</span><span class="p">);</span>
+<span class="n">hobColumn</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">combineObj</span><span class="p">(</span><span class="n">hob</span><span class="p">,</span><span class="n">column</span><span class="p">);</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">showObj</span><span class="p">(</span><span class="n">hobColumn</span><span class="p">);</span><span class="c">%show the hob</span>
+
+<span class="n">hobWidth</span><span class="p">=</span><span class="mf">0.3</span><span class="p">;</span><span class="n">hobLength</span><span class="p">=</span><span class="mf">0.5</span><span class="p">;</span><span class="n">hobHeight</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">hobColumn2</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">cutBoxObj</span><span class="p">(</span><span class="n">hobColumn</span><span class="p">,</span><span class="n">hobWidth</span><span class="p">,</span><span class="n">hobLength</span><span class="p">,</span><span class="n">hobHeight</span><span class="p">);</span>
+<span class="n">hobColumn2</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">hobColumn2</span><span class="p">,</span><span class="s">&#39;YZ&#39;</span><span class="p">,</span><span class="mi">90</span><span class="p">);</span>
+<span class="n">hobColumn2</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">hobColumn2</span><span class="p">,</span><span class="s">&#39;XY&#39;</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">showObj</span><span class="p">(</span><span class="n">hobColumn2</span><span class="p">);</span><span class="c">%show the hob</span>
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_modelFiber.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_modelFiber.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">clear</span><span class="p">;</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">randSeed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%random model seed, 1,2,3...</span>
+<span class="n">B</span><span class="p">=</span><span class="n">obj_Box</span><span class="p">;</span><span class="c">%declare a box object</span>
+<span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="s">&#39;BoxFiber&#39;</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">GPUstatus</span><span class="p">=</span><span class="s">&#39;off&#39;</span><span class="p">;</span><span class="c">%program will test the CPU and GPU speed, and choose the quicker one</span>
+<span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">=</span><span class="mf">0.01</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isShear</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isClump</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span><span class="c">%if isClump=1, particles are composed of several balls</span>
+<span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">=</span><span class="mf">0.2</span><span class="p">;</span><span class="c">%define distribution of ball radius, </span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="p">=</span><span class="mf">0.9</span><span class="p">;</span><span class="c">%width, length, height, average radius</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleL</span><span class="p">=</span><span class="mf">0.4</span><span class="p">;</span><span class="c">%when L is zero, it is a 2-dimensional model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleH</span><span class="p">=</span><span class="mf">0.6</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">BexpandRate</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span><span class="c">%boundary is 4-ball wider than </span>
+<span class="n">B</span><span class="p">.</span><span class="n">PexpandRate</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">type</span><span class="p">=</span><span class="s">&#39;botPlaten&#39;</span><span class="p">;</span><span class="c">%add a top platen to compact model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isSample</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setType</span><span class="p">();</span>
+
+<span class="c">%make objects</span>
+<span class="n">minBallR</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">innerR</span><span class="p">=</span><span class="mf">0.05</span><span class="p">;</span>
+<span class="n">layerNum</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">Rrate</span><span class="p">=</span><span class="mf">0.8</span><span class="p">;</span>
+<span class="n">ringObj</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/makeRing.m&#39;</span><span class="p">,</span><span class="n">innerR</span><span class="p">,</span><span class="n">layerNum</span><span class="p">,</span><span class="n">minBallR</span><span class="p">,</span><span class="n">Rrate</span><span class="p">);</span>
+<span class="n">tubeObj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">make3Dfrom2D</span><span class="p">(</span><span class="n">ringObj</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">minBallR</span><span class="p">);</span>
+<span class="n">tubeObj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">tubeObj</span><span class="p">,</span><span class="s">&#39;XZ&#39;</span><span class="p">,</span><span class="mi">90</span><span class="p">);</span><span class="c">%rotate the group along XZ plane</span>
+<span class="n">tube1Obj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">tubeObj</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">sampleL</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">sampleH</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">tube2Obj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">tubeObj</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">sampleL</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">sampleH</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">fiberObj</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/make3DLine.m&#39;</span><span class="p">,[</span><span class="n">minBallR</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="o">-</span><span class="n">minBallR</span><span class="o">/</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">minBallR</span><span class="p">,</span><span class="mf">0.8</span><span class="p">);</span>
+<span class="n">fiberObj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">fiberObj</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">sampleL</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">sampleH</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+
+<span class="n">fiberAngle</span><span class="p">=[</span><span class="mi">30</span><span class="p">,</span><span class="mi">150</span><span class="p">,</span><span class="mi">270</span><span class="p">]</span><span class="o">*</span><span class="nb">pi</span><span class="o">/</span><span class="mi">180</span><span class="p">;</span>
+<span class="n">rate</span><span class="p">=[</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.99</span><span class="p">]</span><span class="o">*</span><span class="mf">0.99</span><span class="p">;</span>
+<span class="n">fiberR1</span><span class="p">=</span><span class="n">ringObj</span><span class="p">.</span><span class="n">outerR</span><span class="o">+</span><span class="n">minBallR</span><span class="p">;</span>
+<span class="n">fiberY</span><span class="p">=</span><span class="n">fiberR1</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">fiberAngle</span><span class="p">)</span><span class="o">.*</span><span class="n">rate</span><span class="p">;</span>
+<span class="n">fiberZ</span><span class="p">=</span><span class="n">fiberR1</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">fiberAngle</span><span class="p">)</span><span class="o">.*</span><span class="n">rate</span><span class="p">;</span>
+
+<span class="n">fiber1Obj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">fiberObj</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">fiberY</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="n">fiberZ</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+<span class="n">fiber2Obj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">fiberObj</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">fiberY</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="n">fiberZ</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
+<span class="n">fiber3Obj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">fiberObj</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">fiberY</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="n">fiberZ</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>
+
+<span class="c">%add the objects to the box model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">buildInitialModel</span><span class="p">();</span><span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="p">[</span><span class="n">tube1Id</span><span class="p">,</span><span class="n">tube2Id</span><span class="p">,</span><span class="n">fiber1Id</span><span class="p">,</span><span class="n">fiber2Id</span><span class="p">,</span><span class="n">fiber3Id</span><span class="p">]=</span><span class="n">d</span><span class="p">.</span><span class="n">addElement</span><span class="p">(</span><span class="mi">1</span><span class="p">,{</span><span class="n">tube1Obj</span><span class="p">,</span><span class="n">tube2Obj</span><span class="p">,</span><span class="n">fiber1Obj</span><span class="p">,</span><span class="n">fiber2Obj</span><span class="p">,</span><span class="n">fiber3Obj</span><span class="p">});</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;tube1&#39;</span><span class="p">,</span><span class="n">tube1Id</span><span class="p">);</span><span class="c">%add a new group</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setClump</span><span class="p">(</span><span class="s">&#39;tube1&#39;</span><span class="p">);</span><span class="c">%set the pile clump</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;tube2&#39;</span><span class="p">,</span><span class="n">tube2Id</span><span class="p">);</span><span class="c">%add a new group</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setClump</span><span class="p">(</span><span class="s">&#39;tube2&#39;</span><span class="p">);</span><span class="c">%set the pile clump</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;fiber1&#39;</span><span class="p">,</span><span class="n">fiber1Id</span><span class="p">);</span><span class="c">%add a new group</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setClump</span><span class="p">(</span><span class="s">&#39;fiber1&#39;</span><span class="p">);</span><span class="c">%set the pile clump</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;fiber2&#39;</span><span class="p">,</span><span class="n">fiber2Id</span><span class="p">);</span><span class="c">%add a new group</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setClump</span><span class="p">(</span><span class="s">&#39;fiber2&#39;</span><span class="p">);</span><span class="c">%set the pile clump</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;fiber3&#39;</span><span class="p">,</span><span class="n">fiber3Id</span><span class="p">);</span><span class="c">%add a new group</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setClump</span><span class="p">(</span><span class="s">&#39;fiber3&#39;</span><span class="p">);</span><span class="c">%set the pile clump</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">delElement</span><span class="p">(</span><span class="s">&#39;botPlaten&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/setGroupId.m&#39;</span><span class="p">,</span><span class="n">d</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;groupId&#39;</span><span class="p">);</span>
+<span class="n">xlswrite</span><span class="p">(</span><span class="s">&#39;abc.xls&#39;</span><span class="p">,</span><span class="n">d</span><span class="p">.</span><span class="n">aX</span><span class="p">);</span>
+<span class="c">%</span>
 </code></pre></div></td></tr></table></div>
 </div>
 </div>

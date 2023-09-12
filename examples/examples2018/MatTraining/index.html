@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
     
     
       
@@ -1471,7 +1471,85 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Step 1</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_BoxMatTraining.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_BoxMatTraining.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">clear</span>
+<span class="c">%---------------set parameters for material training</span>
+<span class="n">matName</span><span class="p">=</span><span class="s">&#39;mxRock2&#39;</span><span class="p">;</span>
+<span class="n">matFile</span><span class="p">=[</span><span class="s">&#39;Mats\&#39;</span><span class="w"> </span><span class="n">matName</span><span class="w"> </span><span class="s">&#39;.txt&#39;</span><span class="p">];</span><span class="c">%material file, [E,v,Tu,Cu,Mui],Mui is coefficient of intrinsic friction</span>
+<span class="n">blockW</span><span class="p">=</span><span class="mf">0.1</span><span class="p">;</span><span class="n">blockL</span><span class="p">=</span><span class="mf">0.1</span><span class="p">;</span><span class="n">blockH</span><span class="p">=</span><span class="mf">0.2</span><span class="p">;</span><span class="n">ballR</span><span class="p">=</span><span class="mf">0.005</span><span class="p">;</span><span class="c">%width, length, height, radius</span>
+<span class="n">distriRate</span><span class="p">=</span><span class="mf">0.2</span><span class="p">;</span><span class="c">%define distribution of ball radius, value from 0 to 0.5</span>
+<span class="n">interationNum</span><span class="p">=</span><span class="mi">6</span><span class="p">;</span><span class="c">%number of interation, value from 3 to 6</span>
+
+<span class="n">randSeed</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span><span class="c">%change the seed to create a different model</span>
+<span class="n">saveFileLevel</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span><span class="c">%2:save all files, 1:save important files, 0: save one result file, -1: do not save</span>
+<span class="n">uniaxialStressRate</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="c">%default value is 1, generally do not have to change it</span>
+<span class="n">StandardBalanceNum</span><span class="p">=</span><span class="mi">20</span><span class="p">;</span><span class="c">%define the balance number of simulation, 1-50</span>
+
+<span class="c">%--------------build initial model</span>
+<span class="n">B</span><span class="p">=</span><span class="n">obj_Box</span><span class="p">;</span><span class="c">%build a box object</span>
+<span class="n">B</span><span class="p">.</span><span class="n">GPUstatus</span><span class="p">=</span><span class="s">&#39;auto&#39;</span><span class="p">;</span>
+<span class="n">B</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">makeUniaxialTestModel0</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">blockW</span><span class="p">,</span><span class="n">blockL</span><span class="p">,</span><span class="n">blockH</span><span class="p">,</span><span class="n">ballR</span><span class="p">,</span><span class="n">distriRate</span><span class="p">,</span><span class="n">randSeed</span><span class="p">);</span><span class="c">%build initial box model</span>
+
+<span class="c">%you may change element size here</span>
+<span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="n">matName</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">saveFileLevel</span><span class="p">=</span><span class="n">saveFileLevel</span><span class="p">;</span><span class="c">%save all related files</span>
+<span class="n">B</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">uniaxialStressRate</span><span class="p">=</span><span class="n">uniaxialStressRate</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">StandardBalanceNum</span><span class="p">=</span><span class="n">StandardBalanceNum</span><span class="p">;</span>
+<span class="c">%-------------assign material to model</span>
+<span class="n">B</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">makeUniaxialTestModel1</span><span class="p">(</span><span class="n">B</span><span class="p">);</span><span class="c">%sedimentation, data will be save in &#39;TempModel/boxUniaxial1.mat&#39;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%save file in &#39;TempModel&#39;, file name end with &#39;Step-1&#39;</span>
+<span class="n">mfs</span><span class="p">.</span><span class="n">makeUniaxialTestModel2</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">matFile</span><span class="p">);</span><span class="c">%set the material of the model</span>
+<span class="n">mfs</span><span class="p">.</span><span class="n">makeUniaxialTest</span><span class="p">(</span><span class="n">B</span><span class="p">);</span><span class="c">%calculate E,v,Tu,Cu of block, data will be saved in &#39;data&#39; and &#39;data/step&#39;</span>
+
+<span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="n">interationNum</span>
+<span class="w">    </span><span class="n">data</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">Mats</span><span class="p">{</span><span class="mi">1</span><span class="p">}.</span><span class="n">calculateRate</span><span class="p">();</span>
+<span class="w">    </span><span class="c">%-----------set material and joints, etc</span>
+<span class="w">    </span><span class="n">matSet</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">Mats</span><span class="p">{</span><span class="mi">1</span><span class="p">}.</span><span class="n">SET</span><span class="p">;</span><span class="c">%rate data is recorded in B.SET;</span>
+<span class="w">    </span><span class="n">B</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%load the saved file in &#39;TempModel&#39;</span>
+<span class="w">    </span><span class="n">mfs</span><span class="p">.</span><span class="n">makeUniaxialTestModel2</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">matFile</span><span class="p">,</span><span class="n">data</span><span class="p">.</span><span class="n">newRate</span><span class="p">);</span><span class="c">%apply the new rate</span>
+<span class="w">    </span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">Mats</span><span class="p">{</span><span class="mi">1</span><span class="p">}.</span><span class="n">SET</span><span class="p">=</span><span class="n">matSet</span><span class="p">;</span><span class="c">%assign the material rate data</span>
+<span class="w">    </span><span class="n">mfs</span><span class="p">.</span><span class="n">makeUniaxialTest</span><span class="p">(</span><span class="n">B</span><span class="p">);</span><span class="c">%calculate E,v,Tu,Cu of block, data will be saved in &#39;data&#39; and &#39;data/step&#39;</span>
+<span class="k">end</span>
+<span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">Mats</span><span class="p">{</span><span class="mi">1</span><span class="p">}.</span><span class="n">setTrainedMat</span><span class="p">();</span>
+<span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">Mats</span><span class="p">{</span><span class="mi">1</span><span class="p">}.</span><span class="n">save</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
 </div>
 </div>

@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
     
     
       
@@ -1131,19 +1131,441 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Step 1</label><label for="__tabbed_1_2">Step 2</label><label for="__tabbed_1_3">Step 3</label><label for="__tabbed_1_4">Step 4</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_L3PoreHydraulic1.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_L3PoreHydraulic1.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%step1: packing the elements</span>
+<span class="nb">clear</span><span class="p">;</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">randSeed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%random model seed, 1,2,3...</span>
+<span class="n">B</span><span class="p">=</span><span class="n">obj_Box</span><span class="p">;</span><span class="c">%declare a box object</span>
+<span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="s">&#39;PoreHydraulic&#39;</span><span class="p">;</span>
+<span class="c">%--------------initial model------------</span>
+<span class="n">B</span><span class="p">.</span><span class="n">GPUstatus</span><span class="p">=</span><span class="s">&#39;auto&#39;</span><span class="p">;</span><span class="c">%program will test the CPU and GPU speed, and choose the quicker one</span>
+<span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">=</span><span class="mf">0.002</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isShear</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isClump</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span><span class="c">%if isClump=1, particles are composed of several balls</span>
+<span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">=</span><span class="mf">0.2</span><span class="p">;</span><span class="c">%define distribution of ball radius, </span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="p">=</span><span class="mf">0.2</span><span class="p">;</span><span class="c">%width, length, height, average radius</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleL</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span><span class="c">%when L is zero, it is a 2-dimensional model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleH</span><span class="p">=</span><span class="mf">0.2</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">boundaryRrate</span><span class="p">=</span><span class="mf">0.999999</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">BexpandRate</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span><span class="c">%boundary is 4-ball wider than </span>
+<span class="n">B</span><span class="p">.</span><span class="n">PexpandRate</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isSample</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">type</span><span class="p">=</span><span class="s">&#39;TriaxialCompression&#39;</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setType</span><span class="p">();</span>
+<span class="n">B</span><span class="p">.</span><span class="n">buildInitialModel</span><span class="p">();</span><span class="c">%B.show();</span>
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span><span class="c">%d.breakGroup(&#39;sample&#39;);d.breakGroup(&#39;lefPlaten&#39;);</span>
+<span class="c">%you may change the size distribution of elements here, e.g. d.mo.aR=d.aR*0.95;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">showB</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="c">%--------------end initial model------------</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="c">%----------remove overlap platen elements</span>
+<span class="n">delId</span><span class="p">=[</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">topPlaten</span><span class="p">(</span><span class="k">end</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="k">end</span><span class="p">);</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">botPlaten</span><span class="p">(</span><span class="k">end</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="k">end</span><span class="p">)];</span>
+<span class="n">d</span><span class="p">.</span><span class="n">delElement</span><span class="p">(</span><span class="n">delId</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">zeroBalance</span><span class="p">();</span>
+<span class="c">%----------end remove overlap platen elements</span>
+
+<span class="c">%---------- gravity sedimentation</span>
+<span class="n">B</span><span class="p">.</span><span class="n">gravitySediment</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%you may use B.gravitySediment(10); to increase sedimentation time (10)</span>
+<span class="c">%------------return and save result--------------</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">dispEnergy</span><span class="p">();</span><span class="c">%display the energy of the model</span>
+<span class="n">d</span><span class="p">.</span><span class="n">Rrate</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%clear dependent data</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;Step1Finish&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;1.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;1R&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-distri&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w">  </span><span class="s">&#39;aNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;-Id&#39;</span><span class="p">);</span>
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_L3PoreHydraulic2.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_L3PoreHydraulic2.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%set the material of the model</span>
+<span class="nb">clear</span>
+<span class="nb">load</span><span class="p">(</span><span class="s">&#39;TempModel/PoreHydraulic1.mat&#39;</span><span class="p">);</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span><span class="c">%set output of message</span>
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">getModel</span><span class="p">();</span><span class="c">%get xyz from d.mo</span>
+
+<span class="c">%----------set material of model</span>
+<span class="n">matTxt</span><span class="p">=</span><span class="nb">load</span><span class="p">(</span><span class="s">&#39;Mats\RockHydro.txt&#39;</span><span class="p">);</span>
+<span class="n">Mats</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">}=</span><span class="nb">material</span><span class="p">(</span><span class="s">&#39;RockHydro&#39;</span><span class="p">,</span><span class="n">matTxt</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">);</span>
+<span class="n">Mats</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">}.</span><span class="n">Id</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">Mats</span><span class="p">=</span><span class="n">Mats</span><span class="p">;</span>
+<span class="c">%----------end set material of model</span>
+
+<span class="c">%---------assign material to layers and balance the model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setPlatenFixId</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setGroupMat</span><span class="p">(</span><span class="s">&#39;sample&#39;</span><span class="p">,</span><span class="s">&#39;RockHydro&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">groupMat2Model</span><span class="p">({</span><span class="s">&#39;sample&#39;</span><span class="p">});</span>
+<span class="n">d</span><span class="p">.</span><span class="n">balanceBondedModel0</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">(</span><span class="s">&#39;Standard&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="c">%---------end assign material to layers and balance the model1. </span>
+
+<span class="c">%---------save the data</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;Step2Finish&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;2.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;2R&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-distri&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w">  </span><span class="s">&#39;aNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_L3PoreHydraulic3.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_L3PoreHydraulic3.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">clear</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">randSeed</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="nb">load</span><span class="p">(</span><span class="s">&#39;TempModel/PoreHydraulic2.mat&#39;</span><span class="p">);</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span>
+
+<span class="c">%--------initializing the model</span>
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">getModel</span><span class="p">();</span><span class="c">%get xyz from d.mo</span>
+<span class="n">d</span><span class="p">.</span><span class="n">showB</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">deleteConnection</span><span class="p">(</span><span class="s">&#39;boundary&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">Rrate</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">getModel</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">isCrack</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">bFilter</span><span class="p">(:)=</span><span class="nb">true</span><span class="p">;</span><span class="c">%break all connections</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">zeroBalance</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">mVis</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">mVis</span><span class="o">./</span><span class="n">d</span><span class="p">.</span><span class="n">vRate</span><span class="o">*</span><span class="mf">0.001</span><span class="p">;</span><span class="c">%use uniform viscosity</span>
+
+<span class="n">p</span><span class="p">=</span><span class="n">pore</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="o">/</span><span class="mi">5</span><span class="p">;</span><span class="c">%use small step time</span>
+<span class="n">p</span><span class="p">.</span><span class="n">dT</span><span class="p">=</span><span class="n">p</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="p">;</span>
+<span class="n">p</span><span class="p">.</span><span class="n">pathLimitRate</span><span class="p">=</span><span class="mf">0.3</span><span class="p">;</span><span class="c">%path diameter&lt;pathLimitRate*ballR will be connection</span>
+<span class="n">p</span><span class="p">.</span><span class="n">isCouple</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="c">%fluid-solid coupling</span>
+<span class="n">p</span><span class="p">.</span><span class="n">setInitialPores</span><span class="p">();</span>
+<span class="n">p</span><span class="p">.</span><span class="n">setPlaten</span><span class="p">(</span><span class="s">&#39;fix&#39;</span><span class="p">);</span><span class="c">%fix the coordinates of platens</span>
+<span class="c">%---------end initializing the model</span>
+
+<span class="c">%----------set the drawing of result during iterations</span>
+<span class="nb">setappdata</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s">&#39;simpleFigure&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="c">%use simpleFigure to increase drawing speed</span>
+<span class="c">%setappdata(0,&#39;ballRate&#39;,0.01);%use small ballRate to increase drawing speed</span>
+<span class="n">showType</span><span class="p">=</span><span class="s">&#39;*pPressure&#39;</span><span class="p">;</span>
+<span class="n">figureNumber</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;mV&#39;</span><span class="p">);</span><span class="c">%define figureNumber, figure will shown in one form during iterations</span>
+<span class="n">d</span><span class="p">.</span><span class="n">figureNumber</span><span class="p">=</span><span class="n">figureNumber</span><span class="p">;</span>
+<span class="c">%----------end set the drawing of result during iterations</span>
+
+<span class="c">%---------calculate connection diameter and flow K</span>
+<span class="n">k</span><span class="p">=</span><span class="mf">0.00000001</span><span class="p">;</span><span class="c">%permeability factor</span>
+<span class="c">%---------end calcualte connection diameter and flow K</span>
+<span class="n">k</span><span class="p">=</span><span class="n">k</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span><span class="c">%change the permeability</span>
+
+<span class="n">pPressureHigh</span><span class="p">=</span><span class="n">p</span><span class="p">.</span><span class="n">pPressure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">5000</span><span class="p">;</span><span class="c">%use greater pressure</span>
+<span class="c">%---------setting of the simulation</span>
+<span class="n">totalCircle</span><span class="p">=</span><span class="mi">10</span><span class="p">;</span>
+<span class="n">stepNum</span><span class="p">=</span><span class="mi">100</span><span class="p">;</span>
+<span class="n">fName</span><span class="p">=[</span><span class="s">&#39;data/step/2&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;loopNum&#39;</span><span class="p">];</span>
+<span class="nb">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="s">&#39;0.mat&#39;</span><span class="p">]);</span><span class="c">%return;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">tic</span><span class="p">(</span><span class="n">totalCircle</span><span class="p">);</span><span class="c">%record the initial time of loop</span>
+
+<span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="n">totalCircle</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nb">j</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="n">stepNum</span>
+<span class="w">        </span><span class="n">cDiameterFlow</span><span class="p">=</span><span class="n">p</span><span class="p">.</span><span class="n">cDiameter</span><span class="o">+</span><span class="n">p</span><span class="p">.</span><span class="n">cDiameterAdd</span><span class="p">;</span><span class="c">%calculate the diameter of</span>
+<span class="w">        </span><span class="n">cDiameterFlow</span><span class="p">(</span><span class="n">cDiameterFlow</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)=</span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">p</span><span class="p">.</span><span class="n">cKFlow</span><span class="p">=</span><span class="n">cDiameterFlow</span><span class="o">*</span><span class="n">k</span><span class="o">./</span><span class="n">p</span><span class="p">.</span><span class="n">cPathLength</span><span class="p">;</span><span class="c">%default K of throat is determined by diameter and path length</span>
+<span class="w">        </span><span class="n">p</span><span class="p">.</span><span class="n">setBallPressure</span><span class="p">(</span><span class="mi">210</span><span class="p">,</span><span class="n">pPressureHigh</span><span class="p">);</span><span class="c">%you may fix the element</span>
+<span class="w">        </span><span class="n">p</span><span class="p">.</span><span class="n">balance</span><span class="p">();</span>
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">();</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="c">%cla;%clear the previous figure</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="n">showType</span><span class="p">);</span>
+<span class="w">    </span><span class="nb">pause</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span><span class="c">%pause and show the figure</span>
+<span class="w">    </span><span class="nb">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span><span class="c">%save data</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">recordStatus</span><span class="p">();</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">toc</span><span class="p">();</span>
+<span class="k">end</span>
+<span class="c">%---------save the data</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;Step3Finish&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;3.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;3R&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-distri&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w">  </span><span class="s">&#39;aNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_L3PoreHydraulicStatic3.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_L3PoreHydraulicStatic3.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%set the material of the model</span>
+<span class="nb">clear</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">randSeed</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="nb">load</span><span class="p">(</span><span class="s">&#39;TempModel/PoreHydraulic2.mat&#39;</span><span class="p">);</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span>
+<span class="c">%---------------regular setting</span>
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">getModel</span><span class="p">();</span><span class="c">%get xyz from d.mo</span>
+<span class="n">d</span><span class="p">.</span><span class="n">showB</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">deleteConnection</span><span class="p">(</span><span class="s">&#39;boundary&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">Rrate</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">getModel</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">isCrack</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="c">%---------------end regular setting</span>
+
+<span class="c">%-------------initializing the pore network</span>
+<span class="n">p</span><span class="p">=</span><span class="n">pore</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+<span class="n">p</span><span class="p">.</span><span class="n">dT</span><span class="p">=</span><span class="n">p</span><span class="p">.</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="p">;</span>
+<span class="n">p</span><span class="p">.</span><span class="n">pathLimitRate</span><span class="p">=</span><span class="mf">0.3</span><span class="p">;</span><span class="c">%path diameter&lt;pathLimitRate*ballR will be connection</span>
+<span class="n">p</span><span class="p">.</span><span class="n">isCouple</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span><span class="c">%fluid-solid coupling</span>
+<span class="n">p</span><span class="p">.</span><span class="n">setInitialPores</span><span class="p">();</span>
+<span class="n">p</span><span class="p">.</span><span class="n">setPlaten</span><span class="p">(</span><span class="s">&#39;fix&#39;</span><span class="p">);</span><span class="c">%fix the coordinates of platens</span>
+<span class="c">%-------------end initializing the pore network</span>
+
+<span class="c">%-----------------set cracks in the model</span>
+<span class="n">C</span><span class="p">=</span><span class="n">Tool_Cut</span><span class="p">(</span><span class="n">d</span><span class="p">);</span><span class="c">%cut the model</span>
+<span class="n">lSurf</span><span class="p">=[</span><span class="mf">0.3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">;</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">;</span><span class="mi">20</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span><span class="o">/</span><span class="mi">100</span><span class="p">;</span><span class="c">%load the surface data</span>
+<span class="n">lSurf2</span><span class="p">=[</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">;</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">]</span><span class="o">/</span><span class="mi">100</span><span class="p">;</span><span class="c">%load the surface data</span>
+<span class="n">C</span><span class="p">.</span><span class="n">addSurf</span><span class="p">(</span><span class="n">lSurf</span><span class="p">);</span><span class="c">%add the surfaces to the cut</span>
+<span class="n">C</span><span class="p">.</span><span class="n">addSurf</span><span class="p">(</span><span class="n">lSurf2</span><span class="p">);</span><span class="c">%add the surfaces to the cut</span>
+<span class="n">s1Filter</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">setSurfBond</span><span class="p">(</span><span class="n">C</span><span class="p">.</span><span class="n">Surf</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="s">&#39;break&#39;</span><span class="p">);</span>
+<span class="n">s2Filter</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">setSurfBond</span><span class="p">(</span><span class="n">C</span><span class="p">.</span><span class="n">Surf</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="s">&#39;break&#39;</span><span class="p">);</span>
+<span class="c">%-----------------end set cracks in the model</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;--&#39;</span><span class="p">);</span>
+<span class="n">C</span><span class="p">.</span><span class="n">showSurf</span><span class="p">();</span>
+
+<span class="c">%---------calculate connection diameter and flow K</span>
+<span class="n">k</span><span class="p">=</span><span class="mf">0.00000001</span><span class="p">;</span><span class="c">%permeability factor</span>
+<span class="c">%---------end calcualte connection diameter and flow K</span>
+<span class="n">k</span><span class="p">=</span><span class="n">k</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
+<span class="n">pPressureHigh</span><span class="p">=</span><span class="n">p</span><span class="p">.</span><span class="n">pPressure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">10000</span><span class="p">;</span><span class="c">%use greater pressure</span>
+
+<span class="k">for</span><span class="w"> </span><span class="nb">step</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">2000</span>
+<span class="w">    </span><span class="n">cDiameterFlow</span><span class="p">=</span><span class="n">p</span><span class="p">.</span><span class="n">cDiameter</span><span class="o">+</span><span class="n">p</span><span class="p">.</span><span class="n">cDiameterAdd</span><span class="p">;</span><span class="c">%calculate the diameter of</span>
+<span class="w">    </span><span class="n">cDiameterFlow</span><span class="p">(</span><span class="n">cDiameterFlow</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)=</span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cbFilter</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">bFilter</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">cnIndex</span><span class="p">);</span><span class="c">%bonded filter of cList</span>
+<span class="w">    </span><span class="n">cs1Filter</span><span class="p">=</span><span class="n">s1Filter</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">cnIndex</span><span class="p">);</span><span class="c">%s2Filter, select connection of crack 2</span>
+<span class="w">    </span><span class="n">cs2Filter</span><span class="p">=</span><span class="n">s2Filter</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">cnIndex</span><span class="p">);</span><span class="c">%s2Filter, select connection of crack 2</span>
+
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">cKFlow</span><span class="p">=</span><span class="n">cDiameterFlow</span><span class="o">*</span><span class="n">k</span><span class="o">./</span><span class="n">p</span><span class="p">.</span><span class="n">cPathLength</span><span class="p">;</span><span class="c">%default K of throat is determined by diameter and path length</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">cKFlow</span><span class="p">(</span><span class="n">cbFilter</span><span class="p">)=</span><span class="n">p</span><span class="p">.</span><span class="n">cKFlow</span><span class="p">(</span><span class="n">cbFilter</span><span class="p">)</span><span class="o">*</span><span class="mf">0.01</span><span class="p">;</span><span class="c">%K of intacted bond is very small</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">cKFlow</span><span class="p">(</span><span class="n">cs1Filter</span><span class="p">)=</span><span class="n">p</span><span class="p">.</span><span class="n">cKFlow</span><span class="p">(</span><span class="n">cs1Filter</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span><span class="c">%bottom crack K is greater</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">cKFlow</span><span class="p">(</span><span class="n">cs2Filter</span><span class="p">)=</span><span class="n">p</span><span class="p">.</span><span class="n">cKFlow</span><span class="p">(</span><span class="n">cs2Filter</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">;</span><span class="c">%top crack K is greater</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">setBallPressure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">pPressureHigh</span><span class="p">);</span><span class="c">%you may fix the element</span>
+<span class="w">    </span><span class="n">p</span><span class="p">.</span><span class="n">balance</span><span class="p">();</span>
+<span class="k">end</span>
+<span class="n">p</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;pPressure&#39;</span><span class="p">);</span>
+
+<span class="c">%---------save the data</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;Step3Finish&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;3.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;3R&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-distri&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w">  </span><span class="s">&#39;aNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
 </div>
 </div>

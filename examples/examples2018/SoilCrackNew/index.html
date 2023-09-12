@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
     
     
       
@@ -1471,11 +1471,251 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Step 1</label><label for="__tabbed_1_2">Step 2</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_L2SoilCrackNew1.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_L2SoilCrackNew1.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%the example shows how to build a model without the Obj_Box</span>
+<span class="c">%build the geometrical model</span>
+<span class="nb">clear</span><span class="p">;</span>
+<span class="c">%------------------initializing parameters</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">randSeed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%build random model</span>
+<span class="n">diameter</span><span class="p">=</span><span class="mf">0.001</span><span class="p">;</span>
+<span class="n">xyNumber</span><span class="p">=</span><span class="mi">20</span><span class="p">;</span>
+<span class="n">zNumber</span><span class="p">=</span><span class="mi">6</span><span class="p">;</span>
+<span class="n">modelW</span><span class="p">=</span><span class="n">xyNumber</span><span class="o">*</span><span class="n">diameter</span><span class="p">;</span><span class="c">%width, length and thickness of model</span>
+<span class="n">modelL</span><span class="p">=</span><span class="n">xyNumber</span><span class="o">*</span><span class="n">diameter</span><span class="p">;</span>
+<span class="n">modelT</span><span class="p">=</span><span class="n">zNumber</span><span class="o">*</span><span class="n">diameter</span><span class="p">;</span>
+<span class="n">elementR</span><span class="p">=</span><span class="n">diameter</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span><span class="c">%ball radius</span>
+<span class="c">%------------------end initializing parameters</span>
+
+<span class="c">%------------------build initial model</span>
+<span class="n">d</span><span class="p">=</span><span class="n">build</span><span class="p">();</span><span class="c">%make a build object</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">g</span><span class="p">=</span><span class="o">-</span><span class="mf">9.8</span><span class="p">;</span><span class="c">%gravitational acceleration</span>
+<span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="s">&#39;SoilCrack&#39;</span><span class="p">;</span><span class="c">%the name of the simulation</span>
+<span class="n">clay</span><span class="p">=</span><span class="nb">material</span><span class="p">(</span><span class="s">&#39;clay&#39;</span><span class="p">);</span><span class="c">%define a new material</span>
+<span class="n">clay</span><span class="p">.</span><span class="n">setMaterial</span><span class="p">(</span><span class="mf">3e5</span><span class="p">,</span><span class="mf">0.18</span><span class="p">,</span><span class="mf">1e3</span><span class="p">,</span><span class="mf">1e3</span><span class="p">,</span><span class="mf">0.7</span><span class="p">,</span><span class="n">diameter</span><span class="p">,</span><span class="mi">1800</span><span class="p">);</span><span class="c">%set the E,v,Tu,Cu,Mui, it is not trained</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addMaterial</span><span class="p">(</span><span class="n">clay</span><span class="p">);</span><span class="c">%add the material to the model</span>
+<span class="n">Mo</span><span class="p">=</span><span class="n">fs</span><span class="p">.</span><span class="n">setBlock</span><span class="p">(</span><span class="n">modelW</span><span class="p">,</span><span class="n">modelL</span><span class="p">,</span><span class="n">modelT</span><span class="p">,</span><span class="n">elementR</span><span class="p">);</span>
+<span class="n">Bo</span><span class="p">=</span><span class="n">fs</span><span class="p">.</span><span class="n">setBoundary</span><span class="p">(</span><span class="n">Mo</span><span class="p">.</span><span class="n">X</span><span class="p">,</span><span class="n">Mo</span><span class="p">.</span><span class="n">Y</span><span class="p">,</span><span class="n">Mo</span><span class="p">.</span><span class="n">Z</span><span class="p">,</span><span class="n">Mo</span><span class="p">.</span><span class="n">R</span><span class="p">,</span><span class="s">&#39;model&#39;</span><span class="p">,[</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">]);</span><span class="c">%set top- and bottom boundaries</span>
+<span class="n">Mo</span><span class="p">.</span><span class="n">X</span><span class="p">=</span><span class="n">Bo</span><span class="p">.</span><span class="n">mX</span><span class="p">;</span><span class="n">Mo</span><span class="p">.</span><span class="n">Y</span><span class="p">=</span><span class="n">Bo</span><span class="p">.</span><span class="n">mY</span><span class="p">;</span><span class="n">Mo</span><span class="p">.</span><span class="n">Z</span><span class="p">=</span><span class="n">Bo</span><span class="p">.</span><span class="n">mZ</span><span class="p">;</span><span class="n">Mo</span><span class="p">.</span><span class="n">R</span><span class="p">=</span><span class="n">Bo</span><span class="p">.</span><span class="n">mR</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">bIndex</span><span class="p">=</span><span class="n">Bo</span><span class="p">.</span><span class="n">bIndex</span><span class="p">;</span>
+<span class="c">%initialize the coordinates of boundary balls and radius</span>
+<span class="n">d</span><span class="p">.</span><span class="n">aX</span><span class="p">=[</span><span class="n">Mo</span><span class="p">.</span><span class="n">X</span><span class="p">;</span><span class="n">Bo</span><span class="p">.</span><span class="n">X</span><span class="p">];</span><span class="n">d</span><span class="p">.</span><span class="n">aY</span><span class="p">=[</span><span class="n">Mo</span><span class="p">.</span><span class="n">Y</span><span class="p">;</span><span class="n">Bo</span><span class="p">.</span><span class="n">Y</span><span class="p">];</span><span class="n">d</span><span class="p">.</span><span class="n">aZ</span><span class="p">=[</span><span class="n">Mo</span><span class="p">.</span><span class="n">Z</span><span class="p">;</span><span class="n">Bo</span><span class="p">.</span><span class="n">Z</span><span class="p">];</span>
+<span class="n">d</span><span class="p">.</span><span class="n">aR</span><span class="p">=[</span><span class="n">Mo</span><span class="p">.</span><span class="n">R</span><span class="p">;</span><span class="n">Bo</span><span class="p">.</span><span class="n">R</span><span class="p">];</span>
+<span class="n">d</span><span class="p">.</span><span class="n">vRate</span><span class="p">=</span><span class="n">Mo</span><span class="p">.</span><span class="n">vRate</span><span class="p">;</span><span class="c">%optimized viscisity rate</span>
+<span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">=</span><span class="nb">length</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aR</span><span class="p">);</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="p">=</span><span class="nb">length</span><span class="p">(</span><span class="n">Mo</span><span class="p">.</span><span class="n">R</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">aMatId</span><span class="p">=</span><span class="nb">ones</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aR</span><span class="p">))</span><span class="o">*</span><span class="n">clay</span><span class="p">.</span><span class="n">Id</span><span class="p">;</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">setBuild</span><span class="p">();</span><span class="c">%set the data in build object, i.e. d</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setModel</span><span class="p">();</span><span class="c">%set the data in model object, i.e. d.mo</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">isHeat</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="c">%calculation of heat</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">isCrack</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="c">%record crack information</span>
+<span class="c">%------------------end build initial model</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;auto&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">(</span><span class="s">&#39;Standard&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">);</span>
+
+<span class="c">%------------return and save result--------------</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">dispEnergy</span><span class="p">();</span><span class="c">%display the energy of the model</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%clear dependent data</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;SoilCrack1Finish&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;1.mat&#39;</span><span class="p">],</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_L2SoilCrackNew2.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_L2SoilCrackNew2.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">clear</span>
+<span class="nb">load</span><span class="p">(</span><span class="s">&#39;TempModel/SoilCrack1.mat&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+<span class="n">normFactor</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span><span class="c">%all element has the same properties when normFactor is 0</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">randSeed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%determine </span>
+
+<span class="n">initialWC</span><span class="p">=</span><span class="mf">0.5</span><span class="p">;</span><span class="c">%initial water content is 50%</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">aWC</span><span class="p">=</span><span class="nb">ones</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">initialWC</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">mWater</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">mM</span><span class="o">.*</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">aWC</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">aWC</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)=</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="c">%-1 indicates isulated boundary</span>
+<span class="n">normDistri</span><span class="p">=</span><span class="n">fs</span><span class="p">.</span><span class="n">getDistribution</span><span class="p">(</span><span class="s">&#39;norm&#39;</span><span class="p">,</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">,</span><span class="n">normFactor</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aBF</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aBF</span><span class="o">.*</span><span class="n">normDistri</span><span class="p">;</span><span class="c">%cracking is mainly influenced by normal breaking force</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">mixProperty</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="s">&#39;aBF&#39;</span><span class="p">);</span><span class="c">%value of d.aBF of element is influenced by element neighbors</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="o">*</span><span class="mi">4</span><span class="p">;</span><span class="c">%increase the speed of calculation</span>
+
+<span class="n">totalCircle</span><span class="p">=</span><span class="mi">10</span><span class="p">;</span>
+<span class="n">stepNum</span><span class="p">=</span><span class="mi">10</span><span class="p">;</span><span class="c">%see the teaching video and to increase the stepNum</span>
+<span class="n">d</span><span class="p">.</span><span class="n">tic</span><span class="p">(</span><span class="n">totalCircle</span><span class="o">*</span><span class="n">stepNum</span><span class="p">);</span>
+<span class="n">fName</span><span class="p">=[</span><span class="s">&#39;data/step/&#39;</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;loopNum&#39;</span><span class="p">];</span>
+<span class="nb">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="s">&#39;0.mat&#39;</span><span class="p">]);</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">disp</span><span class="p">(</span><span class="s">&#39;Start calculation&#39;</span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="n">totalCircle</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nb">j</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="n">stepNum</span>
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">toc</span><span class="p">();</span><span class="c">%show the note of time</span>
+<span class="w">        </span><span class="c">%---------------1. determine the surface of the model</span>
+<span class="w">        </span><span class="n">cbFilter</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">cFilter</span><span class="o">|</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">bFilter</span><span class="p">;</span>
+<span class="w">        </span><span class="n">mConnectNum</span><span class="p">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">cbFilter</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="w">        </span><span class="c">%when connection number of an element is &lt;= 10, it is a surface</span>
+<span class="w">        </span><span class="c">%element</span>
+<span class="w">        </span><span class="n">mSurfaceFilter</span><span class="p">=(</span><span class="n">mConnectNum</span><span class="o">&lt;=</span><span class="mi">10</span><span class="p">);</span><span class="c">%this limit must be lower than 12, it can be 11 or 10</span>
+<span class="w">        </span><span class="c">%-----2. calculate new water content of surface elements</span>
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">aWC</span><span class="p">(</span><span class="n">mSurfaceFilter</span><span class="p">)=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">aWC</span><span class="p">(</span><span class="n">mSurfaceFilter</span><span class="p">)</span><span class="o">*</span><span class="mf">0.999</span><span class="p">;</span><span class="c">%water content of surface element reduces</span>
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">mWater</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">mM</span><span class="o">.*</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">aWC</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c">%-----3. update element radius and properties according to water content</span>
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aR</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="p">)=</span><span class="n">d</span><span class="p">.</span><span class="n">aR</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="p">)</span><span class="o">.*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mf">0.1</span><span class="o">*</span><span class="p">(</span><span class="n">initialWC</span><span class="o">-</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">aWC</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="p">))</span><span class="o">/</span><span class="n">initialWC</span><span class="p">);</span><span class="c">%describe how radius varies with water content</span>
+<span class="w">        </span><span class="c">%d.mo.setNearbyBall();%if elements are expanded, the command is required</span>
+<span class="w">        </span><span class="c">%here, you may modify other properties of elements when aWC changed</span>
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">balance</span><span class="p">();</span><span class="c">%calculation</span>
+
+<span class="w">        </span><span class="c">%-----4. calculate the water content difference, nWaterDiff</span>
+<span class="w">        </span><span class="n">nRow</span><span class="p">=</span><span class="nb">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">size</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">nBall</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span><span class="c">%a row whose width is the same as nBall  </span>
+<span class="w">        </span><span class="n">nWaterDiff</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">aWC</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">nBall</span><span class="p">)</span><span class="o">-</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">aWC</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="p">)</span><span class="o">*</span><span class="n">nRow</span><span class="p">;</span><span class="c">%difference of water content bewteen elements and neighbors</span>
+<span class="w">        </span><span class="n">nWaterDiff</span><span class="p">(</span><span class="o">~</span><span class="n">cbFilter</span><span class="p">)=</span><span class="mi">0</span><span class="p">;</span><span class="c">%if elements are not connected, water differences are zero</span>
+<span class="w">        </span><span class="n">nWC</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">aWC</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">nBall</span><span class="p">);</span><span class="c">%water content of neighboring elements</span>
+<span class="w">        </span><span class="n">nWaterDiff</span><span class="p">(</span><span class="n">nWC</span><span class="o">==-</span><span class="mi">1</span><span class="p">)=</span><span class="mi">0</span><span class="p">;</span><span class="c">%boundary is isulated, water content differences also are zero</span>
+<span class="w">        </span><span class="c">%-----5. water migation</span>
+<span class="w">        </span><span class="n">nK</span><span class="p">=</span><span class="mf">0.00000002</span><span class="p">;</span><span class="c">%because all elements have the same size, a uniform K is used, in case of different element radius, K will be a matrix (like nBall)</span>
+<span class="w">        </span><span class="n">nWaterFlow</span><span class="p">=</span><span class="n">nWaterDiff</span><span class="o">.*</span><span class="n">nK</span><span class="p">;</span><span class="c">%similar to darcy flow</span>
+<span class="w">        </span><span class="n">mWaterFlow</span><span class="p">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">nWaterFlow</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span><span class="c">%variation of water flow</span>
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">mWater</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">mWater</span><span class="o">+</span><span class="n">mWaterFlow</span><span class="p">;</span><span class="c">%new water mass of element</span>
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">aWC</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="p">)=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">SET</span><span class="p">.</span><span class="n">mWater</span><span class="o">./</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">mM</span><span class="p">;</span><span class="c">%calculate water content</span>
+
+<span class="w">        </span><span class="n">d</span><span class="p">.</span><span class="n">recordStatus</span><span class="p">();</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="c">%clear and save data</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="nb">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="k">end</span>
+
+<span class="n">fs</span><span class="p">.</span><span class="n">disp</span><span class="p">(</span><span class="s">&#39;Calculation finished&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">showB</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;SETaWC&#39;</span><span class="p">);</span><span class="c">%show the data in d.mo.SET.aWC</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;SoilCrack2Finish&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;-normFactor&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">normFactor</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-2.mat&#39;</span><span class="p">]);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
 </div>
 </div>

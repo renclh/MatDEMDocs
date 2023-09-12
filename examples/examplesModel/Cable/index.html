@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.7">
     
     
       
@@ -1191,7 +1191,171 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Step 1</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_Cable.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_Cable.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%the code shows how to make noodles object from 2D disc</span>
+<span class="c">%step 1.1: define the parameters of modeling</span>
+<span class="nb">clear</span><span class="p">;</span>
+<span class="n">dAngle1</span><span class="p">=</span><span class="mi">360</span><span class="o">/</span><span class="mi">14</span><span class="p">;</span><span class="c">%rotation angle of disc in each copy</span>
+<span class="n">curveR</span><span class="p">=</span><span class="mf">0.003</span><span class="p">;</span>
+<span class="n">curveH</span><span class="p">=</span><span class="mf">0.02</span><span class="p">;</span>
+<span class="n">circle</span><span class="p">=</span><span class="mi">5</span><span class="p">;</span>
+<span class="n">discR</span><span class="p">=</span><span class="mf">0.001</span><span class="p">;</span>
+<span class="n">ballR</span><span class="p">=</span><span class="mf">0.00025</span><span class="p">;</span>
+<span class="n">dDis</span><span class="p">=</span><span class="n">ballR</span><span class="o">*</span><span class="mf">1.2</span><span class="p">;</span><span class="c">%displacement of disc in each copy</span>
+
+<span class="n">Lwidth</span><span class="p">=</span><span class="n">ballR</span><span class="o">*</span><span class="mi">6</span><span class="p">;</span>
+<span class="n">Lheight</span><span class="p">=</span><span class="n">ballR</span><span class="o">*</span><span class="mi">6</span><span class="p">;</span>
+<span class="n">dAngle2</span><span class="p">=</span><span class="mi">10</span><span class="p">;</span><span class="c">%rotation angle of L shape in each copy</span>
+
+<span class="c">%step 1.2: define the path of the noodles</span>
+<span class="n">t</span><span class="p">=</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.01</span><span class="p">:(</span><span class="n">circle</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="p">);</span>
+<span class="n">X1</span><span class="p">=</span><span class="n">curveR</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">t</span><span class="p">);</span><span class="c">%path X, Y, Z</span>
+<span class="n">Y1</span><span class="p">=</span><span class="n">curveR</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+<span class="n">Z1</span><span class="p">=</span><span class="n">curveH</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="nb">max</span><span class="p">(</span><span class="n">t</span><span class="p">));</span>
+<span class="c">%plot3(X1,Y1,Z1);axis equal;%show the path</span>
+
+<span class="n">t</span><span class="p">=</span><span class="mi">0</span><span class="p">:</span><span class="mf">0.01</span><span class="p">:(</span><span class="n">circle</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="p">);</span>
+<span class="n">X2</span><span class="p">=</span><span class="n">curveR</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">t</span><span class="p">);</span><span class="c">%path X, Y, Z</span>
+<span class="n">Y2</span><span class="p">=</span><span class="n">curveR</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+<span class="n">Z2</span><span class="p">=</span><span class="n">curveH</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="nb">max</span><span class="p">(</span><span class="n">t</span><span class="p">));</span>
+<span class="nb">plot3</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span><span class="n">Y2</span><span class="p">,</span><span class="n">Z2</span><span class="p">);</span><span class="nb">axis</span><span class="w"> </span><span class="n">equal</span><span class="p">;</span><span class="c">%show the path</span>
+
+<span class="c">%step 1.3: make 3D noodles object according to a disc and a path</span>
+<span class="n">discObj0</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/makeDisc.m&#39;</span><span class="p">,</span><span class="n">discR</span><span class="p">,</span><span class="n">ballR</span><span class="p">);</span><span class="c">%define the basic disc</span>
+<span class="c">%allObj=mfs.make3DalongPath(discObj0,X,Y,Z,dDis,dAngle);</span>
+<span class="n">allDiscObj</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/make3DalongPath.m&#39;</span><span class="p">,</span><span class="n">discObj0</span><span class="p">,</span><span class="n">X1</span><span class="p">,</span><span class="n">Y1</span><span class="p">,</span><span class="n">Z1</span><span class="p">,</span><span class="n">dDis</span><span class="p">,</span><span class="n">dAngle1</span><span class="p">);</span>
+
+<span class="n">Rrate</span><span class="p">=</span><span class="mf">0.8</span><span class="p">;</span>
+<span class="n">LObj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">makeLShape</span><span class="p">(</span><span class="n">Lwidth</span><span class="p">,</span><span class="w"> </span><span class="n">Lheight</span><span class="p">,</span><span class="w"> </span><span class="n">ballR</span><span class="o">*</span><span class="mf">0.8</span><span class="p">);</span>
+<span class="n">LObj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">LObj</span><span class="p">,</span><span class="s">&#39;YZ&#39;</span><span class="p">,</span><span class="o">-</span><span class="mi">90</span><span class="p">);</span>
+<span class="n">LObj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">moveObj2Origin</span><span class="p">(</span><span class="n">LObj</span><span class="p">);</span>
+<span class="n">LObj</span><span class="p">.</span><span class="n">R</span><span class="p">=</span><span class="n">LObj</span><span class="p">.</span><span class="n">R</span><span class="o">/</span><span class="n">Rrate</span><span class="p">;</span>
+<span class="n">allLObj</span><span class="p">=</span><span class="n">f</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;fun/make3DalongPath.m&#39;</span><span class="p">,</span><span class="n">LObj</span><span class="p">,</span><span class="n">X1</span><span class="p">,</span><span class="n">Y1</span><span class="p">,</span><span class="n">Z1</span><span class="p">,</span><span class="n">dDis</span><span class="p">,</span><span class="n">dAngle2</span><span class="p">);</span>
+
+<span class="n">allDiscObj</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">align2Value</span><span class="p">(</span><span class="s">&#39;bottom&#39;</span><span class="p">,</span><span class="n">allDiscObj</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">sampleH</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">getObjEdge</span><span class="p">(</span><span class="s">&#39;top&#39;</span><span class="p">,</span><span class="n">allDiscObj</span><span class="p">);</span>
+<span class="n">sampleW</span><span class="p">=</span><span class="n">sampleH</span><span class="p">;</span><span class="n">sampleL</span><span class="p">=</span><span class="n">sampleH</span><span class="p">;</span>
+<span class="n">allDiscObj1</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">allDiscObj</span><span class="p">,</span><span class="n">sampleW</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="n">sampleH</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="n">allLObj2</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">move</span><span class="p">(</span><span class="n">allLObj</span><span class="p">,</span><span class="n">sampleW</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">sampleH</span><span class="o">*</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">allLObj2</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">align2Value</span><span class="p">(</span><span class="s">&#39;bottom&#39;</span><span class="p">,</span><span class="n">allLObj2</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="c">%step 2: make a box and import the objects</span>
+<span class="n">B</span><span class="p">=</span><span class="n">obj_Box</span><span class="p">;</span><span class="c">%declare a box object</span>
+<span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="s">&#39;Cable&#39;</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">=</span><span class="n">ballR</span><span class="p">;</span><span class="c">%element radius</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="p">=</span><span class="n">sampleW</span><span class="p">;</span><span class="c">%width, length, height</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleL</span><span class="p">=</span><span class="n">sampleL</span><span class="p">;</span><span class="c">%when L is zero, it is a 2-dimensional model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleH</span><span class="p">=</span><span class="n">sampleH</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isSample</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span><span class="c">%</span>
+<span class="n">B</span><span class="p">.</span><span class="n">boundaryStatus</span><span class="p">=[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span><span class="c">%left, right, front, back, bottom and top sides</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setType</span><span class="p">(</span><span class="s">&#39;botPlaten&#39;</span><span class="p">);</span><span class="c">%add a top platen to compact model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">buildInitialModel</span><span class="p">();</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span>
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+
+<span class="p">[</span><span class="n">cableId1</span><span class="p">,</span><span class="n">cableId2</span><span class="p">]=</span><span class="n">d</span><span class="p">.</span><span class="n">addElement</span><span class="p">(</span><span class="mi">1</span><span class="p">,{</span><span class="n">allDiscObj1</span><span class="p">,</span><span class="n">allLObj2</span><span class="p">});</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;Cable1&#39;</span><span class="p">,</span><span class="n">cableId1</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setClump</span><span class="p">(</span><span class="s">&#39;Cable1&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;Cable2&#39;</span><span class="p">,</span><span class="n">cableId2</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setClump</span><span class="p">(</span><span class="s">&#39;Cable2&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setShear</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">zeroBalance</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">resetStatus</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">mVis</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">mVis</span><span class="o">*</span><span class="mf">0.01</span><span class="p">;</span>
+
+<span class="c">%step 3: drop of the two noodles</span>
+<span class="n">fName</span><span class="p">=[</span><span class="s">&#39;data/step/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-2,&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;loopNum&#39;</span><span class="p">];</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;auto&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">dT</span><span class="o">*</span><span class="mi">4</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">(</span><span class="s">&#39;Standard&#39;</span><span class="p">,</span><span class="mf">0.2</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">figureNumber</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;Displacement&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nb">view</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="nb">i</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="w">    </span><span class="nb">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="k">end</span>
 </code></pre></div></td></tr></table></div>
 </div>
 </div>
