@@ -1,0 +1,71 @@
+- examples2018:
+  - 3AxialNew: examples/examples2018/3AxialNew.md
+  - 3DJointStress: examples/examples2018/3DJointStress.md
+  - 3DSlope: examples/examples2018/3DSlope.md
+  - BoxCrash: examples/examples2018/BoxCrash.md
+  - BoxModel: examples/examples2018/BoxModel.md
+  - BoxShear: examples/examples2018/BoxShear.md
+  - BoxSlope: examples/examples2018/BoxSlope.md
+  - BoxStruct: examples/examples2018/BoxStruct.md
+  - CuTestNew: examples/examples2018/CuTestNew.md
+  - Earthquake: examples/examples2018/Earthquake.md
+  - Exploision: examples/examples2018/Exploision.md
+  - LandSubsidence: examples/examples2018/LandSubsidence.md
+  - makeGif: examples/examples2018/makeGif.md
+  - MatTraining: examples/examples2018/MatTraining.md
+  - MixMat: examples/examples2018/MixMat.md
+  - Pile: examples/examples2018/Pile.md
+  - SlopeNet: examples/examples2018/SlopeNet.md
+  - SoilCrackNew: examples/examples2018/SoilCrackNew.md
+  - TBMCutter: examples/examples2018/TBMCutter.md
+  - Tunnel: examples/examples2018/Tunnel.md
+  - TunnelHeat: examples/examples2018/TunnelHeat.md
+  - TunnelNew: examples/examples2018/TunnelNew.md
+  - TwoBalls: examples/examples2018/TwoBalls.md
+  - UniaxialTest: examples/examples2018/UniaxialTest.md
+
+- examples2019:
+  - 3DSlope: examples/examples2019/3DSlope.md
+  - GeoThermalBox: examples/examples2019/GeoThermalBox.md
+  - MonteCarlo: examples/examples2019/MonteCarlo.md
+  - PoreFlood: examples/examples2019/PoreFlood.md
+  - PoreHydraulic: examples/examples2019/PoreHydraulic.md
+  - PorePermeability: examples/examples2019/PorePermeability.md
+  - Roller: examples/examples2019/Roller.md
+ 
+- examples2020:
+  - BoxCrash: examples/examples2020/BoxCrash.md
+  - BoxWave: examples/examples2020/BoxWave.md
+  - EarthMoon: examples/examples2020/EarthMoon.md
+  - HydraulicBlock: examples/examples2020/HydraulicBlock.md
+  - Pore3dTest: examples/examples2020/Pore3dTest.md
+  - PoreTunnel: examples/examples2020/PoreTunnel.md
+  - RollerNew: examples/examples2020/RollerNew.md
+  - RollerNewPack: examples/examples2020/RollerNewPack.md
+  - ScrewConveyor: examples/examples2020/ScrewConveyor.md
+
+- examples2021:
+  - BallInFrame: examples/examples2021/BallInFrame.md
+  - BoxCompaction: examples/examples2021/BoxCompaction.md
+  - BoxPorosity: examples/examples2021/BoxPorosity.md
+  - BoxTunnelNew: examples/examples2021/BoxTunnelNew.md
+  - HighSizeRatio: examples/examples2021/HighSizeRatio.md
+  - LavaBlock: examples/examples2021/LavaBlock.md
+  - ParticleMigration: examples/examples2021/ParticleMigration.md
+  - Pore3dCouple: examples/examples2021/Pore3dCouple.md
+  - Powder: examples/examples2021/Powder.md
+  - SandPenetration: examples/examples2021/SandPenetration.md
+  - TwoPore: examples/examples2021/TwoPore.md
+  - xJoint: examples/examples2021/xJoint.md
+
+- examplesModel:
+  - BoxFiberCouple: examples/examplesModel/BoxFiberCouple.md
+  - BoxLayer: examples/examplesModel/BoxLayer.md
+  - BoxWord: examples/examplesModel/BoxWord.md
+  - Cable: examples/examplesModel/Cable.md
+  - Columns: examples/examplesModel/Columns.md
+  - DropOnNet: examples/examplesModel/DropOnNet.md
+  - Functions: examples/examplesModel/Functions.md
+  - LineModel: examples/examplesModel/LineModel.md
+  - MicroParticle: examples/examplesModel/MicroParticle.md
+  - models: examples/examplesModel/models.md

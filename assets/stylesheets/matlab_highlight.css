@@ -1,0 +1,30 @@
+:root > * {
+    --md-code-hl-number-color: #212121;
+    --md-code-hl-special-color: #212121;
+    --md-code-hl-function-color: #212121;
+    --md-code-hl-constant-color: #212121;
+    --md-code-hl-keyword-color: #0E00FF;
+    --md-code-hl-string-color: #A709F5;
+    /*
+    --md-code-hl-name-color: #212121;
+    --md-code-hl-operator-color: #212121;
+    --md-code-hl-punctuation-color: #212121;
+    */
+    --md-code-hl-comment-color: #008013;
+    /*
+    --md-code-hl-generic-color: #212121;
+    --md-code-hl-variable-color: #212121;
+    */
+    /*--md-code-fg-color: #212121;*/
+    /*--md-code-bg-color: #FFFFFF;*/
+    /*--md-code-hl-color: #212121;*/ 
+    
+    /* unused colors
+    error: #B7312C;
+    string-unquoted: #902622;
+    system-command: #8B6606;
+    sections: #A0522D;
+    warning: #FF6400;
+    hyperlink: #1656A7;
+    */
+}
