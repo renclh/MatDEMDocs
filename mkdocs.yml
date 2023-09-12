@@ -1,10 +1,18 @@
-site_name: Docs of MatDEM Examples
+site_name: Docs of MatDEM
 copyright: Copyright &copy; 2018 - 2023 MatDEM Team
 extra:
   homepage: http://matdem.com
- 
+
+repo_url: https://github.com/renclh/MatDEMDocs
+repo_name: renclh/MatDEMDocs
+edit_uri: edit/main/docs/
+
 theme: 
   name: material
+  icon:
+    repo: fontawesome/brands/git-alt
+    edit: material/pencil
+    view: material/eye
   logo: assets/images/MatDEM.ico
   language: zh
   features:
@@ -63,6 +71,10 @@ markdown_extensions:
   - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: renclh
+      repo: MatDEMDocs
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.snippets #:base_path: ./examples
@@ -101,8 +113,7 @@ extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
 
 nav:
-  - Home: 
-    - index.md
+  - Home: index.md
   - Getting started:
     - Installation: install.md
     - UI: ui.md
