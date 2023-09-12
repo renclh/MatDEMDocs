@@ -1,0 +1,158 @@
+{
+    "build": {
+        "sheet_name": "build",
+        "props": {
+            "header": 1,
+            "usecols": "A:C",
+            "nrows": 46
+        },
+        "methods": {
+            "header": 50,
+            "usecols": "A:E",
+            "nrows": 96
+        }
+    },
+    "obj_Box": {
+        "sheet_name": "Box",
+        "props": {
+            "header": 1,
+            "usecols": "A:C",
+            "nrows": 56
+        },
+        "methods": {
+            "header": 61,
+            "usecols": "A:E",
+            "nrows": 99
+        }
+    },
+    "model": {
+        "sheet_name": "model",
+        "props": {
+            "header": 1,
+            "usecols": "A:C",
+            "nrows": 55
+        },
+        "methods": {
+            "header": 60,
+            "usecols": "A:E",
+            "nrows": 15
+        }
+    },
+    "childModel": {
+        "sheet_name": "childModel",
+        "props": {
+            "header": 1,
+            "usecols": "A:C",
+            "nrows": 25
+        },
+        "methods": {
+            "header": 30,
+            "usecols": "A:E",
+            "nrows": 13
+        }
+    },
+    "pore": {
+        "sheet_name": "pore",
+        "props": {
+            "header": 1,
+            "usecols": "A:C",
+            "nrows": 47
+        },
+        "methods": {
+            "header": 51,
+            "usecols": "A:E",
+            "nrows": 33
+        }
+    },
+    "modelStatus": {
+        "sheet_name": "status",
+        "props": {
+            "header": 1,
+            "usecols": "A:C",
+            "nrows": 24
+        },
+        "methods": {
+            "header": 26,
+            "usecols": "A:E",
+            "nrows": 21
+        }
+    },
+    "material": {
+        "sheet_name": "material",
+        "props": {
+            "header": 1,
+            "usecols": "A:C",
+            "nrows": 31
+        },
+        "methods": {
+            "header": 33,
+            "usecols": "A:D",
+            "nrows": 10
+        }
+    },
+    "mfs": {
+        "sheet_name": "mfs",
+        "props": {
+            "header": 1,
+            "usecols": "A:C",
+            "nrows": 0
+        },
+        "methods": {
+            "header": 1,
+            "usecols": "A:E",
+            "nrows": 93
+        }
+    },
+    "fs": {
+        "sheet_name": "fs",
+        "props": {
+            "header": 1,
+            "usecols": "A:C",
+            "nrows": 0
+        },
+        "methods": {
+            "header": 1,
+            "usecols": "A:E",
+            "nrows": 90
+        }
+    },
+    "f": {
+        "sheet_name": "f",
+        "props": {
+            "header": 1,
+            "usecols": "A:C",
+            "nrows": 0
+        },
+        "methods": {
+            "header": 1,
+            "usecols": "A:E",
+            "nrows": 35
+        }
+    },
+    "Tool_Cut": {
+        "sheet_name": "Tool_Cut",
+        "props": {
+            "header": 1,
+            "usecols": "A:C",
+            "nrows": 7
+        },
+        "methods": {
+            "header": 9,
+            "usecols": "A:D",
+            "nrows": 11
+        }
+    },
+    "planetfs": {
+        "sheet_name": "其它",
+        "props": {
+            "header": 1,
+            "usecols": "A:B",
+            "nrows": 0
+        },
+        "methods": {
+            "header": 16,
+            "usecols": "A:E",
+            "nrows": 11
+        }
+    }
+}

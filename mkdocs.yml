@@ -1,0 +1,201 @@
+site_name: Docs of MatDEM Examples
+copyright: Copyright &copy; 2018 - 2023 MatDEM Team
+extra:
+  homepage: http://matdem.com
+ 
+theme: 
+  name: material
+  logo: assets/images/MatDEM.ico
+  language: zh
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    # - navigation.sections
+    - navigation.expand
+    # - navigation.path
+    - navigation.prune
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - navigation.index
+
+    - toc.follow
+    # - toc.integrate
+    - content.code.copy
+    - content.action.edit
+    - content.action.view
+
+    - search.suggest
+    - search.highlight
+    - search.share
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions: 
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  # conflict with latex 
+  # - pymdownx.caret 
+  # - pymdownx.tilde
+  - pymdownx.critic:
+      mode: view
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg 
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets #:base_path: ./examples
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  
+  
+plugins:
+  - search
+  - tags
+  - blog:
+      blog_toc: true
+      post_date_format: full
+      post_excerpt_separator: <!-- more -->
+      pagination_per_page: 5
+      # archive_date_format: MMMM yyyy
+      # archive_url_date_format: yyyy/MM
+
+
+extra_css:
+  - assets/stylesheets/matlab_highlight.css
+  - assets/stylesheets/custom_admonitions.css
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
+  - assets/stylesheets/extra_css.css
+
+extra_javascript:
+  - assets/javascripts/katex.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js  
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
+
+nav:
+  - Home: 
+    - index.md
+  - Getting started:
+    - Installation: install.md
+    - UI: ui.md
+    - Structure: structure.md
+    - Post: post.md
+  - Examples: 
+    - examples/index.md
+    - examples2018:
+      - 3AxialNew: examples/examples2018/3AxialNew.md
+      - 3DJointStress: examples/examples2018/3DJointStress.md
+      - 3DSlope: examples/examples2018/3DSlope.md
+      - BoxCrash: examples/examples2018/BoxCrash.md
+      - BoxModel: examples/examples2018/BoxModel.md
+      - BoxShear: examples/examples2018/BoxShear.md
+      - BoxSlope: examples/examples2018/BoxSlope.md
+      - BoxStruct: examples/examples2018/BoxStruct.md
+      - CuTestNew: examples/examples2018/CuTestNew.md
+      - Earthquake: examples/examples2018/Earthquake.md
+      - Exploision: examples/examples2018/Exploision.md
+      - LandSubsidence: examples/examples2018/LandSubsidence.md
+      - makeGif: examples/examples2018/makeGif.md
+      - MatTraining: examples/examples2018/MatTraining.md
+      - MixMat: examples/examples2018/MixMat.md
+      - Pile: examples/examples2018/Pile.md
+      - SlopeNet: examples/examples2018/SlopeNet.md
+      - SoilCrackNew: examples/examples2018/SoilCrackNew.md
+      - TBMCutter: examples/examples2018/TBMCutter.md
+      - Tunnel: examples/examples2018/Tunnel.md
+      - TunnelHeat: examples/examples2018/TunnelHeat.md
+      - TunnelNew: examples/examples2018/TunnelNew.md
+      - TwoBalls: examples/examples2018/TwoBalls.md
+      - UniaxialTest: examples/examples2018/UniaxialTest.md
+
+    - examples2019:
+      - 3DSlope: examples/examples2019/3DSlope.md
+      - GeoThermalBox: examples/examples2019/GeoThermalBox.md
+      - MonteCarlo: examples/examples2019/MonteCarlo.md
+      - PoreFlood: examples/examples2019/PoreFlood.md
+      - PoreHydraulic: examples/examples2019/PoreHydraulic.md
+      - PorePermeability: examples/examples2019/PorePermeability.md
+      - Roller: examples/examples2019/Roller.md
+    
+    - examples2020:
+      - BoxCrash: examples/examples2020/BoxCrash.md
+      - BoxWave: examples/examples2020/BoxWave.md
+      - EarthMoon: examples/examples2020/EarthMoon.md
+      - HydraulicBlock: examples/examples2020/HydraulicBlock.md
+      - Pore3dTest: examples/examples2020/Pore3dTest.md
+      - PoreTunnel: examples/examples2020/PoreTunnel.md
+      - RollerNew: examples/examples2020/RollerNew.md
+      - RollerNewPack: examples/examples2020/RollerNewPack.md
+      - ScrewConveyor: examples/examples2020/ScrewConveyor.md
+
+    - examples2021:
+      - BallInFrame: examples/examples2021/BallInFrame.md
+      - BoxCompaction: examples/examples2021/BoxCompaction.md
+      - BoxPorosity: examples/examples2021/BoxPorosity.md
+      - BoxTunnelNew: examples/examples2021/BoxTunnelNew.md
+      - HighSizeRatio: examples/examples2021/HighSizeRatio.md
+      - LavaBlock: examples/examples2021/LavaBlock.md
+      - ParticleMigration: examples/examples2021/ParticleMigration.md
+      - Pore3dCouple: examples/examples2021/Pore3dCouple.md
+      - Powder: examples/examples2021/Powder.md
+      - SandPenetration: examples/examples2021/SandPenetration.md
+      - TwoPore: examples/examples2021/TwoPore.md
+      - xJoint: examples/examples2021/xJoint.md
+
+    - examplesModel:
+      - BoxFiberCouple: examples/examplesModel/BoxFiberCouple.md
+      - BoxLayer: examples/examplesModel/BoxLayer.md
+      - BoxWord: examples/examplesModel/BoxWord.md
+      - Cable: examples/examplesModel/Cable.md
+      - Columns: examples/examplesModel/Columns.md
+      - DropOnNet: examples/examplesModel/DropOnNet.md
+      - Functions: examples/examplesModel/Functions.md
+      - LineModel: examples/examplesModel/LineModel.md
+      - MicroParticle: examples/examplesModel/MicroParticle.md
+      - models: examples/examplesModel/models.md
+
+  - API: 
+    - api/index.md
+    - obj_Box: api/obj_Box.md
+    - Tool_Cut: api/Tool_Cut.md
+    - build: api/build.md
+    - model: api/model.md
+    - childModel: api/childModel.md
+    - modelStatus: api/modelStatus.md
+    - material: api/material.md
+    - pore: api/pore.md
+    - mfs: api/mfs.md
+    - fs: api/fs.md
+    - f: api/f.md
+    - Miscellaneous: api/planetfs.md
+  - Blog: 
+    - blog/index.md
+ 

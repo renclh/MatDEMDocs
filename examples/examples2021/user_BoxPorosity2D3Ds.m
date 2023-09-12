@@ -1,0 +1,14 @@
+clear
+frictions=0:0.2:1;
+friction=frictions(1);
+MatDEMfile('examples2021/user_BoxPorosity2D3D.m');
+friction=frictions(2);
+MatDEMfile('examples2021/user_BoxPorosity2D3D.m');
+friction=frictions(3);
+MatDEMfile('examples2021/user_BoxPorosity2D3D.m');
+friction=frictions(4);
+MatDEMfile('examples2021/user_BoxPorosity2D3D.m');
+friction=frictions(5);
+MatDEMfile('examples2021/user_BoxPorosity2D3D.m');
+friction=frictions(6);
+MatDEMfile('examples2021/user_BoxPorosity2D3D.m');
