@@ -1,5 +1,54 @@
 # build
 
+<details open markdown><summary markdown>
+<h2 class='api-property-head' style='display:inline;' markdown>properties</h2>
+</summary>
+
+<div class='api-property' markdown>
+<h3 id='build.TAG' markdown>`TAG`</h3>
+<div class='api-content' markdown>
+结构体，用于记录模拟信息  
+</div>
+</div>
+
+<div class='api-property' markdown>
+<h3 id='build.SET' markdown>`SET`</h3>
+<div class='api-content' markdown>
+结构体，用于记录模拟数据  
+</div>
+</div>
+
+</details>
+
+<details open markdown><summary markdown>
+<h2 class='api-method-head' style='display:inline;' markdown>methods</h2>
+</summary>
+
+<div class='api-method' markdown>
+<h3 id='build.balance' markdown>`balance(varargin) -> varargout`</h3>
+<div class='api-content' markdown>
+迭代计算 
+</div>
+</div>
+
+<div class='api-method' markdown>
+<h3 id='build.setBuild' markdown>`setBuild(varargin)`</h3>
+<div class='api-content' markdown>
+初始化build对象中的颗粒参数（坐标，半径，材料属性等） 
+</div>
+</div>
+</details>
+
+<!-- on this page -->
+??? popup "[build](#build-build)"
+    ???+ popup "[properties](#build-props)"
+        - [name](#build-name)
+        - [TAG](#build-TAG)
+        - SET
+    ???+ popup "[methods](#build-methods)"
+        - [balance](#build-mo)
+        - setBuild
+
 !!! api "class <span id="build-build">build</span>"
     ???+ api "<span id="build-props">Properties</span>"
         !!! api "<span id="build-name">name</span>"
@@ -55,7 +104,7 @@
         !!! api "<span id="build-po">po</span>"
             孔隙对象，用于孔隙渗流和流固耦合计算
 
-            见PoreFlood等示例
+            见[PoreFlood](../examples/examples2019/PoreFlood.md)等示例
 
         !!! api "<span id="build-status">status</span>"
             模型状态

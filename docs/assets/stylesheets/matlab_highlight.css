@@ -1,4 +1,7 @@
 :root > * {
+    --md-primary-fg-color: #000078;
+    --md-default-bg-color: #edebdf;
+
     --md-code-hl-number-color: #212121;
     --md-code-hl-special-color: #212121;
     --md-code-hl-function-color: #212121;

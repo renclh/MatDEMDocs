@@ -207,6 +207,11 @@ nav:
     - fs: api/fs.md
     - f: api/f.md
     - Miscellaneous: api/planetfs.md
+
+  - Help:
+    - help/Help_showC.md
+    - help/Help_showConnData.md
+
   - Blog: 
     - blog/index.md
  
