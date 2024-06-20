@@ -2,6 +2,23 @@ site_name: Docs of MatDEM
 copyright: Copyright &copy; 2018 - 2023 MatDEM Team
 extra:
   homepage: http://matdem.com
+  analytics:
+    provider: google
+    property: G-8CKJDB6WY1
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/thumb-up-outline
+          name: This page was helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: material/thumb-down-outline
+          name: This page could be improved
+          data: 0
+          note: >- 
+            Thanks for your feedback! Help us improve this page by
+            <a href="mailto: forum@matdem.com">sending emails</a>.
 
 repo_url: https://github.com/renclh/MatDEMDocs
 repo_name: renclh/MatDEMDocs
