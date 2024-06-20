@@ -109,7 +109,8 @@ markdown_extensions:
   
 plugins:
   - search
-  - tags
+  - tags:
+      tags_file:  tags.md
   - blog:
       blog_toc: true
       post_date_format: full
@@ -138,7 +139,8 @@ nav:
     - UI: ui.md
     - Structure: structure.md
     - Post: post.md
-  - Examples: 
+  - Examples:
+    - tags.md 
     - examples/index.md
     - examples2018:
       - 3AxialNew: examples/examples2018/3AxialNew.md
