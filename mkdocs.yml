@@ -99,6 +99,7 @@ plugins:
       pagination_per_page: 5
       # archive_date_format: MMMM yyyy
       # archive_url_date_format: yyyy/MM
+  # - with-pdf
 
 
 extra_css:
@@ -211,6 +212,10 @@ nav:
   - Help:
     - help/Help_showC.md
     - help/Help_showConnData.md
+
+  - Book:
+    - book/index.md
+    - book/BoxPile.md
 
   - Blog: 
     - blog/index.md
