@@ -104,7 +104,7 @@ def export2md2(config, md_dir):
 with codecs.open('./examples.json','r',encoding='utf-8') as fid:
     config = json.load(fid)
 
-# export2md2(config, MD_DIR)
+export2md2(config, MD_DIR)
 
 
 # use jinja2 template

@@ -14,7 +14,7 @@
 
 === "Step 3"
 
-    ``` matlab title="user_ColumnsShow.m" linenums="1"
-    --8<-- "examples\examplesModel\user_ColumnsShow.m"
+    ``` matlab title="user_ColumnShow.m" linenums="1"
+    --8<-- "examples\examplesModel\user_ColumnShow.m"
     ```
 

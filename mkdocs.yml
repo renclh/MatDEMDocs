@@ -95,7 +95,8 @@ markdown_extensions:
       repo: MatDEMDocs
   - pymdownx.mark
   - pymdownx.smartsymbols
-  - pymdownx.snippets #:base_path: ./examples
+  - pymdownx.snippets: #:base_path: ./examples
+      check_paths: true
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid

@@ -14,13 +14,13 @@
 
 === "Step 3"
 
-    ``` matlab title="粉末铺展3.m（滚动）" linenums="1"
-    --8<-- "examples\examples2021\粉末铺展3.m（滚动）"
+    ``` matlab title="粉末铺展3（滚动）.m" linenums="1"
+    --8<-- "examples\examples2021\粉末铺展3（滚动）.m"
     ```
 
 === "Step 4"
 
-    ``` matlab title="粉末铺展3.m（振动）" linenums="1"
-    --8<-- "examples\examples2021\粉末铺展3.m（振动）"
+    ``` matlab title="粉末铺展3（振动）.m" linenums="1"
+    --8<-- "examples\examples2021\粉末铺展3（振动）.m"
     ```
 
