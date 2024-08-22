@@ -12,7 +12,7 @@ categories:
 在BoxPile1中，建立了原始地层堆积模型（堆积模型相关介绍见3.1节）。首先，需要构造模拟箱类obj_Box的对象B并设置一些参数，然后建立初始模型：
 
 ``` matlab title="user_BoxPile1.m" linenums="1"
---8<-- "examples\examples2018\user_BoxPile1.m:1:21"
+--8<-- "examples/examples2018/user_BoxPile1.m:1:21"
 ```
 
 ``` matlab
@@ -39,7 +39,7 @@ B.buildInitialModel();
 在生成了初始的几何模型后，可以自行调整模型单元的半径，然后进行重力沉积并压实模型2次：
 
 ``` matlab title="user_BoxPile1.m" linenums="22"
---8<-- "examples\examples2018\user_BoxPile1.m:22:32"
+--8<-- "examples/examples2018/user_BoxPile1.m:22:32"
 ```
 
 ``` matlab
