@@ -83,7 +83,8 @@ def export2md2(config, md_dir):
             n = pi["files"].__len__()
             for k in range(n):
                 t = pi["files"][k]
-                t2 = os.path.join(s,t)
+                # t2 = os.path.join(s,t)
+                t2 = s + "/" + t
                 md+=f'=== "Step {k+1}"' + os.linesep*2 \
                 + f'{indent}``` matlab title="{t}" linenums="1"' + os.linesep \
                 + f'{indent}--8<-- "{t2}"' + os.linesep \
@@ -97,7 +98,8 @@ def export2md2(config, md_dir):
     # deal with subfolders
     if config['subfolder']:
         for k in config['subfolder']:
-            k['folder'] = os.path.join(s, k['folder'])
+            # k['folder'] = os.path.join(s, k['folder'])
+            k['folder'] = s + "/" + k['folder']
             export2md2(k, md_dir)
     
 
