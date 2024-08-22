@@ -1,0 +1,1558 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../blog/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.32">
+    
+    
+      
+        <title>桩土作用 - Docs of MatDEM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/matlab_highlight.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/custom_admonitions.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra_css.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-8CKJDB6WY1"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-8CKJDB6WY1",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-8CKJDB6WY1",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="http://matdem.com" title="Docs of MatDEM" class="md-header__button md-logo" aria-label="Docs of MatDEM" data-md-component="logo">
+      
+  <img src="../../assets/images/MatDEM.ico" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Docs of MatDEM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              桩土作用
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/renclh/MatDEMDocs" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    renclh/MatDEMDocs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../install/" class="md-tabs__link">
+          
+  
+    
+  
+  Getting started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tags/" class="md-tabs__link">
+          
+  
+    
+  
+  Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/" class="md-tabs__link">
+          
+  
+    
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../help/Help_showC/" class="md-tabs__link">
+          
+  
+    
+  
+  Help
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+    
+  
+  Book
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="http://matdem.com" title="Docs of MatDEM" class="md-nav__button md-logo" aria-label="Docs of MatDEM" data-md-component="logo">
+      
+  <img src="../../assets/images/MatDEM.ico" alt="logo">
+
+    </a>
+    Docs of MatDEM
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/renclh/MatDEMDocs" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    renclh/MatDEMDocs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../install/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tags/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../api/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../help/Help_showC/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Help
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Book
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Book
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    桩土作用
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    桩土作用
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      堆积地层模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      建立桩土作用模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="建立桩土作用模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      利用过滤器削平地层
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      建立材料数组
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      利用结构体建立桩
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      将桩放入地层中
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      添加第二根桩
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      拔桩过程的数值模拟
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="拔桩过程的数值模拟">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      初始化和荷载设置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      迭代计算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../blog/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      堆积地层模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      建立桩土作用模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="建立桩土作用模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      利用过滤器削平地层
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      建立材料数组
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      利用结构体建立桩
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      将桩放入地层中
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      添加第二根桩
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      拔桩过程的数值模拟
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="拔桩过程的数值模拟">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      初始化和荷载设置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      迭代计算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/renclh/MatDEMDocs/edit/main/docs/book/BoxPile.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/renclh/MatDEMDocs/raw/main/docs/book/BoxPile.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z"/></svg>
+    </a>
+  
+
+
+<h1 id="_1">桩土作用</h1>
+<p>压桩和拔桩均涉及到大变形破坏和动态过程，离散元数值模拟能有效地模拟这一过程，并为研究和设计提供参考。MatDEM提供的示例代码<a href="">BoxPile</a>演示了如何建立最简单的桩土作用模型，使用者可在此基础之上建立更加复杂的模型。</p>
+<h2 id="_2">堆积地层模型</h2>
+<p>在BoxPile1中，建立了原始地层堆积模型（堆积模型相关介绍见3.1节）。首先，需要构造模拟箱类obj_Box的对象B并设置一些参数，然后建立初始模型：</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_BoxPile1.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c">%step1: packing the elements</span>
+<span class="nb">clear</span><span class="p">;</span>
+<span class="n">fs</span><span class="p">.</span><span class="n">randSeed</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%random model seed, 1,2,3...</span>
+<span class="n">B</span><span class="p">=</span><span class="n">obj_Box</span><span class="p">;</span><span class="c">%declare a box object</span>
+<span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="s">&#39;BoxPile&#39;</span><span class="p">;</span>
+<span class="c">%--------------initial model------------</span>
+<span class="n">B</span><span class="p">.</span><span class="n">GPUstatus</span><span class="p">=</span><span class="s">&#39;auto&#39;</span><span class="p">;</span><span class="c">%program will test the CPU and GPU speed, and choose the quicker one</span>
+<span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">=</span><span class="mf">0.1</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isShear</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isClump</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span><span class="c">%if isClump=1, particles are composed of several balls</span>
+<span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">=</span><span class="mf">0.25</span><span class="p">;</span><span class="c">%define distribution of ball radius, </span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="p">=</span><span class="mi">20</span><span class="p">;</span><span class="c">%width, length, height, average radius</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleL</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span><span class="c">%when L is zero, it is a 2-dimensional model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleH</span><span class="p">=</span><span class="mi">20</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">BexpandRate</span><span class="p">=</span><span class="mi">4</span><span class="p">;</span><span class="c">%boundary is 4-ball wider than </span>
+<span class="n">B</span><span class="p">.</span><span class="n">PexpandRate</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">type</span><span class="p">=</span><span class="s">&#39;topPlaten&#39;</span><span class="p">;</span><span class="c">%add a top platen to compact model</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isSample</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="c">%B.type=&#39;TriaxialCompression&#39;;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setType</span><span class="p">();</span>
+<span class="n">B</span><span class="p">.</span><span class="n">buildInitialModel</span><span class="p">();</span><span class="c">%B.show();</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><pre><span></span><code><span class="n">B</span><span class="p">=</span><span class="n">obj_Box</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="s">&#39;BoxPile&#39;</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">GPUstatus</span><span class="p">=</span><span class="s">&#39;auto&#39;</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">=</span><span class="mf">0.2</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">=</span><span class="mf">0.25</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isClump</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isSample</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">isShear</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="p">=</span><span class="mi">20</span><span class="p">;</span><span class="w">  </span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleL</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span><span class="w">  </span>
+<span class="n">B</span><span class="p">.</span><span class="n">sampleH</span><span class="p">=</span><span class="mi">20</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">BexpandRate</span><span class="p">=</span><span class="mi">4</span><span class="p">;</span><span class="w">  </span>
+<span class="n">B</span><span class="p">.</span><span class="n">PexpandRate</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">type</span><span class="p">=</span><span class="s">&#39;topPlaten&#39;</span><span class="p">;</span><span class="w">  </span>
+<span class="n">B</span><span class="p">.</span><span class="n">setType</span><span class="p">();</span>
+<span class="n">B</span><span class="p">.</span><span class="n">buildInitialModel</span><span class="p">();</span>
+</code></pre></div>
+<p>模型中的参数均采用国际单位制，如长度单位为米（m），密度单位为千克每立方米（kg/m3）等。在上述代码中，建立了一个20m×20m（<code>sampleW×sampleH</code>）的二维地层模型，并使模型边界向外延伸了4个单元的长度（<code>BexpandRate=4</code>），使上下左右四个边界形成“井”字形，以防止样品单元外泄。由于<code>sampleL</code>设为0，模型中所有单元的Y坐标均为0，为二维模型，详见第三章中相应章节。同时，通过<code>B.type= 'topPlaten'</code>命令添加了一块上压力板<code>topPlaten</code>，其用于在第一步中压实堆积样品，在本示例第二步中，<code>topPlaten</code>会连同样品顶部的单元被一起删除。此外，还可以设置一些其他的参数，如：模拟时是否考虑剪切力<code>isShear</code>、是否将若干个单元组合在一起形成团簇<code>isClump</code>、是否生成初始的样品单元<code>isSample</code>等。这些参数的定义也在帮助中说明了，在此不逐一介绍。</p>
+<p>在生成了初始的几何模型后，可以自行调整模型单元的半径，然后进行重力沉积并压实模型2次：</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">user_BoxPile1.m</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span><span class="c">%d.breakGroup(&#39;sample&#39;);d.breakGroup(&#39;lefPlaten&#39;);</span>
+<span class="c">%you may change the size distribution of elements here, e.g. d.mo.aR=d.aR*0.95;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aR</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">aR</span><span class="p">;</span>
+<span class="c">%--------------end initial model------------</span>
+
+<span class="c">%---------- gravity sedimentation</span>
+<span class="n">B</span><span class="p">.</span><span class="n">gravitySediment</span><span class="p">();</span><span class="c">%you may use B.gravitySediment(10); to increase sedimentation time (10)</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aMUp</span><span class="p">(:)=</span><span class="mi">0</span><span class="p">;</span>
+<span class="c">%B.compactSample(2);%input is compaction time</span>
+<span class="c">%mfs.reduceGravity(d,1);%reduce the gravity of element</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><pre><span></span><code><span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="c">%Change the particle size distribution here, e.g.:d.mo.aR=d.aR*0.9;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aR</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">aR</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">gravitySediment</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aMUp</span><span class="p">(:)=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">B</span><span class="p">.</span><span class="n">compactSample</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="c">%mfs.reduceGravity(d,1); %reduce the gravity if necessary.</span>
+</code></pre></div>
+<p>为使单元堆积的更加密实，可令所有单元的摩擦系数（<code>aMUp</code>）为0。如需制备无重力作用的样品，还需通过建模函数<code>mfs.reduceGravity</code>逐步减小重力，详见第三章中相应章节。</p>
+<p>通过以上步骤即可建立初始的几何模型，随后即可保存数据并进行后处理显示。在保存之前，首先将GPU计算关闭，即把所有数据都转到CPU中，这样可以避免在没有GPU的计算机中打开数据时造成错误。然后运行<code>d.clearData(1)</code>，将数据进行压缩。保存完数据后，再运行<code>d.calculateData()</code>，重新获取完整的数据，并用于后处理显示。</p>
+<div class="highlight"><pre><span></span><code><span class="c">%------------return and save result--------------</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">dispEnergy</span><span class="p">();</span><span class="c">%display the energy of the model</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="c">%clear dependent data</span>
+<span class="n">d</span><span class="p">.</span><span class="n">recordCalHour</span><span class="p">(</span><span class="s">&#39;BoxPile1Finish&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;1.mat&#39;</span><span class="p">],</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="s">&#39;TempModel/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s">&#39;1R&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-distri&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;aNum&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">aNum</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;aR&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>通过以上命令，可得到二维地层堆积模型如图6.1-1所示。可以看到，模型中出现明显的力链，这是颗粒堆积体的重要现象，普遍存在于颗粒材料中，详情可查阅相关资料。</p>
+<p><img alt="alt text" src="../images/6.1-1.png" /></p>
+<h2 id="_3">建立桩土作用模型</h2>
+<h3 id="_4">利用过滤器削平地层</h3>
+<p>第一步中模拟真实世界的堆积过程，构建了一个初始的堆积地层。第二步中对地层进行切割和赋材料。在BoxPile2中，首先需要将在第一步中得到的数据载入并初始化：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">load</span><span class="p">(</span><span class="s">&#39;TempModel/BoxPile1.mat&#39;</span><span class="p">);</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span>
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">getModel</span><span class="p">();</span>
+</code></pre></div>
+<p>进一步，采用过滤器<code>topLayerFilter</code>将上压力板和原始地层的顶部删除：</p>
+<div class="highlight"><pre><span></span><code><span class="n">mZ</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aZ</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">d</span><span class="p">.</span><span class="n">mNum</span><span class="p">);</span>
+<span class="n">topLayerFilter</span><span class="p">=</span><span class="n">mZ</span><span class="o">&gt;</span><span class="nb">max</span><span class="p">(</span><span class="n">mZ</span><span class="p">)</span><span class="o">*</span><span class="mf">0.7</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">delElement</span><span class="p">(</span><span class="nb">find</span><span class="p">(</span><span class="n">topLayerFilter</span><span class="p">));</span>
+</code></pre></div>
+<p>进行以上操作的原因是：上压力板仅用于在第一步中压实样品，之后便可移除;而原始地层距上边界过近（见图6.1-1），故削去为拔桩过程预留足够的空间，同时得到平整的地层表面。</p>
+<p>在MatDEM中，删除指定单元或进行其他操作的关键在于获得对应单元编号。通常情况下，首先获取满足一定条件的布尔矩阵，即过滤器矩阵（如<code>topLayerFilter</code>），在此基础上调用Matlab自带函数<code>find</code>，遍历该布尔矩阵中值为1（true）的元素，来获得所需单元对应编号。有关过滤器的定义与使用请参见5.3节。</p>
+<h3 id="_5">建立材料数组</h3>
+<p>在削去地层顶部及上压力板后，需要导入并设置材料：</p>
+<div class="highlight"><pre><span></span><code><span class="n">matTxt</span><span class="p">=</span><span class="nb">load</span><span class="p">(</span><span class="s">&#39;Mats\soil1.txt&#39;</span><span class="p">);</span>
+<span class="n">Mats</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">}=</span><span class="nb">material</span><span class="p">(</span><span class="s">&#39;Soil1&#39;</span><span class="p">,</span><span class="n">matTxt</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">);</span>
+<span class="n">Mats</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">}.</span><span class="n">Id</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">matTxt2</span><span class="p">=</span><span class="nb">load</span><span class="p">(</span><span class="s">&#39;Mats\StrongRock.txt&#39;</span><span class="p">);</span>
+<span class="n">Mats</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">}=</span><span class="nb">material</span><span class="p">(</span><span class="s">&#39;StrongRock&#39;</span><span class="p">,</span><span class="n">matTxt2</span><span class="p">,</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">);</span>
+<span class="n">Mats</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">}.</span><span class="n">Id</span><span class="p">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">Mats</span><span class="p">=</span><span class="n">Mats</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setGroupMat</span><span class="p">(</span><span class="s">&#39;sample&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Soil1&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">groupMat2Model</span><span class="p">({</span><span class="s">&#39;sample&#39;</span><span class="p">},</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+<p>在上述代码中，导入了两种材料，Soil1和StrongRock，其中前者作为地层材料，后者作为桩体材料。此时，由于模型中除边界外只有sample组，因此只需设置sample组的材料，并将其应用于模型。当然，真实世界中地层的组成往往较为复杂，例如在长江三角洲地区，砂粘互层的河漫滩二元结构就相当常见。使用者应当根据实际情况将模型分层并赋予不同的材料，有关内容详见第三章，以及MatDEM提供的示例BoxSlope、BoxLayer等。</p>
+<p>此处通过<code>d.setGroupMat('sample', 'Soil1')</code>命令将sample组的材料声明为Soil1，并进一步通过<code>d.groupMat2Model</code>函数将材料赋给单元。函数<code>groupMat2Model</code>的第一个输入参数是一个元胞数组，第二个参数为默认材料Id。通过该函数可将元胞数组中对应组材料设定为前期声明的材料，而其余组设定为默认材料。运行命令<code>groupMat2Model({'sample'},1)</code>，将设置sample组的材料，而其余单元的材料则设为材料1。</p>
+<h3 id="_6">利用结构体建立桩</h3>
+<p>随后，需要建立桩的结构体并将其加入已有的地层模型：</p>
+<div class="highlight"><pre><span></span><code><span class="n">pileW</span><span class="p">=</span><span class="mf">0.8</span><span class="p">;</span><span class="w"> </span><span class="n">pileL</span><span class="p">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">pileH</span><span class="p">=</span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="n">ballR</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">;</span>
+<span class="n">Rrate</span><span class="p">=</span><span class="mf">0.7</span><span class="p">;</span><span class="w"> </span><span class="n">drivingDis</span><span class="p">=</span><span class="mi">6</span><span class="p">;</span>
+<span class="n">sampleId</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">sample</span><span class="p">;</span>
+<span class="n">sampleTop</span><span class="p">=</span><span class="nb">max</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aZ</span><span class="p">(</span><span class="n">sampleId</span><span class="p">)</span><span class="o">+</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aR</span><span class="p">(</span><span class="n">sampleId</span><span class="p">));</span>
+<span class="n">pile1</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">denseModel</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,@</span><span class="n">mfs</span><span class="p">.</span><span class="n">makeBox</span><span class="p">,</span><span class="n">pileW</span><span class="p">,</span><span class="n">pileL</span><span class="p">,</span><span class="n">pileH</span><span class="p">,</span><span class="n">ballR</span><span class="p">);</span>
+<span class="n">pile1</span><span class="p">.</span><span class="n">Y</span><span class="p">(:)=</span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<p>在创建桩模型的过程中，调用了函数<code>mfs.denseModel</code>并将句柄<code>@mfs.makeBox</code>作为输入参数传递，该函数的返回值是一个由若干单元的X、Y、Z坐标及其半径R组成的结构体（struct），其定义了一个宽0.8米、高8米的长方形。长方形的构成单元间有一定的重叠量（图6.2-1），这个重叠量通过第一个输入参数<code>Rrate</code>（此处为0.8）定义，即相邻单元球心距与其直径之比。<code>Rrate</code>越小，重叠量越大，桩体表面越光滑，但计算量也会相应增大。如果直接调用<code>mfs.makeBox</code>，则会建立一个单元之间恰好相互接触的长方形模型 （无重叠）。使用者也可以编写自定义函数来构建任意几何体，有关自定义函数的内容详见5.5。由于示例代码中创建的是二维桩体，因此需要令这根桩的所有单元的Y坐标为0，即<code>pile1.Y(:)=0</code>。</p>
+<h3 id="_7">将桩放入地层中</h3>
+<p>接着将上述桩的结构体添加到模型中，并赋予其材料StrongRock的力学性质。具体操作如下：</p>
+<div class="highlight"><pre><span></span><code><span class="n">pileId1</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">addElement</span><span class="p">(</span><span class="s">&#39;StrongRock&#39;</span><span class="p">,</span><span class="n">pile1</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;Pile1&#39;</span><span class="p">,</span><span class="n">pileId1</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setClump</span><span class="p">(</span><span class="s">&#39;Pile1&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">moveGroup</span><span class="p">(</span><span class="s">&#39;Pile1&#39;</span><span class="p">,(</span><span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="o">-</span><span class="n">pileW</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sampleTop</span><span class="o">-</span><span class="n">drivingDis</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">minusGroup</span><span class="p">(</span><span class="s">&#39;sample&#39;</span><span class="p">,</span><span class="s">&#39;Pile1&#39;</span><span class="p">,</span><span class="mf">0.4</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addFixId</span><span class="p">(</span><span class="s">&#39;X&#39;</span><span class="p">,</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">Pile1</span><span class="p">);</span>
+</code></pre></div>
+<p>首先，通过函数<code>d.addElement</code>向模型中添加单元，该函数中第一个参数为材料名，第二个参数为所需添加的结构体，该函数的返回值<code>pileId1</code>则是结构体被添加到模型中后的单元编号。随后，通过函数<code>addGroup</code>将新增单元声明为组<code>Pile1</code>，并通过函数<code>setClump</code>把桩体单元声明为团簇。这是由于在上一部分代码中，桩结构体是由函数<code>denseModel</code>生成，桩单元间有一定重叠量，从而使得桩体表面较为光滑。而单元重叠时会产生巨大的相互作用力，一旦进行平衡迭代模型可能会“爆炸”因此，此处将桩Pile1声明为团簇clump。在进行该操作后，MatDEM会记录此时单元间的相互重叠量，并记录在<code>d.mo.nClump</code>矩阵中，在迭代计算中，计算单元间相互作用力时会减去这部分重叠量，并保证单元的受力平衡。关于clump具体特性，请参见第二章。</p>
+<p>默认情况下，由函数<code>denseModel</code>生成的桩的左下角位于原点，此时，可通过函数<code>d.moveGroup</code>，将桩移动至指定位置。在示例代码中，桩在X方向上的移动量为<code>(B.sampleW-pileW)/2</code>，即模型的宽度与桩的宽度之差的一半，通过该命令将桩移动到模型的正中间；因为本示例是二维模型，在Y方向上的位移为0；而在Z方向移动为<code>sampleTop-drivingDis</code>，其中<code>drivingDis</code>为桩要打入地层中的深度。</p>
+<p>将桩移动到土层中后，桩体单元与地层单元发生重叠，此时需要通过函数<code>d.minusGroup</code>移除重叠部分的地层单元。这条命令的第一和第二个参数分别为sample和Pile1，即用sample减去Pile1，而第三个参数则定义了Pile1单元的半径系数Rrate。Rrate定义了Pile1单元半径所要乘以的系数。当其为0.4时，Pile1的单元半径缩小为原本的40%，并与sample来判断重叠，将sample组中重叠部分单元去除。通过定义Rrate，可以调整被删除单元的量，Rrate必须大于0，且不能太小（如小于0.2）。</p>
+<p>由于这个示例的建模过程相当于先挖出桩孔，然后再将桩放入孔中。所以，当移除重叠的单元后，桩与土之间未达到充分接触。此时，桩和土之间仍有间隙，因而要重新平衡模型，其大致思路为：移除桩周围地层单元之间的胶结，使它们在重力作用下填充间隙；模型充分平衡后，根据需求再重新胶结地层。在填充过程中，桩可能发生倾斜。因此，通过<code>d.addFixed</code>锁定桩的X坐标，使桩保持竖立，同时桩仍可在Z方向上运动。平衡迭代操作将在添加完第二根桩后进行。</p>
+<h3 id="_8">添加第二根桩</h3>
+<p>按照上述步骤，向模型中添加第二根桩：</p>
+<div class="highlight"><pre><span></span><code><span class="n">pile2</span><span class="p">=</span><span class="n">mfs</span><span class="p">.</span><span class="n">denseModel</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,@</span><span class="n">mfs</span><span class="p">.</span><span class="n">makeBox</span><span class="p">,</span><span class="n">pileH</span><span class="p">,</span><span class="n">pileL</span><span class="p">,</span><span class="n">pileW</span><span class="p">,</span><span class="n">ballR</span><span class="p">);</span>
+<span class="n">pile2</span><span class="p">.</span><span class="n">Y</span><span class="p">(:)=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">pile2</span><span class="p">.</span><span class="n">X</span><span class="p">=</span><span class="n">pile2</span><span class="p">.</span><span class="n">X</span><span class="o">+</span><span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="o">-</span><span class="n">pileH</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span><span class="n">pile2</span><span class="p">.</span><span class="n">Z</span><span class="p">=</span><span class="n">pile2</span><span class="p">.</span><span class="n">Z</span><span class="o">+</span><span class="n">B</span><span class="p">.</span><span class="n">sampleW</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">pileId2</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">addElement</span><span class="p">(</span><span class="s">&#39;StrongRock&#39;</span><span class="p">,</span><span class="n">pile2</span><span class="p">,</span><span class="s">&#39;wall&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;Pile2&#39;</span><span class="p">,</span><span class="n">pileId2</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setClump</span><span class="p">(</span><span class="s">&#39;Pile2&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">moveGroup</span><span class="p">(</span><span class="s">&#39;Pile2&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">rotateGroup</span><span class="p">(</span><span class="s">&#39;Pile2&#39;</span><span class="p">,</span><span class="s">&#39;XZ&#39;</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">minusGroup</span><span class="p">(</span><span class="s">&#39;sample&#39;</span><span class="p">,</span><span class="s">&#39;Pile2&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">);</span>
+<span class="c">%d.removeGroupForce(d.GROUP.Pile2,d.GROUP.rigB);</span>
+</code></pre></div>
+<p>建立第二根桩的思路与第一根桩类似，但在使用函数<code>d.moveGroup</code>对桩进行平移之后，调用了函数<code>d.rotateGroup</code>对其进行旋转，使得桩Pile2与右边界rigB相交。同时，在调用<code>d.addElement</code>时，输入了第三个参数<code>'wall'</code>，声明了要添加单元的类型是固定的墙单元。</p>
+<p>若Pile没有被声明为 <code>'wall'</code>（即墙单元），由于桩Pile2与右边界rigB相交，后续需要通过函数<code>d.removeGroupForce</code>移除二者之间的相互作用力。此处，可通过' % '符号将其注释掉。在正常情况下，桩的垂直度应满足施工要求，建模时也尽可能避免模型与边界相交，当前示例代码仅为了演示函数<code>d.rotateGroup</code>、<code>d.addElement</code>与<code>d.removeGroupForce</code>的用法。</p>
+<p>在将桩置入地层后，需重新平衡模型，其大致思路上小节已介绍：</p>
+<div class="highlight"><pre><span></span><code><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">bFilter</span><span class="p">(:)=</span><span class="nb">false</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">zeroBalance</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">resetStatus</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;auto&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">(</span><span class="s">&#39;Standard&#39;</span><span class="p">,</span><span class="mi">8</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">connectGroup</span><span class="p">(</span><span class="s">&#39;sample&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">connectGroup</span><span class="p">(</span><span class="s">&#39;sample&#39;</span><span class="p">,</span><span class="s">&#39;Pile1&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">zeroBalance</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">(</span><span class="s">&#39;Standard&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div>
+<p>上述代码中，命令<code>d.connectGroup('sample','Pile1')</code>连接了桩与地层这两个组，相当于在钻孔灌注桩施工过程中混凝土凝固后与地基土胶结在一起。至此，已完成桩土作用的建模过程，保存数据并进行后处理即可。第二步得到的模型如图6.1-2所示，一根桩竖直埋入地层中，而另一根桩则与水平面呈30°夹角斜卧并与右边界相交，且在接下来的模拟中始终固定不动。可以看到，由于d.<code>minusGroup</code>中Rrate采用0.4，删除的土层单元较少，在标准平衡时，部分表面土层单元因与桩重叠量较大而发生飞跃（图6.1-2）。此时，通过<code>d.show('mV')</code>命令可以查看模型的速度场，以及使用d.show()命令查看离散元系统的各类力和能量的变化曲线。通过分析这些场图和曲线，发现系统能量还未平衡，仍需继续进行平衡迭代计算，以减少系统中的动能。具体查看和分析方法请参见3.5节，也可参考7.2节。</p>
+<p><img alt="alt text" src="../images/6.1-2.png" /></p>
+<h2 id="_9">拔桩过程的数值模拟</h2>
+<h3 id="_10">初始化和荷载设置</h3>
+<p>在BoxPile3中，首先加载数据并初始化模型：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">load</span><span class="p">(</span><span class="s">&#39;TempModel/BoxPile2.mat&#39;</span><span class="p">);</span>
+<span class="n">B</span><span class="p">.</span><span class="n">setUIoutput</span><span class="p">();</span>
+<span class="n">d</span><span class="p">=</span><span class="n">B</span><span class="p">.</span><span class="n">d</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">getModel</span><span class="p">();</span>
+<span class="n">d</span><span class="p">.</span><span class="n">status</span><span class="p">=</span><span class="n">modelStatus</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+</code></pre></div>
+<p>随后，在正式拔桩之前进行一些必要的设置：</p>
+<div class="highlight"><pre><span></span><code><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">bFilter</span><span class="p">(:)=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">isHeat</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">setGPU</span><span class="p">(</span><span class="s">&#39;auto&#39;</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">setStandarddT</span><span class="p">();</span>
+<span class="n">pile1Id</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">Pile1</span><span class="p">;</span>
+<span class="n">pile1Z</span><span class="p">=</span><span class="n">d</span><span class="p">.</span><span class="n">mo</span><span class="p">.</span><span class="n">aZ</span><span class="p">(</span><span class="n">pile1Id</span><span class="p">);</span>
+<span class="n">topPileId</span><span class="p">=</span><span class="n">pile1Id</span><span class="p">(</span><span class="n">pile1Z</span><span class="o">&gt;</span><span class="nb">max</span><span class="p">(</span><span class="n">pile1Z</span><span class="p">)</span><span class="o">-</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="o">*</span><span class="mf">0.1</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="s">&#39;topPile&#39;</span><span class="p">,</span><span class="n">topPileId</span><span class="p">);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">addFixId</span><span class="p">(</span><span class="s">&#39;Z&#39;</span><span class="p">,</span><span class="n">d</span><span class="p">.</span><span class="n">GROUP</span><span class="p">.</span><span class="n">topPile</span><span class="p">);</span>
+</code></pre></div>
+<p>在真实世界中压桩或拔桩时，力作用在桩顶部。因此，在上述代码中，首先筛选出桩Pile1顶部部分单元的编号，并将其声明为组topPile。进一步，可以方便地对topPile施加力的作用，从而模拟压桩或拔桩过程。同时，应力波在桩体中传播的过程也能得到有效模拟。</p>
+<p>该步中还需通过<code>d.addFixId</code>命令锁定topPile组的Z坐标。这是由于在压桩或拔桩过程中，每次加载之后，桩会受到地层颗粒单元的反力或重力作用，如果不锁定桩顶单元的自由度，那产生的反力或重力会使桩体产生回弹或回落，影响模拟结果。如需模拟桩体回弹的工法，将命令<code>d.addFixId('Z',d.GROUP.topPile)</code>删除即可。</p>
+<h3 id="_11">迭代计算</h3>
+<div class="highlight"><pre><span></span><code><span class="n">totalCircle</span><span class="p">=</span><span class="mi">20</span><span class="p">;</span>
+<span class="n">stepNum</span><span class="p">=</span><span class="mi">100</span><span class="p">;</span>
+<span class="n">dis</span><span class="p">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">dDis</span><span class="p">=</span><span class="n">dis</span><span class="o">/</span><span class="n">totalCircle</span><span class="o">/</span><span class="n">stepNum</span><span class="p">;</span>
+<span class="n">d</span><span class="p">.</span><span class="n">tic</span><span class="p">(</span><span class="n">totalCircle</span><span class="o">*</span><span class="n">stepNum</span><span class="p">);</span>
+<span class="n">fName</span><span class="p">=[</span><span class="s">&#39;data/step/&#39;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">ballR</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;-&#39;</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">distriRate</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;loopNum&#39;</span><span class="p">];</span>
+<span class="nb">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="s">&#39;0.mat&#39;</span><span class="p">]);</span>
+</code></pre></div>
+<p>在迭代计算中，将桩上拔1米的过程分成20步（totalCircle），再将每一步分成100小步（stepNum）。如第四章中所述，在平衡迭代总次数相同的情况下，增大stepNum可以提高模拟结果的精度。实际模拟中，需要增大stepNum（如1000以上），将拔桩过程微分成更小的位移步dDis。在每次平衡迭代中，桩会被上拔dDis，如果dDis太大，则模拟结果精度将难以满足要求。</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="n">totalCircle</span>
+<span class="k">for</span><span class="w"> </span><span class="nb">j</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="n">stepNum</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">toc</span><span class="p">();</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">moveGroup</span><span class="p">(</span><span class="s">&#39;topPile&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">dDis</span><span class="p">);</span>
+<span class="w">    </span><span class="n">d</span><span class="p">.</span><span class="n">balance</span><span class="p">(</span><span class="s">&#39;Standard&#39;</span><span class="p">,</span><span class="mf">0.01</span><span class="p">);</span>
+<span class="k">end</span>
+<span class="n">d</span><span class="p">.</span><span class="n">clearData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nb">save</span><span class="p">([</span><span class="n">fName</span><span class="w"> </span><span class="nb">num2str</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="s">&#39;.mat&#39;</span><span class="p">]);</span>
+<span class="n">d</span><span class="p">.</span><span class="n">calculateData</span><span class="p">();</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>在迭代计算过程中，施加荷载的形式包括应力荷载、位移荷载以及二者的混合。例如，可通过压力板来实现应力荷载的施加，即对压力板的单元施加特定的体力；而位移荷载则可通过移动特定的组来实现。在上述代码中，通过函数<code>d.moveGroup</code>移动桩顶（topPile）来模拟拔桩的过程。每上拔dDis距离，即进行0.01次的标准平衡（<code>d.balance('Standard',0.01)</code>）。由于topPile的Z坐标是锁定的，桩顶以下的单元在拉力作用下向上移动，并与桩周土产生作用，从而实现桩土作用的模拟。</p>
+<p>在模拟过程中，通过save命令不断保存每一步的数据文件。在完成数值模拟后，通过后处理或makeGIF代码，可生成拔桩过程的GIF动画，等。第三步得到的结果如图6.1-3速度场图所示：Pile1被上拔了一定距离，桩端与地层之间出现了明显的空隙，而Pile2由于在第二步中被声明为固定单元，在模拟中始终保持不动。图中可以看到，由于分步对桩顶施加位移，当拔桩速度非常快的时候，桩中出现明显的应力波。</p>
+<p><img alt="alt text" src="../images/6.1-3a.png" /> <img alt="alt text" src="../images/6.1-3b.png" /></p>
+<p>BoxPile是MatDEM中几个较为简单的示例之一，主要演示了如何通过自定义函数建立简
+单形态的结构体，并将其添加到模型中。同时，示例中包括了堆积建模、过滤器使用、导入和设置材料、锁定单元自由度等已在理论篇中阐述的知识点。在掌握这些操作的基础上，可根据实际需要，建立更为复杂的模型。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9h4m4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21H9m0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03V19Z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12h-4M15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3h9m0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97V5Z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Thanks for your feedback! Help us improve this page by <a href="mailto: forum@matdem.com">sending emails</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+  <h2 id="__comments">评论</h2>
+  <script src="https://giscus.app/client.js"
+  data-repo="renclh/MatDEMDocs"
+  data-repo-id="R_kgDOKScKOA"
+  data-category="Announcements"
+  data-category-id="DIC_kwDOKScKOM4CgNw8"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  crossorigin="anonymous"
+  async>
+</script>
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="上一页: TOC">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                TOC
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../blog/" class="md-footer__link md-footer__link--next" aria-label="下一页: Blog">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Blog
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2018 - 2023 MatDEM Team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.expand", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "navigation.index", "toc.follow", "content.code.copy", "content.action.edit", "content.action.view", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.471ce7a9.min.js"></script>
+      
+        <script src="../../assets/javascripts/katex.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1807 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../pore/">
+      
+      
+        <link rel="next" href="../fs/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.32">
+    
+    
+      
+        <title>mfs - Docs of MatDEM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/matlab_highlight.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/custom_admonitions.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra_css.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-8CKJDB6WY1"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-8CKJDB6WY1",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-8CKJDB6WY1",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mfs" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="http://matdem.com" title="Docs of MatDEM" class="md-header__button md-logo" aria-label="Docs of MatDEM" data-md-component="logo">
+      
+  <img src="../../assets/images/MatDEM.ico" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Docs of MatDEM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              mfs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/renclh/MatDEMDocs" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    renclh/MatDEMDocs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../install/" class="md-tabs__link">
+          
+  
+    
+  
+  Getting started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tags/" class="md-tabs__link">
+          
+  
+    
+  
+  Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+    
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../help/Help_showC/" class="md-tabs__link">
+          
+  
+    
+  
+  Help
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../book/" class="md-tabs__link">
+          
+  
+    
+  
+  Book
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="http://matdem.com" title="Docs of MatDEM" class="md-nav__button md-logo" aria-label="Docs of MatDEM" data-md-component="logo">
+      
+  <img src="../../assets/images/MatDEM.ico" alt="logo">
+
+    </a>
+    Docs of MatDEM
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/renclh/MatDEMDocs" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    renclh/MatDEMDocs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../install/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../tags/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../obj_Box/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    obj_Box
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Tool_Cut/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tool_Cut
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    build
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../childModel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    childModel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modelStatus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    modelStatus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../material/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    material
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pore/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pore
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    mfs
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    fs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../f/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    f
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../planetfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Miscellaneous
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../help/Help_showC/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Help
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../book/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Book
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../blog/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/renclh/MatDEMDocs/edit/main/docs/api/mfs.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/renclh/MatDEMDocs/raw/main/docs/api/mfs.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z"/></svg>
+    </a>
+  
+
+
+<h1 id="mfs">mfs</h1>
+<div class="admonition api">
+<p class="admonition-title">class <span id="mfs-mfs">mfs</span></p>
+<details class="api" open="open">
+<summary><span id="mfs-props">Properties</span></summary>
+</details>
+<details class="api" open="open">
+<summary><span id="mfs-methods">Methods</span></summary>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-transferPara(d1,d2,gNames,paras)">transferPara(d1,d2,gNames,paras)</span></p>
+<p>将指定组的属性由d1转到d2</p>
+<p>d1,d2为build对象；gNames组名元胞矩阵；paras：参数元胞矩阵</p>
+<p>无</p>
+<p>见user_ClumpParticle2：mfs.transferPara(d,B.d,{'botPlaten','topPlaten','lefPlaten','rigPlaten'},{'aX','aZ'});</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-[gId1,gId2]=splitGroup(d,gName,type,value)">[gId1,gId2]=splitGroup(d,gName,type,value)</span></p>
+<p>将组将属性大小分成两部分，并返回两部分的id</p>
+<p>d对象；gName组名；type:d.mo中的属性字符串；value切分的值，大等于此值的返回到gId1中</p>
+<p>gId返回的两部id</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-allDisc=grain2Clump2D(grainObj,expandRate,Rrate)">allDisc=grain2Clump2D(grainObj,expandRate,Rrate)</span></p>
+<p>将大颗粒转化为clump</p>
+<p>grainObj颗粒的结构体，expandRate：令minR为最小颗粒半径，当半径大于minR*expandRate且小于minR*expandRate^3/2时，转为七单元clump，当半径大于minR*expandRate^3/2时，采用discObj=mfs.denseModel0(Rrate,<a class="magiclink magiclink-github magiclink-mention" href="https://github.com/mfs" title="GitHub User: mfs">@mfs</a>.makeDiscV,grainR,ballR1);生成圆盘clump</p>
+<p>所有颗粒单元的结构体，包含groupId，以便进一步导入生成clump</p>
+<p>见user_ClumpParticle2</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-porosity=getPorosity(B,zLimit)">porosity=getPorosity(B,zLimit)</span></p>
+<p>计算z方向小于zLimit的孔隙率（利用get2DPorosity或get3DPorosity</p>
+<p>B对象，zLimit：Z方向的上限</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-porosity=get3DPorosity(d,x1,x2,y1,y2,z1,z2)">porosity=get3DPorosity(d,x1,x2,y1,y2,z1,z2)</span></p>
+<p>计算三维sample一定区域内的孔隙率</p>
+<p>d对象；x1,x2,y1,y2,z1,z2计算孔隙率的区域</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-porosity=get2DPorosity(d,x1,x2,z1,z2)">porosity=get2DPorosity(d,x1,x2,z1,z2)</span></p>
+<p>计算二维sample一定区域内的孔隙率，当d.SET.ballArea存在时，使用其计算颗粒面积，反之，则用sample</p>
+<p>d对象；x1,x2,z1,z2计算孔隙率的区域</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-porosity=getBoxPorosity(B,topRate)">porosity=getBoxPorosity(B,topRate)</span></p>
+<p>获得模型箱下方一定比例区域的孔隙率</p>
+<p>B对象；topRate比例，为1时，则计算整个模拟箱</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-[data,B]=testSpeed(num,balanceCommand,isSingle)">[data,B]=testSpeed(num,balanceCommand,isSingle)</span></p>
+<p>用于测试程序的速度</p>
+<p>num:模型在三个方向上的单元个数；balanceCommand平衡命令；isSingle是否单精度</p>
+<p>data测试结果，B对象</p>
+<p>见user_BoxTestSpeed</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-porosity=get2DPorosity(d,x1,x2,z1,z2)">porosity=get2DPorosity(d,x1,x2,z1,z2)</span></p>
+<p>计算二维模型的孔隙率</p>
+<p>d对象；其它为坐标</p>
+<p>孔隙率</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-porosity=get3DPorosity(d,x1,x2,y1,y2,z1,z2)">porosity=get3DPorosity(d,x1,x2,y1,y2,z1,z2)</span></p>
+<p>计算三维模型的孔隙率</p>
+<p>d对象；其它为坐标</p>
+<p>孔隙率</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-porosity=getPorosity(B,zLimit)">porosity=getPorosity(B,zLimit)</span></p>
+<p>计算Box孔隙率（从底部0到zLimit间）</p>
+<p>B对象; zLimit:计算Box孔隙率的高度</p>
+<p>孔隙率</p>
+<p>BoxCompaction</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-frame=getObjFrame(obj)">frame=getObjFrame(obj)</span></p>
+<p>获取结构体在六个方向的边界，以及宽长高</p>
+<p>模型结构体，包括信息：X, Y, Z, R</p>
+<p>结构体frame,包括信息：left, right, front back, bottom, top, width, length, height</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-sFilter=applyRegionFilter(regionFilter,sX,sY)">sFilter=applyRegionFilter(regionFilter,sX,sY)</span></p>
+<p>应用mfs.image2RegionFilter生成的矩阵来过滤单元，得到单元过滤矩阵</p>
+<p>regionFilter:布尔矩阵; sX, sY:单元x, y坐标</p>
+<p>单元过滤器</p>
+<p>见user_Box3DSlope2</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-regionFilter=image2RegionFilter(fileName,imH,imW)">regionFilter=image2RegionFilter(fileName,imH,imW)</span></p>
+<p>根据图片生成imH*imW的布尔矩阵，图中白色为true</p>
+<p>fileName: 图片文件名字符串（包含路径）; imH, imW: 生成的矩阵的高和宽</p>
+<p>区块布尔矩阵</p>
+<p>见user_Box3DSlope3</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-bondFilter=setBondByPolygon(d,PX,PY,PZ,type)">bondFilter=setBondByPolygon(d,PX,PY,PZ,type)</span></p>
+<p>利用多顶点定义的多边形面来切割或胶结模型</p>
+<p>d:build对象;pX,pY,pZ,空间多边形的顶点坐标，如[1;2;3],[4;5;6],[7;8;8]；type:可为'break'(断开连接），'glue'（胶结连接），'no'不改变d中的连接状态，仅返回bondFilter</p>
+<p>对应于nBall的连接矩阵，值为1代表三角面有通过连接</p>
+<p>见user_Box3DJointStress</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-bondFilter=setBondByTriangle(d,pX,pY,pZ,type)">bondFilter=setBondByTriangle(d,pX,pY,pZ,type)</span></p>
+<p>用三个顶点定义的三角面来切割或胶结模型</p>
+<p>d:build对象;pX,pY,pZ,空间三角面三个顶点坐标，如[1;2;3;4],[4;5;6;7],[7;8;9;10]；type:可为'break'(断开连接），'glue'（胶结连接），'no'不改变d中的连接状态，仅返回bondFilter</p>
+<p>对应于nBall的连接矩阵，值为2代表三角面有通过连接</p>
+<p>见user_Box3DJointStress，type为'glue'时需再运行d.mo.zeroBalance();</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-[obj1,obj2]=divideObj(obj,pX,pY,pZ)">[obj1,obj2]=divideObj(obj,pX,pY,pZ)</span></p>
+<p>用三个顶点定义的三角面来切分结构体，生成两个结构体</p>
+<p>obj:初始结构体模型;pX,pY,pZ:三角形坐标数组（列方向数组）</p>
+<p>切割出的两个新结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-ObjOut=rotateCopy(obj,dAngle,num,varargin)">ObjOut=rotateCopy(obj,dAngle,num,varargin)</span></p>
+<p>结构体以原点为中心在XY平面上旋转复制</p>
+<p>obj:初始结构体模型;dAngle:旋转角度;num:次数;varargin:0或1 个输入参数，字符串，可取'XY','YZ','XZ'，无输入参数时在'XY'平面旋转</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+<p>见user_BoxShear</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-ringObj=makeRing2(innerR,outerR,ballR0,Rrate)">ringObj=makeRing2(innerR,outerR,ballR0,Rrate)</span></p>
+<p>用等大的单元制作环形</p>
+<p>innerR:环内径;outerR:环外径;ballR:单元半径;Rrate:单元间距和直径比</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+<p>见user_BoxShear</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-edge=getObjEdge(type,obj1)">edge=getObjEdge(type,obj1)</span></p>
+<p>获取结构体模型在某一方向的边界</p>
+<p>type:字符串，可取‘left’,‘right‘,’front‘,’back‘,’bottom‘,’top‘;obj1:结构体</p>
+<p>边界的坐标值</p>
+<p>见user_BoxShear</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj1=align2Value(type,obj1,value)">obj1=align2Value(type,obj1,value)</span></p>
+<p>将结构体模型的对齐到某一位置</p>
+<p>type:字符串，可取‘left’,‘right‘,’front‘,’back‘,’bottom‘,’top‘;obj1:结构体;value:坐标值</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+<p>见user_BoxShear</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-varargout=alignObj(type,varargin)">varargout=alignObj(type,varargin)</span></p>
+<p>将多个结构体模型沿某一侧对齐</p>
+<p>type:字符串，可取‘left’,‘right‘,’front‘,’back‘,’bottom‘,’top‘;varargin:多个结构体</p>
+<p>按顺序返回多个结构体</p>
+<p>[obj1,obj2]=mfs.alignObj('left',obj1,obj2);</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-ringObj=makeRing(innerR,layerNum,minBallR,Rrate)">ringObj=makeRing(innerR,layerNum,minBallR,Rrate)</span></p>
+<p>生成一个二维的环，用于做隧道</p>
+<p>innerR:环内径;layerNum:环径向单元个数;minBallR:最小单元半径;Rrate:单元间距和直径比</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+<p>user_TunnelNew</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-mixGroupElement(d,gName,randPositionSeed)">mixGroupElement(d,gName,randPositionSeed)</span></p>
+<p>将指定组的单元随机互换位置，从而得到新的堆积</p>
+<p>d:build对象;gName:组名字符串;randPosition:随机种子数字</p>
+<p>无</p>
+<p>user_BoxUniaxialTest</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-note=balanceForce(d, Amax, num)">note=balanceForce(d, Amax, num)</span></p>
+<p>平衡模型直至最大加速度小于Amax，或平衡达到num次循环</p>
+<p>d:build对象;Amax:最大加速度;num:平衡循环次数，平衡次数为100*num</p>
+<p>关于平衡计算的信息字符串</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj1=combineObj(varargin)">obj1=combineObj(varargin)</span></p>
+<p>将多个结构体合并一个</p>
+<p>varargin:用于合并的多个结构体</p>
+<p>合并得到的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=cutBoxObj(sampleObj, width, length, height)">obj=cutBoxObj(sampleObj, width, length, height)</span></p>
+<p>从样品对象中切取特定长宽高的块体，原点为中心</p>
+<p>sampleObj:样品结构体; width,length,height:切取的长宽高</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=cutSphereObj(sampleObj, radius)">obj=cutSphereObj(sampleObj, radius)</span></p>
+<p>从样品对象中切取特定半径的球，原点为中心</p>
+<p>sampleObj:样品结构体; radius:切取的球半径</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=denseModel(Rrate, F, varargin)">obj=denseModel(Rrate, F, varargin)</span></p>
+<p>将结构体对象加密重叠</p>
+<p>Rrate:单元间距和直径比，生成结构体的函数F，F的输入参数</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+<p>user_BoxSlope2</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=expandAlong(obj, dir, dDis, num)">obj=expandAlong(obj, dir, dDis, num)</span></p>
+<p>沿正负方向复制扩展结构体中单元，基于expandAlongMax</p>
+<p>obj:结构体; dir:方向: dDis:间距; num:次数</p>
+<p>扩展得到的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=expandAlongMax(obj, dir, dDis, num)">obj=expandAlongMax(obj, dir, dDis, num)</span></p>
+<p>沿正值方向复制扩展结构体中单元</p>
+<p>obj:结构体; dir:方向: dDis:间距; num:次数</p>
+<p>扩展得到的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=filterObj(obj, f)">obj=filterObj(obj, f)</span></p>
+<p>利用过滤器选择结构体中单元生成新的结构体</p>
+<p>obj:单元结构体; f:过滤器布尔矩阵（值为1则选中）</p>
+<p>过滤后的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-stressSteps=getBoxUniaxialStressSteps(B)">stressSteps=getBoxUniaxialStressSteps(B)</span></p>
+<p>根据B中的材料属性计算力学测试的应力步</p>
+<p>B:Box对象</p>
+<p>包括弹性、抗拉和抗压试验应力步的结构体</p>
+<p>user_BoxMatTraining</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-filter=getColumnFilter(X, Y, Z, dipD, dipA, radius, height)">filter=getColumnFilter(X, Y, Z, dipD, dipA, radius, height)</span></p>
+<p>切出柱形的单元过滤器</p>
+<p>X,Y,Z:坐标; dipD:倾向; dipA:倾角; radius:圆柱半径; height:圆柱高度</p>
+<p>过滤器布尔矩阵</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-objCenter=getObjCenter(obj)">objCenter=getObjCenter(obj)</span></p>
+<p>获取对象的中心</p>
+<p>obj:模型结构体，包括信息：X, Y, Z, R</p>
+<p>包括中心x,y,z信息的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-weakFilter=getWeakLayerFilter(X, Y, Z, dipD, dipA, strongT, weakT)">weakFilter=getWeakLayerFilter(X, Y, Z, dipD, dipA, strongT, weakT)</span></p>
+<p>建立强弱互层单元过滤器</p>
+<p>X,Y,Z:单元坐标; dipD:倾向; dipA:倾角; strongT:强层厚; weakT:弱层厚</p>
+<p>弱层的过滤器矩阵</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-SET=getBoxSample(grainR,sampleW,sampleL,hRate)">SET=getBoxSample(grainR,sampleW,sampleL,hRate)</span></p>
+<p>根据半径数组得到Box模型所需的参数</p>
+<p>grainR:半径数组；sampleW,sampleL模型宽和长，hRate高度比率（比1略大），hRate为1时，则返回的模型参数中sampleH为这些颗粒刚好需要的容器高度，当这个值增大时，则容器高度正比增加</p>
+<p>Box模型设置结构体</p>
+<p>user_HighSizeRatio.m</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-randD=getGradationDiameter(G,varargin)">randD=getGradationDiameter(G,varargin)</span></p>
+<p>根据粒径级配得到单元粒径数组</p>
+<p>G:级配数据；varargin:一个参数时为体积，两个参数时，第一个参数为体积，第二个参数为级配曲线的类型，其决定在一个粒径范围内颗粒曲线的变化，通常在-1到3之间，其较小时级配曲线下凸，较大时上凸。取-1时（默认），则每个粒径对应的颗粒数一致，细单元较少；取3时，则每个粒径对应的颗粒总体积一致，细单元较多。</p>
+<p>粒径数组</p>
+<p>user_HighSizeRatio.m</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=intervalObj(objOne, dx, dy, dz, num)">obj=intervalObj(objOne, dx, dy, dz, num)</span></p>
+<p>沿dx,dy,dz的间隔重复生成num个的objOne</p>
+<p>objOne:单个结构体; dx,dy,dz间隔; num:生成个数</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=make3DalongPath(obj2D,X,Y,Z,dDis,dAngle)">obj=make3DalongPath(obj2D,X,Y,Z,dDis,dAngle)</span></p>
+<p>将二维物体沿着路径XYZ伸成三维（路径要精细）</p>
+<p>obj2D:二维物体结构体；X,Y,Z：路径的坐标；dDis：复制移动距离；dAngle：复制旋转角度</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+<p>见示例user_Cable，源代码见fun/make3DalongPath.m</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj3D=make3Dfrom2D(obj2D, height, ballR)">obj3D=make3Dfrom2D(obj2D, height, ballR)</span></p>
+<p>将二维的物体拉伸成三维，如将circle拉成tube</p>
+<p>obj2D:二维物体结构体；height:拉成三维体的高；ballR:单元半径</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=makeBox(boxW, boxL, boxH, ballR)">obj=makeBox(boxW, boxL, boxH, ballR)</span></p>
+<p>做一个块体结构体</p>
+<p>宽，长，高，单元半径</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+<p>user_BoxSlope3</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=makeCircle(circleR, ballR)">obj=makeCircle(circleR, ballR)</span></p>
+<p>做圆圈的结构体</p>
+<p>circleR:圆的半径；ballR:单元半径</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=makeColumn(columnR, columnHeight, ballR)">obj=makeColumn(columnR, columnHeight, ballR)</span></p>
+<p>做一个柱体结构体</p>
+<p>columnR:圆柱半径; columnHeight:圆柱高度; ballR:单元半径</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=makeDisc(discR, ballR)">obj=makeDisc(discR, ballR)</span></p>
+<p>做一个二维圆结构体</p>
+<p>discR:圆盘的半径；ballR:单元半径</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=makeHob(hobR, hobT, cutRate, ballR, Rrate)">obj=makeHob(hobR, hobT, cutRate, ballR, Rrate)</span></p>
+<p>生成一个滚刀结构体</p>
+<p>hobR:滚刀半径; hobT:厚度; cutRate:刀口倾斜度（越大越尖）; ballR:单元半径; Rrate:单元间距和直径比</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+<p>hob=mfs.makeHob(hobR,hobT,cutRate,ballR,Rrate);</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=makeLine(dir, length, ballR)">obj=makeLine(dir, length, ballR)</span></p>
+<p>沿X,Y,Z某一方向生成一条线</p>
+<p>dir:方向，可取字符串'X','Y','Z'; length:长度; ballR:单元半径</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+<p>mfs.makeLine('X',1,0.05);</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=makeLShape(width, height, ballR)">obj=makeLShape(width, height, ballR)</span></p>
+<p>生成一个L形的条（用于做网）</p>
+<p>width:宽; length: 长; ballR:单元半径</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=makeNet(width, height, cellW, cellH, ballR)">obj=makeNet(width, height, cellW, cellH, ballR)</span></p>
+<p>根据网的长宽，网眼的长宽和单元半径生成网</p>
+<p>width:宽; height: 高; cellW:网眼宽; cellH:网眼高; ballR:单元半径</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+<p>a=mfs.makeNet(100,100,10,10,1);fs.showObj(a);</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=makeRect(width, length, ballR)">obj=makeRect(width, length, ballR)</span></p>
+<p>做一个平面长方形结构体</p>
+<p>width:宽; length: 长; ballR: 单元半径</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=makeTube(tubeR, tubeHeight, ballR)">obj=makeTube(tubeR, tubeHeight, ballR)</span></p>
+<p>做管子结构体，四边形堆积</p>
+<p>tubeR:管子半径; tubeHeight:长; ballR:单元半径</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=makeTube2(tubeR,tubeHeight,ballR)">obj=makeTube2(tubeR,tubeHeight,ballR)</span></p>
+<p>做管子结构体，六边形堆积</p>
+<p>tubeR:管子半径; tubeHeight:长; ballR:单元半径</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-Cu=makeUniaxialCuTest(B, stressSteps)">Cu=makeUniaxialCuTest(B, stressSteps)</span></p>
+<p>根据stressSteps进行B的单轴压缩试验</p>
+<p>B: Obj_Box对象; stressSteps:应力步</p>
+<p>单轴抗压强度Cu信息</p>
+<p>user_BoxMatTraining</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-Ev=makeUniaxialEvTest(B, stressSteps)">Ev=makeUniaxialEvTest(B, stressSteps)</span></p>
+<p>根据stressSteps进行B的弹性模量试验</p>
+<p>B:f；stressSteps:单元半径</p>
+<p>弹性模量Ev信息</p>
+<p>user_BoxMatTraining</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-B=makeUniaxialTest(B, varargin)">B=makeUniaxialTest(B, varargin)</span></p>
+<p>自动进行单轴力学测试，压缩，抗伸和Ev测试，计算密度，user_BoxMatTraining</p>
+<p>B:Obj_Box对象; varargin:0或1个输入参数，为1时可取'Cu','Tu','Ev',并进行相关测试，为0时进行以上三种测试，参考user_BoxMatTraining</p>
+<p>Obj_Box对象</p>
+<p>user_BoxMatTraining</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-B=makeUniaxialTestModel0(width, length, height, ballR, distriRate, randSeed)">B=makeUniaxialTestModel0(width, length, height, ballR, distriRate, randSeed)</span></p>
+<p>单轴测试初始建模</p>
+<p>width,length,height:模型宽长高;ballR:半径;distriRate:单元半径分散系数;randSeed:随机种子</p>
+<p>Obj_Box对象</p>
+<p>user_BoxMatTraining</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-B=makeUniaxialTestModel1(B)">B=makeUniaxialTestModel1(B)</span></p>
+<p>对makeUniaxialTestModel0生成的模型进行重力堆积</p>
+<p>B:Obj_Box对象</p>
+<p>Obj_Box对象</p>
+<p>user_BoxMatTraining</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-B=makeUniaxialTestModel2(B,matFile,varargin)">B=makeUniaxialTestModel2(B,matFile,varargin)</span></p>
+<p>对makeUniaxialTestModel1生成的模型进行赋材料</p>
+<p>B:Obj_Box对象; matFile: 模型材料（可为文件名或material对象）;varargin:可输入材料的rate参数，来定义material宏观参数系数（见material.rate)</p>
+<p>Obj_Box对象</p>
+<p>user_BoxMatTraining</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-B=makeUniaxialTuTest(B, stressSteps)">B=makeUniaxialTuTest(B, stressSteps)</span></p>
+<p>根据stressSteps进行B的单轴拉伸试验</p>
+<p>B: Obj_Box对象; stressSteps:应力步</p>
+<p>Obj_Box对象</p>
+<p>user_BoxMatTraining</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=move(obj, varargin)">obj=move(obj, varargin)</span></p>
+<p>移动结构体</p>
+<p>obj:结构体;varargin:1个输入参数时为坐标数组P[x,y,z]，3个参数为x,y,z坐标</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+<p>user_BoxShear</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=moveObj2Origin(obj)">obj=moveObj2Origin(obj)</span></p>
+<p>将对象的中心移到原点</p>
+<p>obj:样品结构体，包括X,Y,Z,R信息</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+<p>mfs.moveObj2Origin(a);</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-d=Obj2Build(obj, varargin)">d=Obj2Build(obj, varargin)</span></p>
+<p>将一个Obj结构体转化为build对象</p>
+<p>obj:样品结构体; varargin:可选参数，定义build中的mNum</p>
+<p>build对象</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-reduceGravity(d, index)">reduceGravity(d, index)</span></p>
+<p>逐步减少模型中的单元重力，每次除以10，再平衡200次，最后标准平衡一次</p>
+<p>d: build对象; index:除以10的次数</p>
+<p>无</p>
+<p>见示例第一步</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=rotate(obj, type, angle)">obj=rotate(obj, type, angle)</span></p>
+<p>将结构体沿特定方向转到一定角度</p>
+<p>结构体，方向（'XY','YZ','XZ'），角度</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+<p>在二维模型中，旋转后再运行d.mo.aY(:)=0，防止浮点误差出错</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-show(obj)">show(obj)</span></p>
+<p>显示结构体，结构体中包含X,Y,Z,R,gId信息，根据gId显示颜色</p>
+<p>obj:结构体</p>
+<p>无</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-sorting(D, divNum)">sorting(D, divNum)</span></p>
+<p>获得单元直径分布，并画图</p>
+<p>D:单元直径数组; divNum:分割数</p>
+<p>包含分选系数等的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=createSurfaceNet(x,y,z,ballR,Rrate,varargin)">obj=createSurfaceNet(x,y,z,ballR,Rrate,varargin)</span></p>
+<p>%x,y,z: DEM scattered data.
+%ballR: the uniform radius of elements.
+%Rrate: the ratio of the distance between two elements to their diameter.
+%varargin: 1 parameter, the uniform width of the margins to be clipped;
+%          2 parameters, the widths of the margins to be clipped, left and right, top and bottom, respectively;
+%          4 parameters, the widths of the margins to be clipped, left, right, top, bottom, respectively.</p>
+<p>user_createSurfaceNet</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-0以下为程序内部函数，通常不直接使用">0以下为程序内部函数，通常不直接使用</span></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-boxCut(obj, box)">boxCut(obj, box)</span></p>
+<p>*</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-calculateParaRate(matFile, para1)">calculateParaRate(matFile, para1)</span></p>
+<p>计算输入和实测力学参数的比值，用在UnaxialTest中*</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-changeRadiusDistribution(d, randSeed)">changeRadiusDistribution(d, randSeed)</span></p>
+<p>暂时不可用</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-clearObj(obj)">clearObj(obj)</span></p>
+<p>清理结构体，将所有参数设为空［］</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-connectFilter=groupConnectFilter(nBall,G1_gId,G2_gId)">connectFilter=groupConnectFilter(nBall,G1_gId,G2_gId)</span></p>
+<p>%get the connection filter bewteen two group</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-connectFilter=groupOuterConnectFilter(nBall,G1_gId)">connectFilter=groupOuterConnectFilter(nBall,G1_gId)</span></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-convertDir(dirIn)">convertDir(dirIn)</span></p>
+<p>*</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-crossProduct(AX, AY, AZ, BX, BY, BZ)">crossProduct(AX, AY, AZ, BX, BY, BZ)</span></p>
+<p>叉乘运算</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-data2D(XYZ, Y0, R0)">data2D(XYZ, Y0, R0)</span></p>
+<p>*</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-defineBoundary(varargin)">defineBoundary(varargin)</span></p>
+<p>*to be deleted in future</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-getBoxBoundary(type, boundaryRrate, BexpandRate, w, l, h, ballR)">getBoxBoundary(type, boundaryRrate, BexpandRate, w, l, h, ballR)</span></p>
+<p>*</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-getBoxFrame(X, Y, Z, R)">getBoxFrame(X, Y, Z, R)</span></p>
+<p>*</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-getJointCutFilter(x1, z1, x2, z2, nXI, nZI, nXJ, nZJ, nBall)">getJointCutFilter(x1, z1, x2, z2, nXI, nZI, nXJ, nZJ, nBall)</span></p>
+<p>%using cross product to determine the vector side*</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-group2MatId(aMatId, gId, gIdList, mIdList)">group2MatId(aMatId, gId, gIdList, mIdList)</span></p>
+<p>*</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-isExist(cellObj, name)">isExist(cellObj, name)</span></p>
+<p>*</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-moveMeshGrid(S, moveDis)">moveMeshGrid(S, moveDis)</span></p>
+<p>将meshgrid沿着Z方向移动一定距离</p>
+<p>包含mesh的XYZ信息</p>
+<p>见3DSlope示例</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-obj=rotate2Path(obj, P1, P2)">obj=rotate2Path(obj, P1, P2)</span></p>
+<p>沿着路径旋转*</p>
+<p>包括X,Y,Z,R信息的结构体</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-rotateIJ(I, J, angle)">rotateIJ(I, J, angle)</span></p>
+<p>*</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-setBlockClump(X, Y, Z, limit)">setBlockClump(X, Y, Z, limit)</span></p>
+<p>*</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-shrink(X0, Y0, Z0, rate)">shrink(X0, Y0, Z0, rate)</span></p>
+<p>将坐标向物体中心收缩</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-XYZ2Plunge(P)">XYZ2Plunge(P)</span></p>
+<p>*</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-[connectFilter1,connectFilter2]=groupConnectFilter0(nBall,G1_gId,G2_gId)">[connectFilter1,connectFilter2]=groupConnectFilter0(nBall,G1_gId,G2_gId)</span></p>
+<p>获得G1_gId和G2_gId单元间的邻居过滤器</p>
+<p>%connectFilter1: connection filter in first group rows，  %connectFilter2: connection filter in second group rows</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-[connectFilter1,connectFilter2]=groupOuterConnectFilter0(nBall,G1_gId)">[connectFilter1,connectFilter2]=groupOuterConnectFilter0(nBall,G1_gId)</span></p>
+<p>%get the connection filter a group with all other elements</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-GForce=getWallGroupForce(d,G1_gId,G2_gId)">GForce=getWallGroupForce(d,G1_gId,G2_gId)</span></p>
+<p>用于支持d.getGroupForce函数</p>
+<p>d对象；组Id</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><span id="mfs-GForce=getModelGroupForce(d,G1_gId,G2_gId)">GForce=getModelGroupForce(d,G1_gId,G2_gId)</span></p>
+<p>用于支持d.getGroupForce函数</p>
+<p>d对象；组Id</p>
+</div>
+</details>
+</div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9h4m4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21H9m0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03V19Z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12h-4M15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3h9m0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97V5Z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Thanks for your feedback! Help us improve this page by <a href="mailto: forum@matdem.com">sending emails</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../pore/" class="md-footer__link md-footer__link--prev" aria-label="上一页: pore">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                pore
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../fs/" class="md-footer__link md-footer__link--next" aria-label="下一页: fs">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                fs
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2018 - 2023 MatDEM Team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.expand", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "navigation.index", "toc.follow", "content.code.copy", "content.action.edit", "content.action.view", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.471ce7a9.min.js"></script>
+      
+        <script src="../../assets/javascripts/katex.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,73 @@
+/*
+api: custom admonition/details
+  remove icon,
+  modify padding-left,
+  modify color 
+*/
+.md-typeset .admonition.api,
+.md-typeset details.api {
+  border-color: rgb(160, 82, 45);
+}
+.md-typeset .api > .admonition-title,
+.md-typeset .api > summary {
+  background-color: rgba(160, 82, 45, 0.1);
+  padding-left: 0.6rem;/* default 2rem*/
+}
+.md-typeset .api > .admonition-title::before,
+.md-typeset .api > summary::before {
+  content: none;
+}
+
+.md-typeset .api > .admonition-title > span {
+  color: var(--md-primary-fg-color);
+}
+
+
+/*popup based on admonition*/
+.md-typeset .admonition.popup,
+.md-typeset details.popup {
+  border-style: none;
+}
+.md-typeset .popup > .admonition-title,
+.md-typeset .popup > summary {
+  border-style: none;
+  background-color: var(--md-default-bg-color);
+  /*padding-left: 0.6rem; default 2rem*/
+}
+.md-typeset .popup > .admonition-title::before,
+.md-typeset .popup > summary::before {
+  content: '';
+  -webkit-mask-image: var(--md-details-icon);
+  mask-image: var(--md-details-icon);
+}
+.md-typeset details[open].popup > summary::before {
+  transform: rotate(90deg);
+}
+.md-typeset .popup > .admonition-title::after,
+.md-typeset .popup > summary::after {
+  content: none;
+}
+
+.md-typeset .api > .admonition-title > span {
+  color: var(--md-primary-fg-color);
+}
+
+/*
+custom definition list stylesheet with border font-weight
+*/
+dl > dt {
+  font-weight: bolder;
+}
+
+/*
+article.md-post.md-post--excerpt {
+  border-style: solid;
+  border-color: aqua;
+}
+*/
+
+
+.api-property, .api-method {
+  padding-left: 10px;
+  border-left: 4px solid rgba(230,230,230);
+}

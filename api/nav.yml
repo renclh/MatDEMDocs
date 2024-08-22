@@ -1,0 +1,794 @@
+build: 
+ - api/build.md/#build-build
+ - name: api/build.md/#build-name
+ - TAG: api/build.md/#build-TAG
+ - SET: api/build.md/#build-SET
+ - PAR: api/build.md/#build-PAR
+ - GROUP: api/build.md/#build-GROUP
+ - Loads: api/build.md/#build-Loads
+ - isPar: api/build.md/#build-isPar
+ - is2D: api/build.md/#build-is2D
+ - data: api/build.md/#build-data
+ - mo: api/build.md/#build-mo
+ - po: api/build.md/#build-po
+ - status: api/build.md/#build-status
+ - Mats: api/build.md/#build-Mats
+ - vRate: api/build.md/#build-vRate
+ - g: api/build.md/#build-g
+ - module: api/build.md/#build-module
+ - isUI: api/build.md/#build-isUI
+ - edit_output: api/build.md/#build-edit_output
+ - aNum*: api/build.md/#build-aNum*
+ - mNum*: api/build.md/#build-mNum*
+ - aMatId: api/build.md/#build-aMatId
+ - aX: api/build.md/#build-aX
+ - aY: api/build.md/#build-aY
+ - aZ: api/build.md/#build-aZ
+ - aR: api/build.md/#build-aR
+ - aKN: api/build.md/#build-aKN
+ - aKS: api/build.md/#build-aKS
+ - aBF: api/build.md/#build-aBF
+ - aFS0: api/build.md/#build-aFS0
+ - aMUp: api/build.md/#build-aMUp
+ - isFluidVis: api/build.md/#build-isFluidVis
+ - mVis: api/build.md/#build-mVis
+ - mM: api/build.md/#build-mM
+ - period: api/build.md/#build-period
+ - dbXYZ: api/build.md/#build-dbXYZ
+ - bIndex: api/build.md/#build-bIndex
+ - saveHour: api/build.md/#build-saveHour
+ - step: api/build.md/#build-step
+ - totalStep: api/build.md/#build-totalStep
+ - isNote: api/build.md/#build-isNote
+ - note: api/build.md/#build-note
+ - figureNumber: api/build.md/#build-figureNumber
+ - Rrate: api/build.md/#build-Rrate
+ - showB: api/build.md/#build-showB
+ - showBallLimit: api/build.md/#build-showBallLimit
+
+ - addTimeProp(gName, type, Ts, Vs): api/build.md/#build-addTimeProp(gName, type, Ts, Vs)
+ - removeTimeProp(gName, type): api/build.md/#build-removeTimeProp(gName, type)
+ - addRecordProp(gName, type): api/build.md/#build-addRecordProp(gName, type)
+ - removeRecordProp(gName, type): api/build.md/#build-removeRecordProp(gName, type)
+ - addElement(matId, addObj, varargin): api/build.md/#build-addElement(matId, addObj, varargin)
+ - addFixId(direction, gId): api/build.md/#build-addFixId(direction, gId)
+ - addGroup(gName,gId,varargin): api/build.md/#build-addGroup(gName,gId,varargin)
+ - addMaterial(newMat): api/build.md/#build-addMaterial(newMat)
+ - balance(varargin): api/build.md/#build-balance(varargin)
+ - balanceBondedModel(varargin): api/build.md/#build-balanceBondedModel(varargin)
+ - balanceBondedModel0(varargin): api/build.md/#build-balanceBondedModel0(varargin)
+ - balanceForce(Amax, num): api/build.md/#build-balanceForce(Amax, num)
+ - breakGroup(varargin): api/build.md/#build-breakGroup(varargin)
+ - breakGroupOuter(varargin): api/build.md/#build-breakGroupOuter(varargin)
+ - calculateData(): api/build.md/#build-calculateData()
+ - clearData(varargin): api/build.md/#build-clearData(varargin)
+ - connectGroup(varargin): api/build.md/#build-connectGroup(varargin)
+ - connectGroupOuter(gName): api/build.md/#build-connectGroupOuter(gName)
+ - defineModelElement(gName): api/build.md/#build-defineModelElement(gName)
+ - defineWallElement(gName): api/build.md/#build-defineWallElement(gName)
+ - delElement(delId): api/build.md/#build-delElement(delId)
+ - deleteConnection(type): api/build.md/#build-deleteConnection(type)
+ - delGroup(gNames): api/build.md/#build-delGroup(gNames)
+ - dispNote(note): api/build.md/#build-dispNote(note)
+ - findNearestId(x,y,z): api/build.md/#build-findNearestId(x,y,z)
+ - getGroupForce(gName,gName2): api/build.md/#build-getGroupForce(gName,gName2)
+ - getGroupId(gName): api/build.md/#build-getGroupId(gName)
+ - getMatIdByName(matName): api/build.md/#build-getMatIdByName(matName)
+ - group2Obj(gNames): api/build.md/#build-group2Obj(gNames)
+ - groupMat2Model(varargin): api/build.md/#build-groupMat2Model(varargin)
+ - killElement(killedId): api/build.md/#build-killElement(killedId)
+ - makeModelByGroups(gNames): api/build.md/#build-makeModelByGroups(gNames)
+ - minusGroup(gNames1, gNames2, varargin): api/build.md/#build-minusGroup(gNames1, gNames2, varargin)
+ - moveBoundary(type, dx, dy, dz): api/build.md/#build-moveBoundary(type, dx, dy, dz)
+ - moveGroup(gName, dX, dY, dZ, varargin): api/build.md/#build-moveGroup(gName, dX, dY, dZ, varargin)
+ - protectGroup(gName,type): api/build.md/#build-protectGroup(gName,type)
+ - recordStatus(): api/build.md/#build-recordStatus()
+ - removeFixId(direction, Id): api/build.md/#build-removeFixId(direction, Id)
+ - removeGroupForce(G1_gId, G2_gId): api/build.md/#build-removeGroupForce(G1_gId, G2_gId)
+ - removePrestress(rate,gName): api/build.md/#build-removePrestress(rate,gName)
+ - resetStatus(): api/build.md/#build-resetStatus()
+ - rotateGroup(gName, type, angle, varargin): api/build.md/#build-rotateGroup(gName, type, angle, varargin)
+ - setClump(varargin): api/build.md/#build-setClump(varargin)
+ - setGroupId(): api/build.md/#build-setGroupId()
+ - setGroupMat(gName, matName): api/build.md/#build-setGroupMat(gName, matName)
+ - setGroupOuterBondRate(gName,bondRate): api/build.md/#build-setGroupOuterBondRate(gName,bondRate)
+ - setModelStiffness(stiffnessRate): api/build.md/#build-setModelStiffness(stiffnessRate)
+ - setStandarddT(): api/build.md/#build-setStandarddT()
+ - setStandardVis(): api/build.md/#build-setStandardVis()
+ - setUIoutput(varargin): api/build.md/#build-setUIoutput(varargin)
+ - show(varargin): api/build.md/#build-show(varargin)
+ - showConnection(varargin): api/build.md/#build-showConnection(varargin)
+ - showFilter(varargin): api/build.md/#build-showFilter(varargin)
+ - showFrame0(): api/build.md/#build-showFrame0()
+ - showSorting(varargin): api/build.md/#build-showSorting(varargin)
+ - tic(totalCircle): api/build.md/#build-tic(totalCircle)
+ - toc(): api/build.md/#build-toc()
+ - 以下为程序内部函数，通常不直接使用: api/build.md/#build-以下为程序内部函数，通常不直接使用
+ - addLoading(newLoad): api/build.md/#build-addLoading(newLoad)
+ - applyLoading(varargin): api/build.md/#build-applyLoading(varargin)
+ - applyMaterial(): api/build.md/#build-applyMaterial()
+ - deleteMatrix(): api/build.md/#build-deleteMatrix()
+ - general3Dset(): api/build.md/#build-general3Dset()
+ - getData(valueName): api/build.md/#build-getData(valueName)
+ - getGroupOuterConnectFilter(varPara): api/build.md/#build-getGroupOuterConnectFilter(varPara)
+ - getJointFilter2D(X1, Z1, X2, Z2): api/build.md/#build-getJointFilter2D(X1, Z1, X2, Z2)
+ - getModel(): api/build.md/#build-getModel()
+ - getNoEmptyGroupNames(): api/build.md/#build-getNoEmptyGroupNames()
+ - getSubModel(modelId): api/build.md/#build-getSubModel(modelId)
+ - getSurfFilter2D(Surf): api/build.md/#build-getSurfFilter2D(Surf)
+ - gif(command): api/build.md/#build-gif(command)
+ - importStandardModel(stdMo): api/build.md/#build-importStandardModel(stdMo)
+ - initializeLoading(): api/build.md/#build-initializeLoading()
+ - loadOriginalModel(modelId): api/build.md/#build-loadOriginalModel(modelId)
+ - newStep(): api/build.md/#build-newStep()
+ - pShow(modelId, varargin): api/build.md/#build-pShow(modelId, varargin)
+ - readModel(modelId): api/build.md/#build-readModel(modelId)
+ - recordCalHour(timeName): api/build.md/#build-recordCalHour(timeName)
+ - recordTime(timeName): api/build.md/#build-recordTime(timeName)
+ - resetShearForce(): api/build.md/#build-resetShearForce()
+ - saveOriginalModel(): api/build.md/#build-saveOriginalModel()
+ - setBuild(): api/build.md/#build-setBuild()
+ - setClumpOff(varargin): api/build.md/#build-setClumpOff(varargin)
+ - setData(): api/build.md/#build-setData()
+ - setMembraneUnit(Ids): api/build.md/#build-setMembraneUnit(Ids)
+ - setModel(): api/build.md/#build-setModel()
+ - setModelPara(): api/build.md/#build-setModelPara()
+ - setSubModel(modelId): api/build.md/#build-setSubModel(modelId)
+ - setSurfBond(Surf, para): api/build.md/#build-setSurfBond(Surf, para)
+ - setSurfBond(Surf,type): api/build.md/#build-setSurfBond(Surf,type)
+ - showBall(Id): api/build.md/#build-showBall(Id)
+ - showBondRate(obj,varargin)%mShowFilter, shown when value is true: api/build.md/#build-showBondRate(obj,varargin)%mShowFilter, shown when value is true
+ - showData(V): api/build.md/#build-showData(V)
+ - smoothBoundary(): api/build.md/#build-smoothBoundary()
+ - testSpeed(varargin): api/build.md/#build-testSpeed(varargin)
+ - visBalance(visRate, num): api/build.md/#build-visBalance(visRate, num)
+obj_Box: 
+ - api/obj_Box.md/#obj_Box-obj_Box
+ - lang=‘en': api/obj_Box.md/#obj_Box-lang=‘en'
+ - randomSeed=1: api/obj_Box.md/#obj_Box-randomSeed=1
+ - distriRate=0.25: api/obj_Box.md/#obj_Box-distriRate=0.25
+ - GPUstatus: api/obj_Box.md/#obj_Box-GPUstatus
+ - isUI: api/obj_Box.md/#obj_Box-isUI
+ - edit_output: api/obj_Box.md/#obj_Box-edit_output
+ - uniformGRate=0: api/obj_Box.md/#obj_Box-uniformGRate=0
+ - resetStatusBeforeDrop: api/obj_Box.md/#obj_Box-resetStatusBeforeDrop
+ - Surf: api/obj_Box.md/#obj_Box-Surf
+ - name: api/obj_Box.md/#obj_Box-name
+ - type='topPlaten';: api/obj_Box.md/#obj_Box-type='topPlaten';
+ - isClump: api/obj_Box.md/#obj_Box-isClump
+ - d: api/obj_Box.md/#obj_Box-d
+ - g=-9.8: api/obj_Box.md/#obj_Box-g=-9.8
+ - TAG: api/obj_Box.md/#obj_Box-TAG
+ - SET: api/obj_Box.md/#obj_Box-SET
+ - is2D=0: api/obj_Box.md/#obj_Box-is2D=0
+ - GROUP: api/obj_Box.md/#obj_Box-GROUP
+ - Mo: api/obj_Box.md/#obj_Box-Mo
+ - Bo: api/obj_Box.md/#obj_Box-Bo
+ - Mats: api/obj_Box.md/#obj_Box-Mats
+ - ballR: api/obj_Box.md/#obj_Box-ballR
+ - modelH_rate=1: api/obj_Box.md/#obj_Box-modelH_rate=1
+ - X: api/obj_Box.md/#obj_Box-X
+ - Y: api/obj_Box.md/#obj_Box-Y
+ - Z: api/obj_Box.md/#obj_Box-Z
+ - R: api/obj_Box.md/#obj_Box-R
+ - isShear: api/obj_Box.md/#obj_Box-isShear
+ - isShearAfter=1;: api/obj_Box.md/#obj_Box-isShearAfter=1;
+ - isSample: api/obj_Box.md/#obj_Box-isSample
+ - sampleW: api/obj_Box.md/#obj_Box-sampleW
+ - sampleL: api/obj_Box.md/#obj_Box-sampleL
+ - sampleH: api/obj_Box.md/#obj_Box-sampleH
+ - sample: api/obj_Box.md/#obj_Box-sample
+ - boundaryRrate=0.8: api/obj_Box.md/#obj_Box-boundaryRrate=0.8
+ - platenStatus=[0,0,0,0,0,1];: api/obj_Box.md/#obj_Box-platenStatus=[0,0,0,0,0,1];
+ - lefPlaten: api/obj_Box.md/#obj_Box-lefPlaten
+ - rigPlaten: api/obj_Box.md/#obj_Box-rigPlaten
+ - froPlaten: api/obj_Box.md/#obj_Box-froPlaten
+ - bacPlaten: api/obj_Box.md/#obj_Box-bacPlaten
+ - botPlaten: api/obj_Box.md/#obj_Box-botPlaten
+ - topPlaten: api/obj_Box.md/#obj_Box-topPlaten
+ - lefB: api/obj_Box.md/#obj_Box-lefB
+ - rigB: api/obj_Box.md/#obj_Box-rigB
+ - froB: api/obj_Box.md/#obj_Box-froB
+ - bacB: api/obj_Box.md/#obj_Box-bacB
+ - botB: api/obj_Box.md/#obj_Box-botB
+ - topB: api/obj_Box.md/#obj_Box-topB
+ - groupId: api/obj_Box.md/#obj_Box-groupId
+ - aMatId: api/obj_Box.md/#obj_Box-aMatId
+ - compactNum=0;: api/obj_Box.md/#obj_Box-compactNum=0;
+ - sFilter=0;: api/obj_Box.md/#obj_Box-sFilter=0;
+ - PexpandRate=1;: api/obj_Box.md/#obj_Box-PexpandRate=1;
+ - BexpandRate=2;: api/obj_Box.md/#obj_Box-BexpandRate=2;
+ - fixPlaten=1;: api/obj_Box.md/#obj_Box-fixPlaten=1;
+ - saveFileLevel=1;: api/obj_Box.md/#obj_Box-saveFileLevel=1;
+
+ - setVisStatus(newType,baseBallR): api/obj_Box.md/#obj_Box-setVisStatus(newType,baseBallR)
+ - calculateBlockDensity(): api/obj_Box.md/#obj_Box-calculateBlockDensity()
+ - compactSample(compactNum,varargin): api/obj_Box.md/#obj_Box-compactSample(compactNum,varargin)
+ - convert2D(ballR): api/obj_Box.md/#obj_Box-convert2D(ballR)
+ - cutGroup(gNames, surfId1, surfId2): api/obj_Box.md/#obj_Box-cutGroup(gNames, surfId1, surfId2)
+ - gravitySediment(varargin): api/obj_Box.md/#obj_Box-gravitySediment(varargin)
+ - load(varargin): api/obj_Box.md/#obj_Box-load(varargin)
+ - removeInterPlatenBoundaryForce(): api/obj_Box.md/#obj_Box-removeInterPlatenBoundaryForce()
+ - removeInterPlatenForce(): api/obj_Box.md/#obj_Box-removeInterPlatenForce()
+ - save(varargin): api/obj_Box.md/#obj_Box-save(varargin)
+ - setGPU( varargin): api/obj_Box.md/#obj_Box-setGPU( varargin)
+ - setPlatenFixId(): api/obj_Box.md/#obj_Box-setPlatenFixId()
+ - setPlatenStress(varargin): api/obj_Box.md/#obj_Box-setPlatenStress(varargin)
+ - setType(): api/obj_Box.md/#obj_Box-setType()
+ - setUIoutput(varargin): api/obj_Box.md/#obj_Box-setUIoutput(varargin)
+ - 以下为程序内部函数，通常不直接使用: api/obj_Box.md/#obj_Box-以下为程序内部函数，通常不直接使用
+ - addLoading(): api/obj_Box.md/#obj_Box-addLoading()
+ - addMat(varargin): api/obj_Box.md/#obj_Box-addMat(varargin)
+ - addSurf(para): api/obj_Box.md/#obj_Box-addSurf(para)
+ - breakPlatenConnection(): api/obj_Box.md/#obj_Box-breakPlatenConnection()
+ - buildInitialModel(): api/obj_Box.md/#obj_Box-buildInitialModel()
+ - buildModel(): api/obj_Box.md/#obj_Box-buildModel()
+ - clearBoundary(): api/obj_Box.md/#obj_Box-clearBoundary()
+ - clearPlaten(): api/obj_Box.md/#obj_Box-clearPlaten()
+ - createBall(distriRate): api/obj_Box.md/#obj_Box-createBall(distriRate)
+ - createBoundary(varargin): api/obj_Box.md/#obj_Box-createBoundary(varargin)
+ - createClump(randRate): api/obj_Box.md/#obj_Box-createClump(randRate)
+ - createPlaten(varargin): api/obj_Box.md/#obj_Box-createPlaten(varargin)
+ - createSample(): api/obj_Box.md/#obj_Box-createSample()
+ - delSurf(surfIds): api/obj_Box.md/#obj_Box-delSurf(surfIds)
+ - dispNote(note): api/obj_Box.md/#obj_Box-dispNote(note)
+ - exportModel(): api/obj_Box.md/#obj_Box-exportModel()
+ - finishModel(): api/obj_Box.md/#obj_Box-finishModel()
+ - importModel(d): api/obj_Box.md/#obj_Box-importModel(d)
+ - setGroupPosition(gName): api/obj_Box.md/#obj_Box-setGroupPosition(gName)
+ - setSoftMat(): api/obj_Box.md/#obj_Box-setSoftMat()
+ - setTuTest(): api/obj_Box.md/#obj_Box-setTuTest()
+ - setTuTestStress(stress): api/obj_Box.md/#obj_Box-setTuTestStress(stress)
+ - show(): api/obj_Box.md/#obj_Box-show()
+ - nan: api/obj_Box.md/#obj_Box-nan
+ - nan: api/obj_Box.md/#obj_Box-nan
+ - setPlatenStress(varargin)函数说明: api/obj_Box.md/#obj_Box-setPlatenStress(varargin)函数说明
+ - 输入为两个时，为setPlatenStress(stressType,value): api/obj_Box.md/#obj_Box-输入为两个时，为setPlatenStress(stressType,value)
+ - 输入为三个时，为setPlatenStress(stressType,stressValue,border): api/obj_Box.md/#obj_Box-输入为三个时，为setPlatenStress(stressType,stressValue,border)
+ - 输入为四个时，为setPlatenStress(StressXX,StressYY,StressZZ,border): api/obj_Box.md/#obj_Box-输入为四个时，为setPlatenStress(StressXX,StressYY,StressZZ,border)
+ - nan: api/obj_Box.md/#obj_Box-nan
+ - 关于border：在做单轴压缩试验时，由于上压力板设为与试样等大，设定应力方向和大小即可。而对于真三轴试验，考虑到压力板通常要比试样尺寸大，体力不能作用在压力板上的每个单元。以topPlaten为例，通过使用fs.setPlatenStress命令，可查找样品单元中离platen一定距离内的单元，并以这些单元的XY范围来确定platen上需要施加应力的单元。在三轴试验中，当试样变形时，需要不断运行这个命令以正确施加应力。: api/obj_Box.md/#obj_Box-关于border：在做单轴压缩试验时，由于上压力板设为与试样等大，设定应力方向和大小即可。而对于真三轴试验，考虑到压力板通常要比试样尺寸大，体力不能作用在压力板上的每个单元。以topPlaten为例，通过使用fs.setPlatenStress命令，可查找样品单元中离platen一定距离内的单元，并以这些单元的XY范围来确定platen上需要施加应力的单元。在三轴试验中，当试样变形时，需要不断运行这个命令以正确施加应力。
+ - 注意：在做三轴试验时，考虑试样在某一维度上可能发生膨胀（如施加拉力），为防止颗粒漏出，需要将压力板和边界设大一些，即设定B.BexpandRate和B.PexpandRate，参见user_3DJointStress1。图2为B.BexpandRate=B.sampleW*0.1/B.ballR;B.PexpandRate=B.sampleW*0.1/B.ballR;，将边界和板向外增加10%。为防止压力板“滑落”，对锁定压力板的四向边界单元，使其仅能在压力板法向上运动，图3红色为X方向自由度锁定: api/obj_Box.md/#obj_Box-注意：在做三轴试验时，考虑试样在某一维度上可能发生膨胀（如施加拉力），为防止颗粒漏出，需要将压力板和边界设大一些，即设定B.BexpandRate和B.PexpandRate，参见user_3DJointStress1。图2为B.BexpandRate=B.sampleW*0.1/B.ballR;B.PexpandRate=B.sampleW*0.1/B.ballR;，将边界和板向外增加10%。为防止压力板“滑落”，对锁定压力板的四向边界单元，使其仅能在压力板法向上运动，图3红色为X方向自由度锁定
+ - nan: api/obj_Box.md/#obj_Box-nan
+ - 图1: api/obj_Box.md/#obj_Box-图1
+model: 
+ - api/model.md/#model-model
+ - TAG;%structure to record additional information, such as data for debug: api/model.md/#model-TAG;%structure to record additional information, such as data for debug
+ - SET;%structure to record running data: api/model.md/#model-SET;%structure to record running data
+ - PAR;%parameters of parallel computing: api/model.md/#model-PAR;%parameters of parallel computing
+ - status;%model status: api/model.md/#model-status;%model status
+ - dem;%build object: api/model.md/#model-dem;%build object
+ - FnCommand='nFN0=obj.nKNe.*nIJXn;';%command of Fn: api/model.md/#model-FnCommand='nFN0=obj.nKNe.*nIJXn;';%command of Fn
+ - balanceCommand: api/model.md/#model-balanceCommand
+ - afterBalance: api/model.md/#model-afterBalance
+ - aNum;%ball number including boundary balls: api/model.md/#model-aNum;%ball number including boundary balls
+ - aMatId;: api/model.md/#model-aMatId;
+ - aX;aY;aZ;aR;%XYZ components and radius of all balls (model balls and boundary balls): api/model.md/#model-aX;aY;aZ;aR;%XYZ components and radius of all balls (model balls and boundary balls)
+ - aKN;aKS;%radius, stiffness of all balls: api/model.md/#model-aKN;aKS;%radius, stiffness of all balls
+ - aBF;%, breaking force: api/model.md/#model-aBF;%, breaking force
+ - aFS0;%inter-ball shear resistance, : api/model.md/#model-aFS0;%inter-ball shear resistance, 
+ - aMUp;%coefficient of friction: api/model.md/#model-aMUp;%coefficient of friction
+ - mNum;%ball number of model: api/model.md/#model-mNum;%ball number of model
+ - mVis;mVisX;mVisY;mVisZ;%viscosity, : api/model.md/#model-mVis;mVisX;mVisY;mVisZ;%viscosity, 
+ - mM;%mass: api/model.md/#model-mM;%mass
+ - mVX;mVY;mVZ;: api/model.md/#model-mVX;mVY;mVZ;
+ - mAX;mAY;mAZ;%acceleration: api/model.md/#model-mAX;mAY;mAZ;%acceleration
+ - mVFX;mVFY;mVFZ;%viscous force: api/model.md/#model-mVFX;mVFY;mVFZ;%viscous force
+ - g;: api/model.md/#model-g;
+ - mGX;mGY;mGZ;%mGZ is generally the gravity, GX,GY can be used to define constant load on balls: api/model.md/#model-mGX;mGY;mGZ;%mGZ is generally the gravity, GX,GY can be used to define constant load on balls
+ - aHeat;%heat matrix, colomn [Viscosity Heat, Normal Breaking Heat, Shear Breaking Heat, Slipping Heat]: api/model.md/#model-aHeat;%heat matrix, colomn [Viscosity Heat, Normal Breaking Heat, Shear Breaking Heat, Slipping Heat]
+ - dSide;%border of ball grid, see documentation: api/model.md/#model-dSide;%border of ball grid, see documentation
+ - dis_mXYZ;%summation of dmX and dmY of normal balls in balance, trigger of setNearbyBall: api/model.md/#model-dis_mXYZ;%summation of dmX and dmY of normal balls in balance, trigger of setNearbyBall
+ - dis_bXYZ;%summation of displacement boundary balls in newstep, trigger of setNearbyBall: api/model.md/#model-dis_bXYZ;%summation of displacement boundary balls in newstep, trigger of setNearbyBall
+ - dbXYZ;%boundary displacement, used to calculate friction, updated in newStep: api/model.md/#model-dbXYZ;%boundary displacement, used to calculate friction, updated in newStep
+ - bFilter;%bond filter, n matrix: api/model.md/#model-bFilter;%bond filter, n matrix
+ - cFilter;%compressive filter: api/model.md/#model-cFilter;%compressive filter
+ - tFilter;%tensile filter: api/model.md/#model-tFilter;%tensile filter
+ - nBondRate;%remained bond rate: api/model.md/#model-nBondRate;%remained bond rate
+ - isBondRate=0: api/model.md/#model-isBondRate=0
+ - nBall;%Id of nearby balls: api/model.md/#model-nBall;%Id of nearby balls
+ - nKNe;nKSe;nIKN;nIKS;%ball stiffness matrix, equivalent stiffness for normal force and shearing force: api/model.md/#model-nKNe;nKSe;nIKN;nIKS;%ball stiffness matrix, equivalent stiffness for normal force and shearing force
+ - nFnX;nFnY;nFnZ;%normal displacement along x,y,z directions: api/model.md/#model-nFnX;nFnY;nFnZ;%normal displacement along x,y,z directions
+ - nFsX;nFsY;nFsZ;%shear displacement along x,y,z directions: api/model.md/#model-nFsX;nFsY;nFsZ;%shear displacement along x,y,z directions
+ - nClump=[];: api/model.md/#model-nClump=[];
+ - dT=0;totalT=0;%current time interval, total time: api/model.md/#model-dT=0;totalT=0;%current time interval, total time
+ - isGPU=0;%whether the GPU calculation is on: api/model.md/#model-isGPU=0;%whether the GPU calculation is on
+ - GPULevel;%the GPU calculation level in setNearbyBall, 0~3, more gpu memory will be used when it increases,basicfs.setModel: api/model.md/#model-GPULevel;%the GPU calculation level in setNearbyBall, 0~3, more gpu memory will be used when it increases,basicfs.setModel
+ - isHeat=0;%heat of the model; switch of heat calculation: api/model.md/#model-isHeat=0;%heat of the model; switch of heat calculation
+ - isClump=0;%whether use the clump: api/model.md/#model-isClump=0;%whether use the clump
+ - isFix=0;: api/model.md/#model-isFix=0;
+ - FixXId;FixYId;FixZId;: api/model.md/#model-FixXId;FixYId;FixZId;
+ - isWaterDiff;: api/model.md/#model-isWaterDiff;
+ - isCrack=0;%whether record the cracking process: api/model.md/#model-isCrack=0;%whether record the cracking process
+ - isShear=1;%whether the shear force is calculated: api/model.md/#model-isShear=1;%whether the shear force is calculated
+ - isFailure=0;%whether the failure is considered: api/model.md/#model-isFailure=0;%whether the failure is considered
+ - isSmoothB=0;%whether the boundary is smooth, data recorded in SET: api/model.md/#model-isSmoothB=0;%whether the boundary is smooth, data recorded in SET
+
+ - balance(): api/model.md/#model-balance()
+ - dispNote(note): api/model.md/#model-dispNote(note)
+ - getBalanceData(dName,isBalance): api/model.md/#model-getBalanceData(dName,isBalance)
+ - gpuStatus=setGPU(type): api/model.md/#model-gpuStatus=setGPU(type)
+ - recement(): api/model.md/#model-recement()
+ - setBalanceFunction(functionFileName): api/model.md/#model-setBalanceFunction(functionFileName)
+ - setContactModel(type,varargin): api/model.md/#model-setContactModel(type,varargin)
+ - setKNKS()  : api/model.md/#model-setKNKS()  
+ - setModel(): api/model.md/#model-setModel()
+ - setNearbyBall()%set nearby balls of each ball: api/model.md/#model-setNearbyBall()%set nearby balls of each ball
+ - setNearbyBall2()%set nearby balls of each ball: api/model.md/#model-setNearbyBall2()%set nearby balls of each ball
+ - setNewStep(dbXYZnew): api/model.md/#model-setNewStep(dbXYZnew)
+ - setShear(type): api/model.md/#model-setShear(type)
+ - zeroBalance()%to intialize the model, break impossible intact bonds: api/model.md/#model-zeroBalance()%to intialize the model, break impossible intact bonds
+ - setFastComputing(type): api/model.md/#model-setFastComputing(type)
+childModel: 
+ - api/childModel.md/#childModel-childModel
+ - childId: api/childModel.md/#childModel-childId
+ - SET: api/childModel.md/#childModel-SET
+ - TAG: api/childModel.md/#childModel-TAG
+ - FnCommand: api/childModel.md/#childModel-FnCommand
+ - parent_aId: api/childModel.md/#childModel-parent_aId
+ - mId_A: api/childModel.md/#childModel-mId_A
+ - isGPU: api/childModel.md/#childModel-isGPU
+ - mNum: api/childModel.md/#childModel-mNum
+ - parent_mId: api/childModel.md/#childModel-parent_mId
+ - nBall: api/childModel.md/#childModel-nBall
+ - bFilter: api/childModel.md/#childModel-bFilter
+ - cFilter: api/childModel.md/#childModel-cFilter
+ - tFilter: api/childModel.md/#childModel-tFilter
+ - nBondRate: api/childModel.md/#childModel-nBondRate
+ - isBondRate: api/childModel.md/#childModel-isBondRate
+ - nKNe: api/childModel.md/#childModel-nKNe
+ - nKSe: api/childModel.md/#childModel-nKSe
+ - nFnX: api/childModel.md/#childModel-nFnX
+ - nFnY: api/childModel.md/#childModel-nFnY
+ - nFnZ: api/childModel.md/#childModel-nFnZ
+ - nFsX: api/childModel.md/#childModel-nFsX
+ - nFsY: api/childModel.md/#childModel-nFsY
+ - nFsZ: api/childModel.md/#childModel-nFsZ
+ - nClump: api/childModel.md/#childModel-nClump
+ - parentMo: api/childModel.md/#childModel-parentMo
+
+ - applyMoId(moChild, aMoId): api/childModel.md/#childModel-applyMoId(moChild, aMoId)
+ - addElement(moChild, aList): api/childModel.md/#childModel-addElement(moChild, aList)
+ - delElement(moChild, aRList, aRFilter, aMoId): api/childModel.md/#childModel-delElement(moChild, aRList, aRFilter, aMoId)
+ - setModel(obj): api/childModel.md/#childModel-setModel(obj)
+ - zeroBalance(obj): api/childModel.md/#childModel-zeroBalance(obj)
+ - testSpeed(obj, varargin): api/childModel.md/#childModel-testSpeed(obj, varargin)
+ - setGPU(obj, type0): api/childModel.md/#childModel-setGPU(obj, type0)
+ - setShear(obj, type): api/childModel.md/#childModel-setShear(obj, type)
+ - setKNKS(obj): api/childModel.md/#childModel-setKNKS(obj)
+ - show(obj): api/childModel.md/#childModel-show(obj)
+ - childModel(d): api/childModel.md/#childModel-childModel(d)
+ - removeGroupForce(moChild): api/childModel.md/#childModel-removeGroupForce(moChild)
+ - balance(moChild): api/childModel.md/#childModel-balance(moChild)
+pore: 
+ - api/pore.md/#pore-pore
+ - d: api/pore.md/#pore-d
+ - SET: api/pore.md/#pore-SET
+ - TAG: api/pore.md/#pore-TAG
+ - solutePara: api/pore.md/#pore-solutePara
+ - pathLimitRate: api/pore.md/#pore-pathLimitRate
+ - cDiameterAdd: api/pore.md/#pore-cDiameterAdd
+ - cList: api/pore.md/#pore-cList
+ - cIndexInverse: api/pore.md/#pore-cIndexInverse
+ - cIndexNext: api/pore.md/#pore-cIndexNext
+ - cPore: api/pore.md/#pore-cPore
+ - cPoreInverse: api/pore.md/#pore-cPoreInverse
+ - cDiameter: api/pore.md/#pore-cDiameter
+ - cLength: api/pore.md/#pore-cLength
+ - cPathLength: api/pore.md/#pore-cPathLength
+ - cKFlow: api/pore.md/#pore-cKFlow
+ - cnIndex: api/pore.md/#pore-cnIndex
+ - nBallP: api/pore.md/#pore-nBallP
+ - nConnectFilter1: api/pore.md/#pore-nConnectFilter1
+ - nConnectFilter2: api/pore.md/#pore-nConnectFilter2
+ - aWaterdR: api/pore.md/#pore-aWaterdR
+ - NcPore: api/pore.md/#pore-NcPore
+ - poreC: api/pore.md/#pore-poreC
+ - poreNearby: api/pore.md/#pore-poreNearby
+ - poreFlowMass: api/pore.md/#pore-poreFlowMass
+ - poreIndex: api/pore.md/#pore-poreIndex
+ - poreP: api/pore.md/#pore-poreP
+ - poreCAngle: api/pore.md/#pore-poreCAngle
+ - porePAngle: api/pore.md/#pore-porePAngle
+ - porePAngleOverlap1: api/pore.md/#pore-porePAngleOverlap1
+ - porePAngleOverlap2: api/pore.md/#pore-porePAngleOverlap2
+ - porePOuterLength: api/pore.md/#pore-porePOuterLength
+ - porePOuterAngle: api/pore.md/#pore-porePOuterAngle
+ - fluid_k: api/pore.md/#pore-fluid_k
+ - fluid_c: api/pore.md/#pore-fluid_c
+ - pNum: api/pore.md/#pore-pNum
+ - pPoints: api/pore.md/#pore-pPoints
+ - pMass: api/pore.md/#pore-pMass
+ - pArea: api/pore.md/#pore-pArea
+ - pDensity: api/pore.md/#pore-pDensity
+ - pPressure: api/pore.md/#pore-pPressure
+ - pK: api/pore.md/#pore-pK
+ - pC: api/pore.md/#pore-pC
+ - dT: api/pore.md/#pore-dT
+ - totalT: api/pore.md/#pore-totalT
+ - isCouple: api/pore.md/#pore-isCouple
+ - pThickness: api/pore.md/#pore-pThickness
+ - isGPU: api/pore.md/#pore-isGPU
+
+ - addSolutePara(obj,para): api/pore.md/#pore-addSolutePara(obj,para)
+ - balance(obj,varargin): api/pore.md/#pore-balance(obj,varargin)
+ - pId=getBallConnectedPore(obj,bId): api/pore.md/#pore-pId=getBallConnectedPore(obj,bId)
+ - setFlowPath(obj): api/pore.md/#pore-setFlowPath(obj)
+ - setInitialPores(obj): api/pore.md/#pore-setInitialPores(obj)
+ - setPressure(obj,varargin): api/pore.md/#pore-setPressure(obj,varargin)
+ - show(obj,varargin): api/pore.md/#pore-show(obj,varargin)
+ - setNewPore(obj): api/pore.md/#pore-setNewPore(obj)
+ - setPlaten(obj,type): api/pore.md/#pore-setPlaten(obj,type)
+ - pId=setBallPressure(obj,bId,pressure): api/pore.md/#pore-pId=setBallPressure(obj,bId,pressure)
+ - setDensity(obj,varargin): api/pore.md/#pore-setDensity(obj,varargin)
+ - obj=pore(d): api/pore.md/#pore-obj=pore(d)
+ - setMass(obj,varargin): api/pore.md/#pore-setMass(obj,varargin)
+ - setNewNBall(obj): api/pore.md/#pore-setNewNBall(obj)
+ - balanceConvection(obj,varargin): api/pore.md/#pore-balanceConvection(obj,varargin)
+ - balanceConvection0(obj,paraI): api/pore.md/#pore-balanceConvection0(obj,paraI)
+ - balanceDiffusion0(obj,paraI): api/pore.md/#pore-balanceDiffusion0(obj,paraI)
+ - balanceFluid(obj): api/pore.md/#pore-balanceFluid(obj)
+ - ball2Fluid(obj): api/pore.md/#pore-ball2Fluid(obj)
+ - density2Mass(obj): api/pore.md/#pore-density2Mass(obj)
+ - density2Pressure(obj): api/pore.md/#pore-density2Pressure(obj)
+ - dispNote(obj,note): api/pore.md/#pore-dispNote(obj,note)
+ - fluid2Ball(p): api/pore.md/#pore-fluid2Ball(p)
+ - gpuStatus=setGPU(obj,type0): api/pore.md/#pore-gpuStatus=setGPU(obj,type0)
+ - mass2Density(obj): api/pore.md/#pore-mass2Density(obj)
+ - nConnectFilter2New=getNConnectFilter2(obj,nConnectFilter1): api/pore.md/#pore-nConnectFilter2New=getNConnectFilter2(obj,nConnectFilter1)
+ - obj1=setNearbyPore(obj): api/pore.md/#pore-obj1=setNearbyPore(obj)
+ - pArea0=getPoreArea(p): api/pore.md/#pore-pArea0=getPoreArea(p)
+ - pDensityNew=transferData(objOld,objNew): api/pore.md/#pore-pDensityNew=transferData(objOld,objNew)
+ - pId=setBallPara(obj,type,bId,value): api/pore.md/#pore-pId=setBallPara(obj,type,bId,value)
+ - recordStatus(obj): api/pore.md/#pore-recordStatus(obj)
+ - setWaterdR(obj): api/pore.md/#pore-setWaterdR(obj)
+ - showData(obj,vName): api/pore.md/#pore-showData(obj,vName)
+modelStatus: 
+ - api/modelStatus.md/#modelStatus-modelStatus
+ - TAG: api/modelStatus.md/#modelStatus-TAG
+ - SET: api/modelStatus.md/#modelStatus-SET
+ - PAR: api/modelStatus.md/#modelStatus-PAR
+ - gravityE0: api/modelStatus.md/#modelStatus-gravityE0
+ - recordCommand: api/modelStatus.md/#modelStatus-recordCommand
+ - Ts: api/modelStatus.md/#modelStatus-Ts
+ - gravityEs: api/modelStatus.md/#modelStatus-gravityEs
+ - kineticEs: api/modelStatus.md/#modelStatus-kineticEs
+ - elasticEs: api/modelStatus.md/#modelStatus-elasticEs
+ - totalEs: api/modelStatus.md/#modelStatus-totalEs
+ - heats: api/modelStatus.md/#modelStatus-heats
+ - dem: api/modelStatus.md/#modelStatus-dem
+ - model: api/modelStatus.md/#modelStatus-model
+ - bIndex: api/modelStatus.md/#modelStatus-bIndex
+ - breakId: api/modelStatus.md/#modelStatus-breakId
+ - leftBFs: api/modelStatus.md/#modelStatus-leftBFs
+ - rightBFs: api/modelStatus.md/#modelStatus-rightBFs
+ - frontBFs: api/modelStatus.md/#modelStatus-frontBFs
+ - backBFs: api/modelStatus.md/#modelStatus-backBFs
+ - bottomBFs: api/modelStatus.md/#modelStatus-bottomBFs
+ - topBFs: api/modelStatus.md/#modelStatus-topBFs
+ - legendLocation: api/modelStatus.md/#modelStatus-legendLocation
+ - workTIds: api/modelStatus.md/#modelStatus-workTIds
+ - works: api/modelStatus.md/#modelStatus-works
+
+ - show(type): api/modelStatus.md/#modelStatus-show(type)
+ - dispEnergy(): api/modelStatus.md/#modelStatus-dispEnergy()
+ - recordStatus(): api/modelStatus.md/#modelStatus-recordStatus()
+ - dispNote(note): api/modelStatus.md/#modelStatus-dispNote(note)
+ - setRecordFunction(functionName): api/modelStatus.md/#modelStatus-setRecordFunction(functionName)
+ - modelStatus(dem): api/modelStatus.md/#modelStatus-modelStatus(dem)
+ - setInitialModelWHT(): api/modelStatus.md/#modelStatus-setInitialModelWHT()
+ - showParticleForce(Id, list): api/modelStatus.md/#modelStatus-showParticleForce(Id, list)
+ - getElasticEnergy(): api/modelStatus.md/#modelStatus-getElasticEnergy()
+ - setSystemEnergy(): api/modelStatus.md/#modelStatus-setSystemEnergy()
+ - getBoundaryForce(): api/modelStatus.md/#modelStatus-getBoundaryForce()
+ - runRecordCommand(): api/modelStatus.md/#modelStatus-runRecordCommand()
+ - setBoundaryForce(): api/modelStatus.md/#modelStatus-setBoundaryForce()
+ - showEnergy(): api/modelStatus.md/#modelStatus-showEnergy()
+ - showHeat(): api/modelStatus.md/#modelStatus-showHeat()
+ - showBoundaryForces(): api/modelStatus.md/#modelStatus-showBoundaryForces()
+ - calculateEv(): api/modelStatus.md/#modelStatus-calculateEv()
+ - calculateCu(): api/modelStatus.md/#modelStatus-calculateCu()
+ - calculateTu(): api/modelStatus.md/#modelStatus-calculateTu()
+ - showStrainStress(): api/modelStatus.md/#modelStatus-showStrainStress()
+ - showBoundaryStresses(): api/modelStatus.md/#modelStatus-showBoundaryStresses()
+material: 
+ - api/material.md/#material-material
+ - name: api/material.md/#material-name
+ - Id: api/material.md/#material-Id
+ - SET: api/material.md/#material-SET
+ - TAG: api/material.md/#material-TAG
+ - SH: api/material.md/#material-SH
+ - rate: api/material.md/#material-rate
+ - E: api/material.md/#material-E
+ - v: api/material.md/#material-v
+ - Tu: api/material.md/#material-Tu
+ - Cu: api/material.md/#material-Cu
+ - Mui: api/material.md/#material-Mui
+ - G: api/material.md/#material-G
+ - lame: api/material.md/#material-lame
+ - Copen: api/material.md/#material-Copen
+ - St: api/material.md/#material-St
+ - Sc: api/material.md/#material-Sc
+ - Sopen: api/material.md/#material-Sopen
+ - Vp: api/material.md/#material-Vp
+ - Vs: api/material.md/#material-Vs
+ - kn: api/material.md/#material-kn
+ - ks: api/material.md/#material-ks
+ - xb: api/material.md/#material-xb
+ - mup: api/material.md/#material-mup
+ - fs0: api/material.md/#material-fs0
+ - Mp: api/material.md/#material-Mp
+ - period: api/material.md/#material-period
+ - criticalVis: api/material.md/#material-criticalVis
+ - d: api/material.md/#material-d
+ - den: api/material.md/#material-den
+ - isFailure: api/material.md/#material-isFailure
+ - is2D: api/material.md/#material-is2D
+
+ - setTrainedMat(obj, varargin): api/material.md/#material-setTrainedMat(obj, varargin)
+ - save(obj, varargin): api/material.md/#material-save(obj, varargin)
+ - calculateRate(obj): api/material.md/#material-calculateRate(obj)
+ - material(varargin): api/material.md/#material-material(varargin)
+ - getMicroPara(obj, ballD): api/material.md/#material-getMicroPara(obj, ballD)
+ - setMaterial(obj, varargin): api/material.md/#material-setMaterial(obj, varargin)
+ - setFailure(obj, Ff_rate, ellipseK, dR_rate, failureMax): api/material.md/#material-setFailure(obj, Ff_rate, ellipseK, dR_rate, failureMax)
+ - show(obj): api/material.md/#material-show(obj)
+ - calMicro(obj): api/material.md/#material-calMicro(obj)
+ - calMacro(obj): api/material.md/#material-calMacro(obj)
+mfs: 
+ - api/mfs.md/#mfs-mfs
+
+ - transferPara(d1,d2,gNames,paras): api/mfs.md/#mfs-transferPara(d1,d2,gNames,paras)
+ - allDisc=grain2Clump2D(grainObj,expandRate,Rrate): api/mfs.md/#mfs-allDisc=grain2Clump2D(grainObj,expandRate,Rrate)
+ - porosity=getPorosity(B,zLimit): api/mfs.md/#mfs-porosity=getPorosity(B,zLimit)
+ - porosity=get3DPorosity(d,x1,x2,y1,y2,z1,z2): api/mfs.md/#mfs-porosity=get3DPorosity(d,x1,x2,y1,y2,z1,z2)
+ - porosity=get2DPorosity(d,x1,x2,z1,z2): api/mfs.md/#mfs-porosity=get2DPorosity(d,x1,x2,z1,z2)
+ - porosity=getBoxPorosity(B,topRate): api/mfs.md/#mfs-porosity=getBoxPorosity(B,topRate)
+ - porosity=get2DPorosity(d,x1,x2,z1,z2): api/mfs.md/#mfs-porosity=get2DPorosity(d,x1,x2,z1,z2)
+ - porosity=get3DPorosity(d,x1,x2,y1,y2,z1,z2): api/mfs.md/#mfs-porosity=get3DPorosity(d,x1,x2,y1,y2,z1,z2)
+ - porosity=getPorosity(B,zLimit): api/mfs.md/#mfs-porosity=getPorosity(B,zLimit)
+ - frame=getObjFrame(obj): api/mfs.md/#mfs-frame=getObjFrame(obj)
+ - sFilter=applyRegionFilter(regionFilter,sX,sY): api/mfs.md/#mfs-sFilter=applyRegionFilter(regionFilter,sX,sY)
+ - regionFilter=image2RegionFilter(fileName,imH,imW): api/mfs.md/#mfs-regionFilter=image2RegionFilter(fileName,imH,imW)
+ - bondFilter=setBondByPolygon(d,PX,PY,PZ,type): api/mfs.md/#mfs-bondFilter=setBondByPolygon(d,PX,PY,PZ,type)
+ - bondFilter=setBondByTriangle(d,pX,pY,pZ,type): api/mfs.md/#mfs-bondFilter=setBondByTriangle(d,pX,pY,pZ,type)
+ - ObjOut=rotateCopy(obj,dAngle,num,varargin): api/mfs.md/#mfs-ObjOut=rotateCopy(obj,dAngle,num,varargin)
+ - ringObj=makeRing2(innerR,outerR,ballR0,Rrate): api/mfs.md/#mfs-ringObj=makeRing2(innerR,outerR,ballR0,Rrate)
+ - edge=getObjEdge(type,obj1): api/mfs.md/#mfs-edge=getObjEdge(type,obj1)
+ - obj1=align2Value(type,obj1,value): api/mfs.md/#mfs-obj1=align2Value(type,obj1,value)
+ - varargout=alignObj(type,varargin): api/mfs.md/#mfs-varargout=alignObj(type,varargin)
+ - ringObj=makeRing(innerR,layerNum,minBallR,Rrate): api/mfs.md/#mfs-ringObj=makeRing(innerR,layerNum,minBallR,Rrate)
+ - mixGroupElement(d,gName,randPositionSeed): api/mfs.md/#mfs-mixGroupElement(d,gName,randPositionSeed)
+ - note=balanceForce(d, Amax, num): api/mfs.md/#mfs-note=balanceForce(d, Amax, num)
+ - obj1=combineObj(varargin): api/mfs.md/#mfs-obj1=combineObj(varargin)
+ - obj=cutBoxObj(sampleObj, width, length, height): api/mfs.md/#mfs-obj=cutBoxObj(sampleObj, width, length, height)
+ - obj=cutSphereObj(sampleObj, radius): api/mfs.md/#mfs-obj=cutSphereObj(sampleObj, radius)
+ - obj=denseModel(Rrate, F, varargin): api/mfs.md/#mfs-obj=denseModel(Rrate, F, varargin)
+ - obj=expandAlong(obj, dir, dDis, num): api/mfs.md/#mfs-obj=expandAlong(obj, dir, dDis, num)
+ - obj=expandAlongMax(obj, dir, dDis, num): api/mfs.md/#mfs-obj=expandAlongMax(obj, dir, dDis, num)
+ - obj=filterObj(obj, f): api/mfs.md/#mfs-obj=filterObj(obj, f)
+ - stressSteps=getBoxUniaxialStressSteps(B): api/mfs.md/#mfs-stressSteps=getBoxUniaxialStressSteps(B)
+ - filter=getColumnFilter(X, Y, Z, dipD, dipA, radius, height): api/mfs.md/#mfs-filter=getColumnFilter(X, Y, Z, dipD, dipA, radius, height)
+ - objCenter=getObjCenter(obj): api/mfs.md/#mfs-objCenter=getObjCenter(obj)
+ - weakFilter=getWeakLayerFilter(X, Y, Z, dipD, dipA, strongT, weakT): api/mfs.md/#mfs-weakFilter=getWeakLayerFilter(X, Y, Z, dipD, dipA, strongT, weakT)
+ - SET=getBoxSample(grainR,sampleW,sampleL,hRate): api/mfs.md/#mfs-SET=getBoxSample(grainR,sampleW,sampleL,hRate)
+ - randD=getGradationDiameter(G,varargin): api/mfs.md/#mfs-randD=getGradationDiameter(G,varargin)
+ - obj=intervalObj(objOne, dx, dy, dz, num): api/mfs.md/#mfs-obj=intervalObj(objOne, dx, dy, dz, num)
+ - obj=make3DalongPath(obj2D,X,Y,Z,dDis,dAngle): api/mfs.md/#mfs-obj=make3DalongPath(obj2D,X,Y,Z,dDis,dAngle)
+ - obj3D=make3Dfrom2D(obj2D, height, ballR): api/mfs.md/#mfs-obj3D=make3Dfrom2D(obj2D, height, ballR)
+ - obj=makeBox(boxW, boxL, boxH, ballR): api/mfs.md/#mfs-obj=makeBox(boxW, boxL, boxH, ballR)
+ - obj=makeCircle(circleR, ballR): api/mfs.md/#mfs-obj=makeCircle(circleR, ballR)
+ - obj=makeColumn(columnR, columnHeight, ballR): api/mfs.md/#mfs-obj=makeColumn(columnR, columnHeight, ballR)
+ - obj=makeDisc(discR, ballR): api/mfs.md/#mfs-obj=makeDisc(discR, ballR)
+ - obj=makeHob(hobR, hobT, cutRate, ballR, Rrate): api/mfs.md/#mfs-obj=makeHob(hobR, hobT, cutRate, ballR, Rrate)
+ - obj=makeLine(dir, length, ballR): api/mfs.md/#mfs-obj=makeLine(dir, length, ballR)
+ - obj=makeLShape(width, height, ballR): api/mfs.md/#mfs-obj=makeLShape(width, height, ballR)
+ - obj=makeNet(width, height, cellW, cellH, ballR): api/mfs.md/#mfs-obj=makeNet(width, height, cellW, cellH, ballR)
+ - obj=makeRect(width, length, ballR): api/mfs.md/#mfs-obj=makeRect(width, length, ballR)
+ - obj=makeTube(tubeR, tubeHeight, ballR): api/mfs.md/#mfs-obj=makeTube(tubeR, tubeHeight, ballR)
+ - obj=makeTube2(tubeR,tubeHeight,ballR): api/mfs.md/#mfs-obj=makeTube2(tubeR,tubeHeight,ballR)
+ - Cu=makeUniaxialCuTest(B, stressSteps): api/mfs.md/#mfs-Cu=makeUniaxialCuTest(B, stressSteps)
+ - Ev=makeUniaxialEvTest(B, stressSteps): api/mfs.md/#mfs-Ev=makeUniaxialEvTest(B, stressSteps)
+ - B=makeUniaxialTest(B, varargin): api/mfs.md/#mfs-B=makeUniaxialTest(B, varargin)
+ - B=makeUniaxialTestModel0(width, length, height, ballR, distriRate, randSeed): api/mfs.md/#mfs-B=makeUniaxialTestModel0(width, length, height, ballR, distriRate, randSeed)
+ - B=makeUniaxialTestModel1(B): api/mfs.md/#mfs-B=makeUniaxialTestModel1(B)
+ - B=makeUniaxialTestModel2(B,matFile,varargin): api/mfs.md/#mfs-B=makeUniaxialTestModel2(B,matFile,varargin)
+ - B=makeUniaxialTuTest(B, stressSteps): api/mfs.md/#mfs-B=makeUniaxialTuTest(B, stressSteps)
+ - obj=move(obj, varargin): api/mfs.md/#mfs-obj=move(obj, varargin)
+ - obj=moveObj2Origin(obj): api/mfs.md/#mfs-obj=moveObj2Origin(obj)
+ - d=Obj2Build(obj, varargin): api/mfs.md/#mfs-d=Obj2Build(obj, varargin)
+ - reduceGravity(d, index): api/mfs.md/#mfs-reduceGravity(d, index)
+ - obj=rotate(obj, type, angle): api/mfs.md/#mfs-obj=rotate(obj, type, angle)
+ - show(obj): api/mfs.md/#mfs-show(obj)
+ - sorting(D, divNum): api/mfs.md/#mfs-sorting(D, divNum)
+ - obj=createSurfaceNet(x,y,z,ballR,Rrate,varargin): api/mfs.md/#mfs-obj=createSurfaceNet(x,y,z,ballR,Rrate,varargin)
+ - 0以下为程序内部函数，通常不直接使用: api/mfs.md/#mfs-0以下为程序内部函数，通常不直接使用
+ - boxCut(obj, box): api/mfs.md/#mfs-boxCut(obj, box)
+ - calculateParaRate(matFile, para1): api/mfs.md/#mfs-calculateParaRate(matFile, para1)
+ - changeRadiusDistribution(d, randSeed): api/mfs.md/#mfs-changeRadiusDistribution(d, randSeed)
+ - clearObj(obj): api/mfs.md/#mfs-clearObj(obj)
+ - connectFilter=groupConnectFilter(nBall,G1_gId,G2_gId): api/mfs.md/#mfs-connectFilter=groupConnectFilter(nBall,G1_gId,G2_gId)
+ - connectFilter=groupOuterConnectFilter(nBall,G1_gId): api/mfs.md/#mfs-connectFilter=groupOuterConnectFilter(nBall,G1_gId)
+ - convertDir(dirIn): api/mfs.md/#mfs-convertDir(dirIn)
+ - crossProduct(AX, AY, AZ, BX, BY, BZ): api/mfs.md/#mfs-crossProduct(AX, AY, AZ, BX, BY, BZ)
+ - data2D(XYZ, Y0, R0): api/mfs.md/#mfs-data2D(XYZ, Y0, R0)
+ - defineBoundary(varargin): api/mfs.md/#mfs-defineBoundary(varargin)
+ - getBoxBoundary(type, boundaryRrate, BexpandRate, w, l, h, ballR): api/mfs.md/#mfs-getBoxBoundary(type, boundaryRrate, BexpandRate, w, l, h, ballR)
+ - getBoxFrame(X, Y, Z, R): api/mfs.md/#mfs-getBoxFrame(X, Y, Z, R)
+ - getJointCutFilter(x1, z1, x2, z2, nXI, nZI, nXJ, nZJ, nBall): api/mfs.md/#mfs-getJointCutFilter(x1, z1, x2, z2, nXI, nZI, nXJ, nZJ, nBall)
+ - group2MatId(aMatId, gId, gIdList, mIdList): api/mfs.md/#mfs-group2MatId(aMatId, gId, gIdList, mIdList)
+ - isExist(cellObj, name): api/mfs.md/#mfs-isExist(cellObj, name)
+ - moveMeshGrid(S, moveDis): api/mfs.md/#mfs-moveMeshGrid(S, moveDis)
+ - obj=rotate2Path(obj, P1, P2): api/mfs.md/#mfs-obj=rotate2Path(obj, P1, P2)
+ - rotateIJ(I, J, angle): api/mfs.md/#mfs-rotateIJ(I, J, angle)
+ - setBlockClump(X, Y, Z, limit): api/mfs.md/#mfs-setBlockClump(X, Y, Z, limit)
+ - shrink(X0, Y0, Z0, rate): api/mfs.md/#mfs-shrink(X0, Y0, Z0, rate)
+ - XYZ2Plunge(P): api/mfs.md/#mfs-XYZ2Plunge(P)
+ - GForce=getWallGroupForce(d,G1_gId,G2_gId): api/mfs.md/#mfs-GForce=getWallGroupForce(d,G1_gId,G2_gId)
+ - GForce=getModelGroupForce(d,G1_gId,G2_gId): api/mfs.md/#mfs-GForce=getModelGroupForce(d,G1_gId,G2_gId)
+fs: 
+ - api/fs.md/#fs-fs
+
+ - M=fs.getMatDEMscore(varargin): api/fs.md/#fs-M=fs.getMatDEMscore(varargin)
+ - density=calcualteBlockDensity(mo, x1, y1, z1, x2, y2, z2): api/fs.md/#fs-density=calcualteBlockDensity(mo, x1, y1, z1, x2, y2, z2)
+ - gData=chooseGPU(varargin): api/fs.md/#fs-gData=chooseGPU(varargin)
+ - B=copyDataA2B(A, B): api/fs.md/#fs-B=copyDataA2B(A, B)
+ - disp(note): api/fs.md/#fs-disp(note)
+ - general3Dset(): api/fs.md/#fs-general3Dset()
+ - generalView(): api/fs.md/#fs-generalView()
+ - limitFrame(d,sId,x1,x2,y1,y2,z1,z2): api/fs.md/#fs-limitFrame(d,sId,x1,x2,y1,y2,z1,z2)
+ - movie2gif(name, frames, dt): api/fs.md/#fs-movie2gif(name, frames, dt)
+ - save(path,name,value): api/fs.md/#fs-save(path,name,value)
+ - data=testSpeed(d): api/fs.md/#fs-data=testSpeed(d)
+ - xyzFilter=selectBlockBalls(mo, x1, y1, z1, x2, y2, z2): api/fs.md/#fs-xyzFilter=selectBlockBalls(mo, x1, y1, z1, x2, y2, z2)
+ - setPlatenStress(d, StressXX, StressYY, StressZZ, border): api/fs.md/#fs-setPlatenStress(d, StressXX, StressYY, StressZZ, border)
+ - showObj(obj,varargin): api/fs.md/#fs-showObj(obj,varargin)
+ - fig=surfaceValue(X, Y, Z, R, V): api/fs.md/#fs-fig=surfaceValue(X, Y, Z, R, V)
+ - fig=surfaceVector(X, Y, Z, R, U, V, W): api/fs.md/#fs-fig=surfaceVector(X, Y, Z, R, U, V, W)
+ - 0以下为程序内部函数，通常不直接使用（部分新函数未列出）: api/fs.md/#fs-0以下为程序内部函数，通常不直接使用（部分新函数未列出）
+ - adjustSize(d, requiredStrain, time, varargin): api/fs.md/#fs-adjustSize(d, requiredStrain, time, varargin)
+ - adjustSize0(d, requiredStrain, varargin): api/fs.md/#fs-adjustSize0(d, requiredStrain, varargin)
+ - blockXYZ(blockW,blockL,blockH,ballR): api/fs.md/#fs-blockXYZ(blockW,blockL,blockH,ballR)
+ - commandRep(str): api/fs.md/#fs-commandRep(str)
+ - cube(modelSize, R): api/fs.md/#fs-cube(modelSize, R)
+ - CuCalculate2D(d): api/fs.md/#fs-CuCalculate2D(d)
+ - dataA2B(A, B): api/fs.md/#fs-dataA2B(A, B)
+ - dataA2B2(varargin): api/fs.md/#fs-dataA2B2(varargin)
+ - dataCurveLongLine(valueName, d, x1, z1, x2, z2, disLimit): api/fs.md/#fs-dataCurveLongLine(valueName, d, x1, z1, x2, z2, disLimit)
+ - dispNote(note, isUI, handle): api/fs.md/#fs-dispNote(note, isUI, handle)
+ - drawDisc(cX, cY, cZ, R, nX, nY, nZ, color): api/fs.md/#fs-drawDisc(cX, cY, cZ, R, nX, nY, nZ, color)
+ - EvCalculate(d): api/fs.md/#fs-EvCalculate(d)
+ - EvCalculate2D(d): api/fs.md/#fs-EvCalculate2D(d)
+ - fillValue(X, Y, R, value): api/fs.md/#fs-fillValue(X, Y, R, value)
+ - fluidHead2Den(fluidHead, fluidSpan): api/fs.md/#fs-fluidHead2Den(fluidHead, fluidSpan)
+ - getBallPara(ballR, MatId, Mats): api/fs.md/#fs-getBallPara(ballR, MatId, Mats)
+ - getBlockEdge(mX, mY, mZ, border): api/fs.md/#fs-getBlockEdge(mX, mY, mZ, border)
+ - getBlockStrainStress(obj): api/fs.md/#fs-getBlockStrainStress(obj)
+ - getBlockStrength(obj): api/fs.md/#fs-getBlockStrength(obj)
+ - getBlockWHT(X, Y, Z, edge): api/fs.md/#fs-getBlockWHT(X, Y, Z, edge)
+ - getCuCircle(mSize): api/fs.md/#fs-getCuCircle(mSize)
+ - getDistribution(type, num, maxRrate): api/fs.md/#fs-getDistribution(type, num, maxRrate)
+ - getDropStepNum(d): api/fs.md/#fs-getDropStepNum(d)
+ - getEdgeId(d, platenId, edge, type): api/fs.md/#fs-getEdgeId(d, platenId, edge, type)
+ - getEdgePlatenId(d0, border, platenType): api/fs.md/#fs-getEdgePlatenId(d0, border, platenType)
+ - getnBreakFilter(d, aBreakFilter): api/fs.md/#fs-getnBreakFilter(d, aBreakFilter)
+ - getNewElementId(Id, delId): api/fs.md/#fs-getNewElementId(Id, delId)
+ - getPbyId(d, Ids): api/fs.md/#fs-getPbyId(d, Ids)
+ - getPlatenEdgeId(aX, aY, platenId, border): api/fs.md/#fs-getPlatenEdgeId(aX, aY, platenId, border)
+ - getPricipalStress(m): api/fs.md/#fs-getPricipalStress(m)
+ - getStrain(d): api/fs.md/#fs-getStrain(d)
+ - getStrain0(d): api/fs.md/#fs-getStrain0(d)
+ - getStrain2(d): api/fs.md/#fs-getStrain2(d)
+ - getStress(m): api/fs.md/#fs-getStress(m)
+ - getTwoGroupConnect(G1_gId, G2_gId, nBall): api/fs.md/#fs-getTwoGroupConnect(G1_gId, G2_gId, nBall)
+ - getTuCircle(mSize): api/fs.md/#fs-getTuCircle(mSize)
+ - getVisRate(mX, mY, mZ, mR): api/fs.md/#fs-getVisRate(mX, mY, mZ, mR)
+ - insertArray(oldA, addA, addI): api/fs.md/#fs-insertArray(oldA, addA, addI)
+ - isExistInCells(str, strCells): api/fs.md/#fs-isExistInCells(str, strCells)
+ - layeredModel(V, Span, Id): api/fs.md/#fs-layeredModel(V, Span, Id)
+ - loadOriginalData(obj, aId0, mNum): api/fs.md/#fs-loadOriginalData(obj, aId0, mNum)
+ - macroToMicro3(E, v, Tu, Cu, Mui, d, den): api/fs.md/#fs-macroToMicro3(E, v, Tu, Cu, Mui, d, den)
+ - microToMacro3(Kn, Ks, Xb, Fs0, Mup, d, den): api/fs.md/#fs-microToMacro3(Kn, Ks, Xb, Fs0, Mup, d, den)
+ - macro3Dto2D(E, v, Tu, Cu, Mui, d, den): api/fs.md/#fs-macro3Dto2D(E, v, Tu, Cu, Mui, d, den)
+ - macroToMicro2(E, v, Tu, Cu, Mui, d, den): api/fs.md/#fs-macroToMicro2(E, v, Tu, Cu, Mui, d, den)
+ - microToMacro2(Kn, Ks, Xb, Fs0, Mup, d, den): api/fs.md/#fs-microToMacro2(Kn, Ks, Xb, Fs0, Mup, d, den)
+ - mixProperty(d, Pname): api/fs.md/#fs-mixProperty(d, Pname)
+ - moveBalls(d): api/fs.md/#fs-moveBalls(d)
+ - moveBallsNew(d, Id): api/fs.md/#fs-moveBallsNew(d, Id)
+ - nFilter2Con(Nball, filterIn): api/fs.md/#fs-nFilter2Con(Nball, filterIn)
+ - noBIntact(d): api/fs.md/#fs-noBIntact(d)
+ - platenStress2Gravity(d0, gName, direction, stress): api/fs.md/#fs-platenStress2Gravity(d0, gName, direction, stress)
+ - randSeed(seed): api/fs.md/#fs-randSeed(seed)
+ - rectDisc(w, h, ballR): api/fs.md/#fs-rectDisc(w, h, ballR)
+ - saveRecord(tl): api/fs.md/#fs-saveRecord(tl)
+ - selectBall(mX, mY, mZ, span): api/fs.md/#fs-selectBall(mX, mY, mZ, span)
+ - selectBlockClump(mX, mY, mZ, r, span): api/fs.md/#fs-selectBlockClump(mX, mY, mZ, r, span)
+ - setBlock(w, h, t, r): api/fs.md/#fs-setBlock(w, h, t, r)
+ - setBoundary(mX, mY, mZ, mR, type, sXYZ): api/fs.md/#fs-setBoundary(mX, mY, mZ, mR, type, sXYZ)
+ - setBox(mX, mY, mZ, r, type, sXYZ): api/fs.md/#fs-setBox(mX, mY, mZ, r, type, sXYZ)
+ - setEdgeSize(d, edge): api/fs.md/#fs-setEdgeSize(d, edge)
+ - setFlotage(obj, fluidDensity, fluidMin, fluidMax): api/fs.md/#fs-setFlotage(obj, fluidDensity, fluidMin, fluidMax)
+ - setTwoBoundaries(mX, mY, mZ, r, type, tag): api/fs.md/#fs-setTwoBoundaries(mX, mY, mZ, r, type, tag)
+ - showCrack(breakId, aX, aY, aZ, aR): api/fs.md/#fs-showCrack(breakId, aX, aY, aZ, aR)
+ - showCrackMovie(breakId, aX, aY, aZ, aR): api/fs.md/#fs-showCrackMovie(breakId, aX, aY, aZ, aR)
+ - showFailureMovie(failureId, aX, aY, aZ, aR): api/fs.md/#fs-showFailureMovie(failureId, aX, aY, aZ, aR)
+ - showLayerFrame(obj): api/fs.md/#fs-showLayerFrame(obj)
+ - showLines(X, Y, Z, startId, endId, lineColor): api/fs.md/#fs-showLines(X, Y, Z, startId, endId, lineColor)
+ - showMovement(d, loopTime, balanceNum, type): api/fs.md/#fs-showMovement(d, loopTime, balanceNum, type)
+ - showRect(x1, y1, z1, x2, y2, z2, style): api/fs.md/#fs-showRect(x1, y1, z1, x2, y2, z2, style)
+ - sizeRate(mSize): api/fs.md/#fs-sizeRate(mSize)
+ - transferData(nBallOld, nBallNew, a_Num, m_Num, nValue): api/fs.md/#fs-transferData(nBallOld, nBallNew, a_Num, m_Num, nValue)
+ - uniformSize(d, rate): api/fs.md/#fs-uniformSize(d, rate)
+f: 
+ - api/f.md/#f-f
+
+ - imported=importLicenseFile(fileName): api/f.md/#f-imported=importLicenseFile(fileName)
+ - align2center(form): api/f.md/#f-align2center(form)
+ - clearApp(): api/f.md/#f-clearApp()
+ - clearFunction(): api/f.md/#f-clearFunction()
+ - define(funFileName): api/f.md/#f-define(funFileName)
+ - getFunctionList(): api/f.md/#f-getFunctionList()
+ - getGlobalData(name): api/f.md/#f-getGlobalData(name)
+ - getHandles(): api/f.md/#f-getHandles()
+ - run(funFileName, varargin): api/f.md/#f-run(funFileName, varargin)
+ - runWinApp(exportedFileName, varargin): api/f.md/#f-runWinApp(exportedFileName, varargin)
+ - save(fileName, data, varargin): api/f.md/#f-save(fileName, data, varargin)
+ - setGlobalData(name, value): api/f.md/#f-setGlobalData(name, value)
+ - 0以下为程序内部函数，通常不直接使用: api/f.md/#f-0以下为程序内部函数，通常不直接使用
+ - ChangeOutputFocus(OutputFocus): api/f.md/#f-ChangeOutputFocus(OutputFocus)
+ - ChangePlottingArea(PlottingArea): api/f.md/#f-ChangePlottingArea(PlottingArea)
+ - ChangePlottingAreaParent(PlottingAreaParent): api/f.md/#f-ChangePlottingAreaParent(PlottingAreaParent)
+ - clearAll(): api/f.md/#f-clearAll()
+ - clearCommands(MatDEMcommands): api/f.md/#f-clearCommands(MatDEMcommands)
+ - commandsChar2Cell(MatDEMcommandsChar): api/f.md/#f-commandsChar2Cell(MatDEMcommandsChar)
+ - commandsChar2Cell0(MatDEMcommandsChar): api/f.md/#f-commandsChar2Cell0(MatDEMcommandsChar)
+ - getFileName(funFileName): api/f.md/#f-getFileName(funFileName)
+ - getFunHeadName(funHead): api/f.md/#f-getFunHeadName(funHead)
+ - getOneCommand(MatDEMi, MatDEMcommands, addNeedEndNum): api/f.md/#f-getOneCommand(MatDEMi, MatDEMcommands, addNeedEndNum)
+ - isCommandHaveEnd(commandOne): api/f.md/#f-isCommandHaveEnd(commandOne)
+ - isCommandNeedEnd(commandOne): api/f.md/#f-isCommandNeedEnd(commandOne)
+ - readClassFun(lines): api/f.md/#f-readClassFun(lines)
+ - readFile(fileName): api/f.md/#f-readFile(fileName)
+ - readFile0(fileName): api/f.md/#f-readFile0(fileName)
+ - removeComment(commandStr): api/f.md/#f-removeComment(commandStr)
+ - removeComments(lines): api/f.md/#f-removeComments(lines)
+ - removeEmptyLine(lines): api/f.md/#f-removeEmptyLine(lines)
+ - runFile(fileName, MatDEMpara): api/f.md/#f-runFile(fileName, MatDEMpara)
+ - runFileCommandCells(MatDEMcommands, MatDEMParaName, MatDEMsave): api/f.md/#f-runFileCommandCells(MatDEMcommands, MatDEMParaName, MatDEMsave)
+ - runFunctionCommandCells(MatDEMcommands, MatDEMpara): api/f.md/#f-runFunctionCommandCells(MatDEMcommands, MatDEMpara)
+ - runUserCode(codeStr): api/f.md/#f-runUserCode(codeStr)
+Tool_Cut: 
+ - api/Tool_Cut.md/#Tool_Cut-Tool_Cut
+ - d: api/Tool_Cut.md/#Tool_Cut-d
+ - layerNum: api/Tool_Cut.md/#Tool_Cut-layerNum
+ - TriangleX: api/Tool_Cut.md/#Tool_Cut-TriangleX
+ - TriangleY: api/Tool_Cut.md/#Tool_Cut-TriangleY
+ - TriangleZ: api/Tool_Cut.md/#Tool_Cut-TriangleZ
+ - SurfTri;: api/Tool_Cut.md/#Tool_Cut-SurfTri;
+ - Surf: api/Tool_Cut.md/#Tool_Cut-Surf
+
+ - Tool_Cut(d): api/Tool_Cut.md/#Tool_Cut-Tool_Cut(d)
+ - showSurf(varargin): api/Tool_Cut.md/#Tool_Cut-showSurf(varargin)
+ - setLayer(gNameCells, surfIds): api/Tool_Cut.md/#Tool_Cut-setLayer(gNameCells, surfIds)
+ - delSurf(surfIds): api/Tool_Cut.md/#Tool_Cut-delSurf(surfIds)
+ - addSurf(para): api/Tool_Cut.md/#Tool_Cut-addSurf(para)
+ - setTriangle(PX,PY,PZ): api/Tool_Cut.md/#Tool_Cut-setTriangle(PX,PY,PZ)
+ - bondFilter=setBondByTriangle(type): api/Tool_Cut.md/#Tool_Cut-bondFilter=setBondByTriangle(type)
+ - showTriangle(): api/Tool_Cut.md/#Tool_Cut-showTriangle()
+ - getTriangle(Id): api/Tool_Cut.md/#Tool_Cut-getTriangle(Id)
+ - getSurfTri(Id,rate): api/Tool_Cut.md/#Tool_Cut-getSurfTri(Id,rate)
+ - showSurfTri(Id): api/Tool_Cut.md/#Tool_Cut-showSurfTri(Id)
+planetfs: 
+ - api/planetfs.md/#planetfs-planetfs
+
+ - resetmGXYZ(d): api/planetfs.md/#planetfs-resetmGXYZ(d)
+ - setGroupInnerGravitation(d, gName, isGPU): api/planetfs.md/#planetfs-setGroupInnerGravitation(d, gName, isGPU)
+ - setModelGravitation(d, isGPU): api/planetfs.md/#planetfs-setModelGravitation(d, isGPU)
+ - limitElementInSphere(d, sphereR): api/planetfs.md/#planetfs-limitElementInSphere(d, sphereR)
+ - limitElementInFrame(d): api/planetfs.md/#planetfs-limitElementInFrame(d)
+ - getEscapeSpeed(d, gName): api/planetfs.md/#planetfs-getEscapeSpeed(d, gName)
+ - setZeroMomentum(d): api/planetfs.md/#planetfs-setZeroMomentum(d)
+ - getModelMomentum(d): api/planetfs.md/#planetfs-getModelMomentum(d)
+ - setGroupOuterGravitation(d, gName): api/planetfs.md/#planetfs-setGroupOuterGravitation(d, gName)
+ - getModelGroup(d): api/planetfs.md/#planetfs-getModelGroup(d)
+ - getGroupCenter(d): api/planetfs.md/#planetfs-getGroupCenter(d)

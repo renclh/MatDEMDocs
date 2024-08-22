@@ -1,0 +1,26 @@
+.flex {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    grid-gap: .4rem;
+    margin: 1em 0;
+}
+
+.flex > .items {
+    display: block;
+    border: 0.05em solid var(--md-default-fg-color--lightest);
+    border-radius: 0.1rem;
+    margin: 0;
+    padding: 0.8rem;
+    transition: border .25s,box-shadow .25s;
+}
+
+.hoverimg img {
+    display: none;
+}
+
+.hoverimg:hover img {
+    position: absolute;
+    bottom: 8em;
+    width: 8em;
+    display: inline-block;
+}
