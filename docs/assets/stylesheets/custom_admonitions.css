@@ -32,7 +32,6 @@ api: custom admonition/details
 .md-typeset .popup > summary {
   border-style: none;
   background-color: var(--md-default-bg-color);
-  /*padding-left: 0.6rem; default 2rem*/
 }
 .md-typeset .popup > .admonition-title::before,
 .md-typeset .popup > summary::before {
@@ -48,9 +47,6 @@ api: custom admonition/details
   content: none;
 }
 
-.md-typeset .api > .admonition-title > span {
-  color: var(--md-primary-fg-color);
-}
 
 /*
 custom definition list stylesheet with border font-weight

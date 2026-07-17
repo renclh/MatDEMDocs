@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block hero %}
+  {% if page.is_homepage %}
+  <div class="md-page-hero" data-md-component="hero">
+    <div class="md-page-hero__inner">
+      <p class="md-page-hero__eyebrow">Matrix Discrete Element Method</p>
+      <h1>MatDEM</h1>
+      <p class="md-page-hero__desc">矩阵离散元MatDEM — 高性能离散元模拟软件</p>
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    document$.subscribe(function() {
+      var toc = document.querySelector('.md-sidebar--secondary');
+      if (toc && !toc.querySelector('.md-nav__link')) {
+        toc.setAttribute('data-toc-empty', '');
+      }
+
+      var tabs = document.querySelector('.md-tabs');
+      var activeTab = tabs ? tabs.querySelector('.md-tabs__link--active') : null;
+      if (!activeTab) return;
+
+      var navTitle = document.querySelector('.md-nav--primary > .md-nav__title');
+      if (!navTitle) return;
+
+      var textNode = null;
+      navTitle.childNodes.forEach(function(node) {
+        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+          textNode = node;
+        }
+      });
+
+      if (textNode) {
+        textNode.textContent = activeTab.textContent.trim();
+      } else {
+        var span = navTitle.querySelector('.md-nav__title-text');
+        if (!span) {
+          span = document.createElement('span');
+          span.className = 'md-nav__title-text';
+          navTitle.appendChild(span);
+        }
+        span.textContent = activeTab.textContent.trim();
+      }
+    });
+  </script>
+{% endblock %}

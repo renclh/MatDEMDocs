@@ -29,7 +29,7 @@ MatDEM已应用于滑坡、岩爆、撞击破坏、桩土作用、滚刀破岩�
 
 </div>
 
-## 教学资源
+## 教学资源 {.md-section--alt}
 
 MOOC: 
 
@@ -50,10 +50,10 @@ Publications:
 1. [Liu C., Pollard D.D., Shi B. 2013. Analytical solutions and numerical tests of elastic and failure behaviors of close-packed lattice for brittle rocks and crystals. Journal of Geophysical Research- Solid Earth, 118, 71-82.](https://doi.org/10.1029/2012JB009615) 			
 2. [Liu C., Shi B., Pollard D. D., and Gu K. 2015. Mechanism of formation of wiggly compaction bands in porous sandstone: 2. Numerical simulation using discrete element method. Journal of Geophysical Research- Solid Earth, 120, 8153-8168.](https://doi.org/10.1002/2015JB012372) 			
 3. [Liu C., Xu, Q., Shi, B., Deng, S., and Zhu, H. 2017. Mechanical properties and energy conversion of 3d close-packed lattice model for brittle rocks. Computers & Geosciences, 103, 12-20.](https://doi.org/10.1016/j.cageo.2017.03.003)			
-4. [more]()
+4. [more](https://scholar.google.com/scholar?q=MatDEM+%E7%A6%BB%E6%95%A3%E5%85%83)
 
 
-## 联系方式
+## 联系方式 {.md-section--alt}
 
 - [刘春-南京大学地球科学与工程学院](https://es.nju.edu.cn/lc/list.htm)， [chunliu@nju.edu.cn](mailto:chunliu@nju.edu.cn)
 - [:fontawesome-solid-globe: 矩阵离散元官方网站](http://matdem.com)

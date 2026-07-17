@@ -1,62 +1,80 @@
-"""
-Generate *docs/help* folder content from *help* folder.
+import os
+import re
+import codecs
+import shutil
 
-The *help* folder contains html files, image files and basic stylesheet files
-which published from matlab scripts
+HELP_INPUT = 'help/html'
+HELP_IMAGES_OUT = os.path.join('docs', 'assets', 'images', 'help')
+HELP_MD_OUT = os.path.join('docs', 'help')
 
-"""
-
-import os,shutil,re,codecs
 
 def fileread(f):
     with codecs.open(f, 'r', encoding='utf-8') as fid:
         return fid.read()
 
-def filewrite(f,txt):
-    with codecs.open(f,'w',encoding='utf-8') as fid:
+
+def filewrite(f, txt):
+    with codecs.open(f, 'w', encoding='utf-8') as fid:
         fid.write(txt)
 
-help_input = 'help/html'
 
-s = os.listdir(help_input)
+def copy_images():
+    if not os.path.exists(HELP_INPUT):
+        print(f"Input directory not found: {HELP_INPUT}")
+        return 0
 
-# copy image resources
-cnt = 0
-for fi in s:
-    if fi.endswith('.png'):
-        shutil.copyfile(os.path.join(help_input, fi), os.path.join('docs','assets','images','help',fi))
-        print(f'Copyfile {fi}')
-        cnt+=1
-print(f'Copy {cnt} images!')
+    os.makedirs(HELP_IMAGES_OUT, exist_ok=True)
+    cnt = 0
+    for fi in os.listdir(HELP_INPUT):
+        if fi.endswith('.png'):
+            shutil.copyfile(
+                os.path.join(HELP_INPUT, fi),
+                os.path.join(HELP_IMAGES_OUT, fi)
+            )
+            print(f'Copyfile {fi}')
+            cnt += 1
+    print(f'Copy {cnt} images!')
+    return cnt
 
-# deal with raw html
-for fi in s:
-    if fi.endswith('.html'):
-        # read html file
-        txt = fileread(os.path.join(help_input, fi))
-        
-        css = re.findall(r'<style type="text/css">.*?</style>',txt,re.S)[0]
-        # add/replace stylesheets block
-        # txt = re.sub(r'<style type="text/css">.*?</style>', '<link rel="stylesheet" href="../../assets/stylesheets/matlab_publish.css">',txt,0,re.S)  # single line mode
+
+def convert_html():
+    if not os.path.exists(HELP_INPUT):
+        return
+
+    os.makedirs(HELP_MD_OUT, exist_ok=True)
+
+    for fi in os.listdir(HELP_INPUT):
+        if not fi.endswith('.html'):
+            continue
+
+        txt = fileread(os.path.join(HELP_INPUT, fi))
+
+        style_matches = re.findall(r'<style type="text/css">.*?</style>', txt, re.S)
+        if not style_matches:
+            print(f'Skip {fi}: no <style> tag found')
+            continue
+
         css = '<link rel="stylesheet" href="../../assets/stylesheets/matlab_publish.css">'
 
-        # .content
-        txt = re.findall(r'<div class="content">(.*)</div>',txt,re.S)[0]
+        content_matches = re.findall(r'<div class="content">(.*)</div>', txt, re.S)
+        if not content_matches:
+            print(f'Skip {fi}: no content div found')
+            continue
+        txt = content_matches[0]
 
-        # remove TOC
-        txt = re.sub(r'<h2>Contents</h2><div><ul>.*?</ul></div>','',txt,0,re.S)
-        # update header
-        txt = re.sub(r'<h1.*?>(.*?)</h1>',r'\n# \1\n',txt,0,re.S)
-        txt = re.sub(r'<h2.*?>(.*?)</h2>',r'\n## \1\n',txt,0,re.S)
-        txt = re.sub(r'<h3.*?>(.*?)</h3>',r'\n### \1\n',txt,0,re.S)
+        txt = re.sub(r'<h2>Contents</h2><div><ul>.*?</ul></div>', '', txt, 0, re.S)
+        txt = re.sub(r'<h1.*?>(.*?)</h1>', r'\n# \1\n', txt, 0, re.S)
+        txt = re.sub(r'<h2.*?>(.*?)</h2>', r'\n## \1\n', txt, 0, re.S)
+        txt = re.sub(r'<h3.*?>(.*?)</h3>', r'\n### \1\n', txt, 0, re.S)
+        txt = re.sub(r'src="([^"]*)"', r'src="../../assets/images/help/\1"', txt)
 
-        # update image path
-        txt = re.sub(r'src="([^"]*)"',r'src="../../assets/images/help/\1"',txt)
+        txt = txt + css
 
-        txt = txt+css
+        out_file = os.path.join(HELP_MD_OUT, fi[:-4] + 'md')
+        filewrite(out_file, txt)
+        print(f'Converted {fi}')
 
-        # write markdown file
-        filewrite(os.path.join('docs','help',fi[0:-4]+'md'), txt)
-        
-        print(f'move {fi}')
 
+if __name__ == '__main__':
+    copy_images()
+    convert_html()

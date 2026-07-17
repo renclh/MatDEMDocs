@@ -1,0 +1,3 @@
+mkdocs-materialx>=10.1.8
+pandas
+openpyxl

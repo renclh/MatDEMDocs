@@ -1,5 +1,5 @@
 site_name: Docs of MatDEM
-copyright: Copyright &copy; 2018 - 2023 MatDEM Team
+copyright: Copyright &copy; 2018 - 2026 MatDEM Team
 extra:
   homepage: http://matdem.com
   analytics:
@@ -25,26 +25,27 @@ repo_name: renclh/MatDEMDocs
 edit_uri: edit/main/docs/
 
 theme: 
-  name: material
+  name: materialx
   custom_dir: overrides
   icon:
     repo: fontawesome/brands/git-alt
     edit: material/pencil
     view: material/eye
-  logo: assets/images/MatDEM.ico
+  logo: assets/images/MatDEM-logo.svg
+  favicon: assets/images/MatDEM.ico
   language: zh
+  font:
+    text: Arial, Microsoft YaHei, PingFang SC, sans-serif
+    code: Consolas, Courier New, monospace
   features:
     - navigation.instant
     - navigation.tracking
     - navigation.tabs
-    # - navigation.sections
     - navigation.expand
-    # - navigation.path
-    - navigation.prune
     - navigation.indexes
     - navigation.top
     - navigation.footer
-    - navigation.index
+    - navigation.path
 
     - toc.follow
     # - toc.integrate
@@ -77,15 +78,12 @@ markdown_extensions:
       generic: true
   - pymdownx.betterem:
       smart_enable: all
-  # conflict with latex 
-  # - pymdownx.caret 
-  # - pymdownx.tilde
   - pymdownx.critic:
       mode: view
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg 
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.keys
@@ -110,8 +108,7 @@ markdown_extensions:
   
 plugins:
   - search
-  - tags:
-      tags_file:  tags.md
+  - tags
   - blog:
       blog_toc: true
       post_date_format: full
@@ -123,15 +120,15 @@ plugins:
 
 
 extra_css:
-  - assets/stylesheets/matlab_highlight.css
+  - assets/stylesheets/matdem-theme.css
   - assets/stylesheets/custom_admonitions.css
-  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.css
   - assets/stylesheets/extra_css.css
 
 extra_javascript:
   - assets/javascripts/katex.js
-  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js  
-  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js  
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/contrib/auto-render.min.js
 
 nav:
   - Home: index.md
@@ -140,8 +137,8 @@ nav:
     - UI: ui.md
     - Structure: structure.md
     - Post: post.md
+    - Download: download/index.md
   - Examples:
-    - tags.md 
     - examples/index.md
     - examples2018:
       - 3AxialNew: examples/examples2018/3AxialNew.md

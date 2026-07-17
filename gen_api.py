@@ -1,58 +1,75 @@
-import os,re,codecs
+import os
+import re
+import codecs
 import json
+
 import pandas as pd
 
-io='MatDEM帮助3.50（中文）.xlsx'
-with codecs.open('api-meta.json','r',encoding='utf-8') as fid:
-    meta = json.load(fid)
+IO = 'MatDEM帮助3.50（中文）.xlsx'
+META = 'api-meta.json'
+OUT_DIR = 'docs/api'
+NAV_FILE = os.path.join(OUT_DIR, 'nav.yml')
 
-# props_header = ('属性','功能','备注')
-# methods_header = ('函数','功能','输入','输出','示例')
 
-with codecs.open('docs/api/nav.yml','w+',encoding='utf-8') as fnav:
-    for api in meta:
-        api_meta = meta[api]
-        api_props = pd.read_excel(io=io, sheet_name=api_meta['sheet_name'],**api_meta['props'])
-        api_methods = pd.read_excel(io=io, sheet_name=api_meta['sheet_name'],**api_meta['methods'])
+def load_meta():
+    if not os.path.exists(META):
+        raise FileNotFoundError(f"Meta file not found: {META}")
+    with codecs.open(META, 'r', encoding='utf-8') as fid:
+        return json.load(fid)
 
-        # md header
-        md=f'# {api}' + os.linesep*2
 
-        # class header
-        md+='!!! api "' + f'class <span id="{api}-{api}">{api}</span>"' + os.linesep
+def is_nan(value):
+    return pd.isna(value)
 
-        # properties header
-        md+=' '*4 + '???+ api "' + f'<span id="{api}-props">Properties</span>"' + os.linesep
 
-        nav_props=''
-        cs = api_props.columns
-        for ri in api_props.index:
-            mem = api_props[cs[0]][ri]
-            md += ' '*4*2 + '!!! api "' + f'<span id="{api}-{mem}">{mem}</span>"' + os.linesep
-            nav_props += ' - ' + f'{mem}: api/{api}.md/#{api}-{mem}' + os.linesep
-            for ci in range(cs.__len__()-1):
-                des = api_props[cs[ci+1]][ri]
-                if str(des) == 'nan':
-                    des=''
-                md += ' '*4*3 + des + os.linesep*2
+def generate():
+    if not os.path.exists(IO):
+        raise FileNotFoundError(f"Excel file not found: {IO}")
 
-        # methods header
-        md+=' '*4 + '???+ api "' + f'<span id="{api}-methods">Methods</span>"' + os.linesep
+    os.makedirs(OUT_DIR, exist_ok=True)
+    meta = load_meta()
 
-        nav_methods=''
-        cs = api_methods.columns
-        for ri in api_methods.index:
-            mem = api_methods[cs[0]][ri]
-            md += ' '*4*2 + '!!! api "' + f'<span id="{api}-{mem}">{mem}</span>"' + os.linesep
-            nav_methods += ' - ' + f'{mem}: api/{api}.md/#{api}-{mem}' + os.linesep
-            for ci in range(cs.__len__()-1):
-                des = api_methods[cs[ci+1]][ri]
-                if str(des) == 'nan':
-                    des=''
-                md += ' '*4*3 + des + os.linesep*2
+    with codecs.open(NAV_FILE, 'w+', encoding='utf-8') as fnav:
+        for api, api_meta in meta.items():
+            api_props = pd.read_excel(io=IO, sheet_name=api_meta['sheet_name'], **api_meta['props'])
+            api_methods = pd.read_excel(io=IO, sheet_name=api_meta['sheet_name'], **api_meta['methods'])
 
-        with codecs.open('docs/api/' + api + '.md','w',encoding='utf-8') as fid:
-            fid.write(md)
+            md = f'# {api}{os.linesep * 2}'
+            md += f'!!! api "class <span id="{api}-{api}">{api}</span>"{os.linesep}'
 
-        fnav.write(f'{api}: {os.linesep} - api/{api}.md/#{api}-{api}{os.linesep}')
-        fnav.write(f'{nav_props}{os.linesep}{nav_methods}')
+            md += f'    ???+ api "<span id="{api}-props">Properties</span>"{os.linesep}'
+            nav_props = ''
+            cols = api_props.columns
+            for ri in api_props.index:
+                mem = api_props[cols[0]][ri]
+                md += f'        !!! api "<span id="{api}-{mem}">{mem}</span>"{os.linesep}'
+                nav_props += f' - {mem}: api/{api}.md/#{api}-{mem}{os.linesep}'
+                for ci in range(len(cols) - 1):
+                    des = api_props[cols[ci + 1]][ri]
+                    if is_nan(des):
+                        des = ''
+                    md += f'            {des}{os.linesep * 2}'
+
+            md += f'    ???+ api "<span id="{api}-methods">Methods</span>"{os.linesep}'
+            nav_methods = ''
+            cols = api_methods.columns
+            for ri in api_methods.index:
+                mem = api_methods[cols[0]][ri]
+                md += f'        !!! api "<span id="{api}-{mem}">{mem}</span>"{os.linesep}'
+                nav_methods += f' - {mem}: api/{api}.md/#{api}-{mem}{os.linesep}'
+                for ci in range(len(cols) - 1):
+                    des = api_methods[cols[ci + 1]][ri]
+                    if is_nan(des):
+                        des = ''
+                    md += f'            {des}{os.linesep * 2}'
+
+            out_file = os.path.join(OUT_DIR, f'{api}.md')
+            with codecs.open(out_file, 'w', encoding='utf-8') as fid:
+                fid.write(md)
+
+            fnav.write(f'{api}:{os.linesep} - api/{api}.md/#{api}-{api}{os.linesep}')
+            fnav.write(f'{nav_props}{os.linesep}{nav_methods}')
+
+
+if __name__ == '__main__':
+    generate()

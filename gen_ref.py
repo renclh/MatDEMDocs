@@ -1,56 +1,58 @@
-"""
-Generate Index for api and images
-"""
+import os
+import codecs
 
-import os,re,codecs
+EXAMPLES_DIR = 'docs/examples'
+IMAGES_DIR = 'docs/assets/images'
+OUT_FILE = 'index_code_img.md'
 
-examples = 'docs/examples'
-s = os.listdir(examples)
+EXAMPLE_SUBDIRS = ['examples2018', 'examples2019', 'examples2020', 'examples2021', 'examplesModel']
 
-idx=''
-cnt=1
-for di in s:
-    pi = os.path.join(examples, di)
-    if os.path.isfile(pi):
-        continue
-    for fi in os.listdir(pi):
-        fi_full = os.path.join(pi, fi)
-        if os.path.isdir(fi_full):
+
+def generate_code_index():
+    if not os.path.exists(EXAMPLES_DIR):
+        print(f"Directory not found: {EXAMPLES_DIR}")
+        return
+
+    idx = ''
+    cnt = 1
+    for di in sorted(os.listdir(EXAMPLES_DIR)):
+        pi = os.path.join(EXAMPLES_DIR, di)
+        if os.path.isfile(pi):
             continue
-        id = '0'*(3-str(cnt).__len__())+str(cnt)
-        # tag = di[8:] + id + os.path.splitext(fi)[0]
-        tag = 'code' + id
-        ref = os.path.join(di,fi)
-        idx += f'[{tag}]:{ref}'+os.linesep
-        cnt+=1
-    idx += os.linesep
+        for fi in sorted(os.listdir(pi)):
+            fi_full = os.path.join(pi, fi)
+            if os.path.isdir(fi_full):
+                continue
+            tag = 'code' + str(cnt).zfill(3)
+            ref = os.path.join(di, fi)
+            idx += f'[{tag}]: {ref}{os.linesep}'
+            cnt += 1
+        idx += os.linesep
+    return idx
 
-# print(idx)
 
-
-images = 'docs/assets/images'
-s = ['examples2018','examples2019','examples2020','examples2021','examplesModel']
-
-cnt=1
-idx2=''
-for di in s:
-    pi = os.path.join(images, di)
-    if os.path.isfile(pi):
-        continue
-    for fi in os.listdir(pi):
-        fi_full = os.path.join(pi, fi)
-        if os.path.isdir(fi_full):
+def generate_image_index():
+    idx2 = ''
+    cnt = 1
+    for di in EXAMPLE_SUBDIRS:
+        pi = os.path.join(IMAGES_DIR, di)
+        if not os.path.exists(pi) or os.path.isfile(pi):
             continue
-        id = '0'*(3-str(cnt).__len__())+str(cnt)
-        # tag = di[8:] + id + os.path.splitext(fi)[0]
-        tag = 'img' + id
-        ref = os.path.join(di,fi)
-        idx2 += f'[{tag}]:..\\assets\\images\\{ref}'+os.linesep
-        cnt+=1
-    idx2 += os.linesep
+        for fi in sorted(os.listdir(pi)):
+            fi_full = os.path.join(pi, fi)
+            if os.path.isdir(fi_full):
+                continue
+            tag = 'img' + str(cnt).zfill(3)
+            ref = os.path.join(di, fi)
+            idx2 += f'[{tag}]: ../assets/images/{ref}{os.linesep}'
+            cnt += 1
+        idx2 += os.linesep
+    return idx2
 
-# print(idx2)
 
-with codecs.open('index_code_img.md','w',encoding='utf-8') as fid:
-    fid.write(idx)
-    fid.write(idx2)
+if __name__ == '__main__':
+    code_idx = generate_code_index()
+    img_idx = generate_image_index()
+    with codecs.open(OUT_FILE, 'w', encoding='utf-8') as fid:
+        fid.write(code_idx or '')
+        fid.write(img_idx or '')
