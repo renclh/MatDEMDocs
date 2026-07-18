@@ -1,0 +1,26 @@
+.hoverimg {
+  position: relative;
+}
+
+.hoverimg img {
+  display: none;
+}
+
+.hoverimg:hover img,
+.hoverimg:focus img,
+.hoverimg:focus-within img {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 8em;
+  display: inline-block;
+  z-index: 10;
+}
+
+@media (hover: none) {
+  .hoverimg img {
+    display: inline-block;
+    width: 6em;
+    position: static;
+  }
+}
