@@ -1,3 +1,6 @@
+---
+api: true
+---
 # mfs
 
 !!! api "class <span id="mfs-mfs">mfs</span>"

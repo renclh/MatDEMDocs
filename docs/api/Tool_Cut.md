@@ -1,3 +1,6 @@
+---
+api: true
+---
 # Tool_Cut
 
 !!! api "class <span id="Tool_Cut-Tool_Cut">Tool_Cut</span>"

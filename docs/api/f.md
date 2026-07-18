@@ -1,3 +1,6 @@
+---
+api: true
+---
 # f
 
 !!! api "class <span id="f-f">f</span>"

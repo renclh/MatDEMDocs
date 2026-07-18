@@ -1,4 +1,5 @@
 site_name: Docs of MatDEM
+site_description: MatDEM 3.5 文档
 copyright: Copyright &copy; 2018 - 2026 MatDEM Team
 extra:
   homepage: http://matdem.com
@@ -34,9 +35,7 @@ theme:
   logo: assets/images/MatDEM-logo.svg
   favicon: assets/images/MatDEM.ico
   language: zh
-  font:
-    text: Arial, Microsoft YaHei, PingFang SC, sans-serif
-    code: Consolas, Courier New, monospace
+  font: false
   features:
     - navigation.instant
     - navigation.tracking

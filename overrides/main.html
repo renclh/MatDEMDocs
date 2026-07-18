@@ -4,9 +4,28 @@
   {% if page.is_homepage %}
   <div class="md-page-hero" data-md-component="hero">
     <div class="md-page-hero__inner">
-      <p class="md-page-hero__eyebrow">Matrix Discrete Element Method</p>
-      <h1>MatDEM</h1>
-      <p class="md-page-hero__desc">矩阵离散元MatDEM — 高性能离散元模拟软件</p>
+      <div class="md-page-hero__body">
+        <p class="md-page-hero__eyebrow">Matrix Discrete Element Method</p>
+        <h1>MatDEM</h1>
+        <p class="md-page-hero__desc">矩阵离散元MatDEM 3.5 — 高性能离散元模拟软件，采用原创的矩阵离散元计算法，实现数百万颗粒的快速离散元模拟</p>
+        <div class="md-page-hero__actions">
+          <a href="examples/" class="md-button md-button--primary">查看案例</a>
+          <a href="install/" class="md-button md-button--outline">快速开始</a>
+        </div>
+      </div>
+      <div class="md-page-hero__carousel">
+        <div class="md-page-hero__carousel-track">
+          <img src="assets/images/examples2018/3DSlope.png" alt="3D Slope" />
+          <img src="assets/images/examples2018/BoxSlope.png" alt="Box Slope" />
+          <img src="assets/images/examples2018/TunnelHeat.png" alt="Tunnel Heat" />
+          <img src="assets/images/examplesModel/modelExample.png" alt="Model Example" />
+          <img src="assets/images/examples2018/Earthquake.png" alt="Earthquake" />
+          <img src="assets/images/examples2018/BoxPile.png" alt="Box Pile" />
+        </div>
+        <div class="md-page-hero__carousel-dots"></div>
+        <button class="md-page-hero__carousel-btn md-page-hero__carousel-btn--prev" aria-label="Previous">&#8249;</button>
+        <button class="md-page-hero__carousel-btn md-page-hero__carousel-btn--next" aria-label="Next">&#8250;</button>
+      </div>
     </div>
   </div>
   {% endif %}
@@ -14,38 +33,89 @@
 
 {% block scripts %}
   {{ super() }}
+  {% if page.meta and page.meta.api %}
   <script>
-    document$.subscribe(function() {
-      var toc = document.querySelector('.md-sidebar--secondary');
-      if (toc && !toc.querySelector('.md-nav__link')) {
-        toc.setAttribute('data-toc-empty', '');
-      }
-
-      var tabs = document.querySelector('.md-tabs');
-      var activeTab = tabs ? tabs.querySelector('.md-tabs__link--active') : null;
-      if (!activeTab) return;
-
-      var navTitle = document.querySelector('.md-nav--primary > .md-nav__title');
-      if (!navTitle) return;
-
-      var textNode = null;
-      navTitle.childNodes.forEach(function(node) {
-        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
-          textNode = node;
-        }
-      });
-
-      if (textNode) {
-        textNode.textContent = activeTab.textContent.trim();
-      } else {
-        var span = navTitle.querySelector('.md-nav__title-text');
-        if (!span) {
-          span = document.createElement('span');
-          span.className = 'md-nav__title-text';
-          navTitle.appendChild(span);
-        }
-        span.textContent = activeTab.textContent.trim();
-      }
+  document$.subscribe(function() {
+    var sidebar = document.querySelector('.md-sidebar--secondary .md-sidebar__scrollwrap');
+    if (!sidebar) return;
+    var props = [], methods = [];
+    var sectionType = null;
+    document.querySelectorAll('.md-content__inner span[id]').forEach(function(span) {
+      var id = span.id;
+      var text = span.textContent.trim();
+      if (id.indexOf('-props') !== -1) { sectionType = 'props'; return; }
+      if (id.indexOf('-methods') !== -1) { sectionType = 'methods'; return; }
+      var title = span.closest('.admonition-title');
+      if (!title) return;
+      var shortName = text.replace(/=.*$/, '').replace(/\(.*\)$/, '').trim();
+      if (sectionType === 'props') props.push({ id: id, text: shortName });
+      else if (sectionType === 'methods') methods.push({ id: id, text: shortName });
     });
+
+    function renderSection(label, items) {
+      if (!items.length) return '';
+      var html = '<div class="md-api-toc__title">' + label + '</div>';
+      items.forEach(function(item) {
+        html += '<a class="md-api-toc__link" href="#' + item.id + '">' + item.text + '</a>';
+      });
+      return html;
+    }
+
+    var tocHtml = renderSection('Properties', props) + renderSection('Methods', methods);
+    if (tocHtml) {
+      var existingNav = sidebar.querySelector('.md-nav');
+      if (existingNav) existingNav.remove();
+      var toc = document.createElement('div');
+      toc.className = 'md-api-toc';
+      toc.innerHTML = tocHtml;
+      sidebar.prepend(toc);
+      sidebar.closest('.md-sidebar--secondary').removeAttribute('data-toc-empty');
+    }
+  });
   </script>
+  {% endif %}
+  {% if page.is_homepage %}
+  <script>
+  document$.subscribe(function() {
+    var carousel = document.querySelector('.md-page-hero__carousel');
+    if (!carousel) return;
+    var track = carousel.querySelector('.md-page-hero__carousel-track');
+    var imgs = track.querySelectorAll('img');
+    var dotsWrap = carousel.querySelector('.md-page-hero__carousel-dots');
+    var prevBtn = carousel.querySelector('.md-page-hero__carousel-btn--prev');
+    var nextBtn = carousel.querySelector('.md-page-hero__carousel-btn--next');
+    var current = 0;
+    var total = imgs.length;
+
+    if (window._carouselTimer) clearInterval(window._carouselTimer);
+
+    imgs.forEach(function(_, i) {
+      var dot = document.createElement('button');
+      dot.className = 'md-page-hero__carousel-dot' + (i === 0 ? ' md-page-hero__carousel-dot--active' : '');
+      dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+      dot.addEventListener('click', function() { goTo(i); });
+      dotsWrap.appendChild(dot);
+    });
+
+    function goTo(index) {
+      current = ((index % total) + total) % total;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      var dots = dotsWrap.querySelectorAll('.md-page-hero__carousel-dot');
+      dots.forEach(function(d, i) {
+        d.classList.toggle('md-page-hero__carousel-dot--active', i === current);
+      });
+    }
+
+    prevBtn.addEventListener('click', function() { goTo(current - 1); resetAuto(); });
+    nextBtn.addEventListener('click', function() { goTo(current + 1); resetAuto(); });
+
+    function startAuto() { window._carouselTimer = setInterval(function() { goTo(current + 1); }, 4000); }
+    function resetAuto() { clearInterval(window._carouselTimer); startAuto(); }
+    startAuto();
+
+    carousel.addEventListener('mouseenter', function() { clearInterval(window._carouselTimer); });
+    carousel.addEventListener('mouseleave', function() { startAuto(); });
+  });
+  </script>
+  {% endif %}
 {% endblock %}

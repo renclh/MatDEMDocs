@@ -1,3 +1,6 @@
+---
+api: true
+---
 # material
 
 !!! api "class <span id="material-material">material</span>"

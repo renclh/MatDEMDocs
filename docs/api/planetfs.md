@@ -1,3 +1,6 @@
+---
+api: true
+---
 # planetfs
 
 !!! api "class <span id="planetfs-planetfs">planetfs</span>"

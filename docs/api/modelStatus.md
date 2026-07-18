@@ -1,3 +1,6 @@
+---
+api: true
+---
 # modelStatus
 
 !!! api "class <span id="modelStatus-modelStatus">modelStatus</span>"

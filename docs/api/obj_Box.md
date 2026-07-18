@@ -1,3 +1,6 @@
+---
+api: true
+---
 # obj_Box
 
 !!! api "class <span id="obj_Box-obj_Box">obj_Box</span>"

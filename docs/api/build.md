@@ -1,3 +1,6 @@
+---
+api: true
+---
 # build
 
 <details open markdown><summary markdown>

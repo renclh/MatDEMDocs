@@ -1,3 +1,6 @@
+---
+api: true
+---
 # childModel
 
 !!! api "class <span id="childModel-childModel">childModel</span>"

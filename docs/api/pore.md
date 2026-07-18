@@ -1,3 +1,6 @@
+---
+api: true
+---
 # pore
 
 !!! api "class <span id="pore-pore">pore</span>"

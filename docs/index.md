@@ -1,6 +1,6 @@
 # MatDEM简介
 
-**矩阵离散元MatDEM**
+**矩阵离散元MatDEM 3.5**
 Fast GPU **Mat**-rix computing of the **D**-iscrete **E**-lement **M**-ethod
 
 矩阵离散元（MatDEM）为拥有完全自主知识产权的高性能离散元软件，采用原创的矩阵离散元计算法，实现了数百万颗粒的快速离散元模拟，在数小时内完成大规模三维离散元数值模拟。对于学术和教学用途，MatDEM免费使用，并可发表论文。商业使用，请与研发团队联系。

@@ -1,3 +1,6 @@
+---
+api: true
+---
 # model
 
 !!! api "class <span id="model-model">model</span>"
